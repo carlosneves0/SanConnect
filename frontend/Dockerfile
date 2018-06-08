@@ -1,16 +1,17 @@
-# base image
-FROM node:8.11.2
-
-# set working directory
+# build environment
+FROM node:10.4.0 as builder
 RUN mkdir /app
 WORKDIR /app
-
-# add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
-
-# install and cache app dependencies
 COPY package.json /app/package.json
 RUN npm install
+COPY . /app
+RUN npm run build
 
-# start app
-CMD ["npm", "start"]
+# production environment
+FROM nginx:1.15.0-alpine
+RUN rm -rf /etc/nginx/conf.d
+COPY conf /etc/nginx
+COPY --from=builder /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
