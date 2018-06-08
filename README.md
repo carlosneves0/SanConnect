@@ -1,40 +1,40 @@
 # SanConnect
 
-## frontend
+## Deploying to production
 
-Got it all from [here](http://mherman.org/blog/2017/12/07/dockerizing-a-react-app/).
+Install [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/).
 
-### frontend::installation
+```bash
+# You can also pass -d after "up" to run the stack in detached mode
+docker-compose up --build
+```
 
-Install [docker](https://docs.docker.com/install/).
+## Development and testing
 
-### frontend::development
+Install [docker](https://docs.docker.com/install/) and [nvm](https://github.com/creationix/nvm). Then:
+
+```bash
+nvm install v10.4.0
+npm install -g yarn
+```
+
+### frontend
 
 ```bash
 cd frontend
-docker-compose up -d --build
-# Open http://localhost:3000/
-# And to finish it off:
-docker-compose stop
+yarn # will install all frontend's dependencies
+yarn start
+yarn test
 ```
 
-### frontend::test
-
-Just get inside a development container and run:
+### backend
 
 ```bash
-npm run test
+make postgres
+cd backend
+yarn # will install all backend's dependencies
+yarn start
+yarn test
 ```
-
-### frontend::production
-
-```bash
-docker-compose -f docker-compose.prod.yml up -d --build
-# Open http://localhost/
-# And to finish it off:
-docker-compose stop
-```
-
-## backend
 
 // TODO;
