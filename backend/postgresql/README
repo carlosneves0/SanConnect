@@ -1,0 +1,7 @@
+# Connecting to the docker database via terminal
+
+# First you check which port has been mapped to the postgresql port (5432):
+docker ps
+
+# Then you use the client installed on your machine to connect (test password - 'sanconnect2':
+psql -h localhost -p 32768 -d sanconnect -U sanconnect --password
