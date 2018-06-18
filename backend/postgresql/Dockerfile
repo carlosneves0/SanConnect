@@ -6,6 +6,8 @@ FROM ubuntu
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
 # It should be the same key as https://www.postgresql.org/media/keys/ACCC4CF8.asc
+RUN mkdir sqlFiles
+ADD schema.sql ./sqlFiles
 RUN apt-get update && apt-get install -y apt-utils gnupg gnupg2 gnupg1
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
 
@@ -30,7 +32,8 @@ USER postgres
 #       allows the RUN command to span multiple lines.
 RUN    /etc/init.d/postgresql start &&\
     psql --command "CREATE USER sanconnect WITH SUPERUSER PASSWORD 'sanconnect2';" &&\
-    createdb -O sanconnect sanconnect
+    createdb -O sanconnect sanconnect &&\
+    psql sanconnect < ./sqlFiles/schema.sql
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
