@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { Network } from 'react-fns'
 import Offline from './Offline'
 import App from '../App'
+import './Root.css'
+
 
 const Root = () => (
   <BrowserRouter>
