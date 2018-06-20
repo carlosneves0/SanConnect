@@ -30,6 +30,10 @@ const App = () => (
       <Route path="/create-event" component={EventCreate} />
       <Route path="/edit-user" component={UserEdit} />
       <Route path="/view-user" component={UserView} />
+      <button type="button" class="pt-button pt-intent-success">
+        Next step
+        <span class="pt-icon-standard pt-icon-arrow-right pt-align-right"></span>
+      </button>
     </div>
   </Router>
 )
