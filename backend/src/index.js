@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const graphqlHTTP = require('express-graphql')
 const { schema, root } = require('./graphql')
 
@@ -31,6 +32,8 @@ mockDb = {
     }
   }
 }
+
+app.use(cors()) // not having cors enabled will cause an access control error
 
 app.use('/graph', graphqlHTTP(async (request, response, graphQLParams) => {
   // The HTTP header will have an accessToken in Authorization: Bearer <token>
