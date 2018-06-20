@@ -34,6 +34,20 @@ const App = () => (
         Next step
         <span class="pt-icon-standard pt-icon-arrow-right pt-align-right"></span>
       </button>
+      <nav class="pt-navbar pt-dark">
+        <div class="pt-navbar-group pt-align-left">
+          <div class="pt-navbar-heading">SanConnect</div>
+          <input class="pt-input" placeholder="Procurar Eventos" type="text" />
+        </div>
+        <div class="pt-navbar-group pt-align-right">
+          <button class="pt-button pt-minimal pt-icon-home">Home</button>
+          <button class="pt-button pt-minimal pt-icon-document">Files</button>
+          <span class="pt-navbar-divider"></span>
+          <button class="pt-button pt-minimal pt-icon-user"></button>
+          <button class="pt-button pt-minimal pt-icon-notifications"></button>
+          <button class="pt-button pt-minimal pt-icon-cog"></button>
+        </div>
+      </nav>
     </div>
   </Router>
 )
