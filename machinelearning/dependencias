@@ -1,0 +1,13 @@
+dependencias 
+
+(maquina local)
+virtualenv
+setuptools
+python3-tk 
+
+(ambiente virtual)
+matplotlib
+scipy
+numpy
+pandas
+flask
