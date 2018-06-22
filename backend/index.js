@@ -1,6 +1,5 @@
 const express = require('express')
 const { Client } = require('pg')
-const bcrypt = require('bcrypt')
 const auth = require('./src/authentication')
 
 const app = express()
@@ -26,7 +25,7 @@ client.query('SELECT NOW()', (err, res) => {
 app.post('/signup', function(req, res) {	
 	var username = req.body.username
 
-	bcrypt.hash(req.body.password, 10, function(err, hash) {
+	auth.hash(req.body.password, 10, function(err, hash) {
 
 		var user = new User({username:username, password:hash})
 
@@ -49,7 +48,7 @@ app.post('/login', function(req, res) {
 		if(found) {
 			console.log('User\'s username was found in the database!')
 
-			bcrypt.compare(enteredPassword, found.get('password'), function(err, res) {
+			auth.compare(enteredPassword, found.get('password'), function(err, res) {
 				if(res) {
 					req.session.regenerate(function() {
 						console.log('Passwords match. Redirecting...')      
