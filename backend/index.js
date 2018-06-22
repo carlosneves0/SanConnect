@@ -77,8 +77,25 @@ app.get('/create', function(req, res) {
 	}
 })
 
-app.use('/', (req, res) => {
+/* Testing middleware. */
+app.all('/secret', function (req, res, next) {
+	console.log('Accessing the secret section ...');
+	next(); // pass control to the next handler
+});
+
+/* */
+app.use('/', (req, res, next) => {
 	res.send('Hello world')
+	next()
+}, (req, res, next) => {
+	console.log('Next')
+	next()
+}, (req, res) => {
+	console.log('Finish')
+})
+
+app.get('/about', function (req, res) {
+  res.send('about');
 })
 
 app.listen(4000, () => {
