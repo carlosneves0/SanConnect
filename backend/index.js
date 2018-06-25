@@ -1,21 +1,35 @@
 const express = require('express')
-const { Client } = require('pg')
+const {pool, client} = require('./database')
 const auth = require('./src/authentication')
 
 const app = express()
+var query
 
-const client = new Client({
-	user:'postgres',
-	host:'postgres',
-	// TODO: directly trying to connect to the database throws FALTA ERROR
-	// "db SanConnect does not exist" when deploying to producton. Figure out a
-	// way around this.
-	// database: 'SanConnect',
-	port: 5432
+pool.connect()
+/* Send a query to database. */
+query = 'select * from usuario;'
+pool.query(query, function (err, res) {
+	console.log(err, res)
+	pool.end()
 })
-//client.connect()
 
-client.query('SELECT NOW()', (err, res) => {
+/* Send a query to database. */
+query = {
+  text: 'INSERT INTO usuario(username, password) VALUES($1, $2)',
+  values: ['brianc', 's4ad65a4s6'],
+}
+client.connect()
+client.query(query, (err, res) => {
+	console.log('Callback from Postgres')
+	console.log(err, res)	
+})
+
+/* Send a query to database. */
+query = {
+  text: 'DELETE FROM usuario WHERE username=$1',
+  values: ['brianc'],
+}
+client.query(query, (err, res) => {
 	console.log('Callback from Postgres')
 	console.log(err, res)
 	client.end()
