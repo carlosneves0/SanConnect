@@ -12,16 +12,6 @@ import UserEdit from '../UserEdit'
 const App = () => (
   <Router>
     <div>
-      <ul>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/sign-up'>Sign up</Link></li>
-        <li><Link to='/sign-in'>Sign in</Link></li>
-        <li><Link to='/logged'>Logged</Link></li>
-        <li><Link to='/create-event'>Create Event</Link></li>
-        <li><Link to='/view-event'>View Event</Link></li>
-        <li><Link to='/edit-user'>Edit User in</Link></li>
-        <li><Link to='/view-user'>View User</Link></li>
-      </ul>
       <Route exact path="/" component={Home} />
       <Route path="/sign-up" component={SignUp} />
       <Route path="/sign-in" component={SignIn} />
@@ -30,24 +20,6 @@ const App = () => (
       <Route path="/create-event" component={EventCreate} />
       <Route path="/edit-user" component={UserEdit} />
       <Route path="/view-user" component={UserView} />
-      <button type="button" class="pt-button pt-intent-success">
-        Next step
-        <span class="pt-icon-standard pt-icon-arrow-right pt-align-right"></span>
-      </button>
-      <nav class="pt-navbar pt-dark">
-        <div class="pt-navbar-group pt-align-left">
-          <div class="pt-navbar-heading">SanConnect</div>
-          <input class="pt-input" placeholder="Procurar Eventos" type="text" />
-        </div>
-        <div class="pt-navbar-group pt-align-right">
-          <button class="pt-button pt-minimal pt-icon-home">Home</button>
-          <button class="pt-button pt-minimal pt-icon-document">Files</button>
-          <span class="pt-navbar-divider"></span>
-          <button class="pt-button pt-minimal pt-icon-user"></button>
-          <button class="pt-button pt-minimal pt-icon-notifications"></button>
-          <button class="pt-button pt-minimal pt-icon-cog"></button>
-        </div>
-      </nav>
     </div>
   </Router>
 )
