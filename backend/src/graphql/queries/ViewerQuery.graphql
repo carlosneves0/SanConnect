@@ -1,0 +1,13 @@
+query ViewerQuery {
+  viewer {
+    id
+    email
+    emailVerified
+    givenName
+    familyName
+    picture
+    gender
+    birthdate
+    locale
+  }
+}

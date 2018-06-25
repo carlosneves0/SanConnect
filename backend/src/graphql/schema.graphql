@@ -1,0 +1,36 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  # viewer: User!
+  signIn(email: String!, password: String!): AuthResponse!
+}
+
+type Mutation {
+  signUp(email: String!, password: String!): AuthResponse!
+  # searchEvent(query: String! ...)
+}
+
+type AuthResponse {
+  accessToken: String!
+}
+
+# type User {
+#   id: ID!
+#   email: String!
+#   emailVerified: Boolean!
+#   givenName: String
+#   familyName: String
+#   picture: String!
+#   gender: GENDER
+#   birthdate: String
+#   locale: String
+#   notNullArrayOfNotNullStrings: [String!]!
+# }
+#
+# enum GENDER {
+#   MALE,
+#   FEMALE
+# }
