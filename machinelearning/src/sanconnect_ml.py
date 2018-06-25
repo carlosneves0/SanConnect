@@ -17,7 +17,7 @@ def agrupa_usando_json(json_request):
 	return json_agrupamentos
 
 def testa_localmente():
-	with open('users.js') as user_data_file:
+	with open('usuarios.js') as user_data_file:
 		json_arquivo = json.load(user_data_file)
 
 	usuario_referencia, usuarios = parse_json(json_arquivo)
