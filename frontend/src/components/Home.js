@@ -18,9 +18,13 @@ const Home = () => (
 		<div class="hero-image" style = {{backgroundImage: "url(" + Background + ")", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundAttachment: 'fixed', backgroundSize: 1900, height: 650, align :'center'}}>
 		  <div class="hero-text">
 		  	<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-		    <h1 style = {{color : '#ff2121'}}>Conectando Pessoas</h1>
-		    <h5 style = {{color : '#ff2121'}}>Tornando o mundo mais divertido!</h5>
-		    <Link to='/sign-up'><button type="button" class="pt-button pt-large pt-intent-success">Cadastre-se</button></Link>
+		    <h1 style = {{color : '#fff', textShadow : '2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000'}}>
+		    	Conectando Pessoas
+		    </h1>
+		    <h5 style = {{color : '#fff', textShadow : '2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000'}}>
+		    	Tornando o mundo mais divertido!
+		    </h5>
+		    <Link to='/sign-up'><button type="button" class="pt-button pt-large pt-intent-success ">Cadastre-se</button></Link>
 		  </div>
 		</div>
 		</center>
