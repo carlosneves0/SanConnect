@@ -7,7 +7,7 @@ import './Layout.css'
 
 const IS_SIGNED_IN = false
 
-const SidebarContent = () => (
+const SidebarContent = ({ toggleSidebar }) => (
   <div className='Layout-Sidebar'>
     <nav className='Layout-nav'>
       <Link to='/' className='Layout-brand'>SanConnect</Link>
@@ -17,11 +17,15 @@ const SidebarContent = () => (
     ) : (
       <div>
         <h2>
-          <Link to='/sign-up'>Crie uma conta</Link>
+          <Link to='/sign-up' onClick={toggleSidebar}>
+            Crie uma conta
+          </Link>
         </h2>
         <h2>ou</h2>
         <h2>
-          <Link to='/sign-in'>Acesse sua conta</Link>
+          <Link to='/sign-in' onClick={toggleSidebar}>
+            Acesse sua conta
+          </Link>
         </h2>
       </div>
     )}
@@ -50,15 +54,18 @@ class Layout extends React.Component {
           {matches => matches ? (
             <nav className='Layout-nav'>
               <Link to='/' className='Layout-brand'>SanConnect</Link>
-              <Icon
-                id='Layout-Icon'
-                name='bars' size='large'
-                onClick={this.toggleSidebar}
-              />
+              {IS_SIGNED_IN ? (
+                <p>is signed in</p>
+              ) : (
+                <span>
+                  <Link to='/sign-in'>Acessar minha conta</Link>
+                  <Link to='/sign-up'>Criar uma conta</Link>
+                </span>
+              )}
             </nav>
           ) : (
             <Sidebar
-              sidebar={<SidebarContent />}
+              sidebar={<SidebarContent toggleSidebar={this.toggleSidebar} />}
               open={this.state.sidebarOpen}
               onSetOpen={this.onSetSidebarOpen}
             >

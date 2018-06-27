@@ -8,19 +8,18 @@
 
 .Layout-nav a {
   line-height: 52px;
+}
+
+.Layout-nav .Layout-brand {
   color: #000;
-  text-decoration: none;
-}
-
-.Layout-nav a:hover {
-  color: #555;
-  text-decoration: none;
-}
-
-.Layout-brand {
   font-family: 'Lobster Two', cursive;
   font-size: 1.4em;
   font-weight: bold;
+}
+
+.Layout-nav .Layout-brand:hover {
+  color: #555;
+  text-decoration: none;
 }
 
 #Layout-Icon {
@@ -53,14 +52,26 @@
 }
 
 @media only screen and (min-device-width: 880px) {
-  /* .Layout-nav {
-    text-align: left;
-  } */
-  .Layout-brand {
+  .Layout-nav .Layout-brand {
     float: left;
     margin-left: 10vw;
   }
+
   #Layout-Icon {
     display: none;
+  }
+
+  .Layout-nav a {
+    color: #4183c4;
+    float: right;
+    margin-right: 3vw;
+  }
+
+  .Layout-nav a:first-child {
+    margin-right: 10vw;
+  }
+
+  .Layout-nav a:hover {
+    color: #1e70bf;
   }
 }
