@@ -17,6 +17,8 @@ usuario = {
 	dislikes: 0
 }
 
+auth.authenticate('bruno@sanconnect.br', '123456')
+
 /* Send a query to database. */
 query = 'select * from usuario;'
 pool.query(query, async function (err, res) {
