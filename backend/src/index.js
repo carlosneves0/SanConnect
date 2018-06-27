@@ -11,6 +11,9 @@ mockDb = {
     'foo@bar.baz': {
       email: 'foo@bar.baz',
       password: '123456'
+    },
+    'a@b.c': {
+
     }
   }
 }

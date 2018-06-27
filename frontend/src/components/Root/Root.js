@@ -1,19 +1,16 @@
 import React from 'react'
+import { Provider } from 'unstated'
 import { BrowserRouter } from 'react-router-dom'
-import { Network } from 'react-fns'
-import Offline from './Offline'
 import App from '../App'
+import 'semantic-ui-css/semantic.min.css'
 import './Root.css'
 
-
 const Root = () => (
-  <BrowserRouter>
-    <Network
-      render={
-        network => network.online ? <App /> : <Offline />
-      }
-    />
-  </BrowserRouter>
+  <Provider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 )
 
 export default Root

@@ -1,27 +1,25 @@
-import React from "react"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import Home from '../Home'
-import SignUp from '../SignUp'
-import SignIn from '../SignIn'
-import Logged from '../Logged'
-import EventView from '../EventView'
-import EventCreate from '../EventCreate'
-import UserView from '../UserView'
-import UserEdit from '../UserEdit'
+import React from 'react'
+import { Route } from 'react-router-dom'
+import { Network } from 'react-fns'
+import Layout from '../Layout'
+import Offline from '../Offline'
+// import NotFound from '../NotFound'
+// import Home from '../Home'
+// import SignUp from '../SignUp'
+// import SignIn from '../SignIn'
 
 const App = () => (
-  <Router>
-    <div>
-      <Route exact path="/" component={Home} />
-      <Route path="/sign-up" component={SignUp} />
-      <Route path="/sign-in" component={SignIn} />
-      <Route path="/logged" component={Logged} />
-      <Route path="/view-event" component={EventView} />
-      <Route path="/create-event" component={EventCreate} />
-      <Route path="/edit-user" component={UserEdit} />
-      <Route path="/view-user" component={UserView} />
-    </div>
-  </Router>
+  <Network
+    render={({ online }) => (
+      <Layout isOnline={online}>
+        {online ? (
+          <h1>Yey, we're online.</h1>
+        ) : (
+          <Offline />
+        )}
+      </Layout>
+    )}
+  />
 )
 
 export default App

@@ -21,7 +21,7 @@ query = {
 client.connect()
 client.query(query, (err, res) => {
 	console.log('Callback from Postgres')
-	console.log(err, res)	
+	console.log(err, res)
 })
 
 /* Send a query to database. */
@@ -36,14 +36,14 @@ client.query(query, (err, res) => {
 })
 
 /* Hash the user password from signup. */
-app.post('/signup', function(req, res) {	
+app.post('/signup', function(req, res) {
 	var username = req.body.username
 
 	auth.hash(req.body.password, 10, function(err, hash) {
 
 		var user = new User({username:username, password:hash})
 
-		user.save().then(function (newUser) {			
+		user.save().then(function (newUser) {
 			console.log('Successfully added ' + username + ' to the database.')
 			req.session.regenerate(function() {
 				res.redirect('/index')
@@ -65,18 +65,18 @@ app.post('/login', function(req, res) {
 			auth.compare(enteredPassword, found.get('password'), function(err, res) {
 				if(res) {
 					req.session.regenerate(function() {
-						console.log('Passwords match. Redirecting...')      
+						console.log('Passwords match. Redirecting...')
 						res.redirect('/index')
 						req.session.found = found.username
 					})
 				} else {
-					console.log('Passwords don\'t match... redirect to signup')    
-					res.redirect('/signup') 
-				} 
+					console.log('Passwords don\'t match... redirect to signup')
+					res.redirect('/signup')
+				}
 		})
 		} else {
 			console.log('Username don\'t match... redirect to signup')
-			res.redirect('/signup') 
+			res.redirect('/signup')
 		}
 	})
 })
