@@ -1,14 +1,14 @@
-function signIn({ email, password }, { mockDb }) {
-  const user = mockDb.users[email]
+const auth = require('../../authentication')
 
-  if (!user) {
-    throw new Error('Invalid email')
+async function signIn({ email, password }, { pool }) {
+  
+  /* Autentica um determinado usuário. */
+  if(await auth.authenticate(email, password, pool) === true) {
+    console.log('Autenticado.') 
+  } else {
+    throw new Error('Usuário ou senha inválido.')
   }
-
-  if (password !== user.password) {
-    throw new Error('Invalid password')
-  }
-
+  
   return {
     accessToken: `a-jwt-with-the-user-email|${email}`
   }

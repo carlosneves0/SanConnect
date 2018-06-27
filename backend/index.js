@@ -17,60 +17,67 @@ usuario = {
 	dislikes: 0
 }
 
-auth.authenticate('bruno@sanconnect.br', '123456')
+
+/* Autentica um determinado usuário. */
+auth.authenticate('bruno@sanconnect.br', '123456').then(result => {
+	if(result === true)
+		console.log('Autenticado.')	
+	else
+		console.log('Usuário ou senha inválido.')
+})
 
 /* Send a query to database. */
-query = 'select * from usuario;'
-pool.query(query, async function (err, res) {
-	if(err)
-		console.log(err)
-	else
-		console.log(res.rows)
+// query = 'select * from usuario;'
+// pool.query(query, async function (err, res) {
+// 	if(err)
+// 		console.log(err)
+// 	else
+// 		console.log(res.rows)
 
-	/* Insere um novo usuário no banco. */
-	await signUp(usuario)	
+// 	/* Insere um novo usuário no banco. */
+// 	await signUp(usuario)	
 
-	var email = 'vitor@sanconnect.usp'
+// 	var email = 'vitor@sanconnect.usp'
 
-	/* Send a query to database. */
-	query = 'select * from usuario;'
-	pool.query(query, function (err, res) {
-		if(err)
-			console.log(err)
-		else
-			console.log(res.rows)		
+// 	/* Send a query to database. */
+// 	query = 'select * from usuario;'
+// 	pool.query(query, function (err, res) {
+// 		if(err)
+// 			console.log(err)
+// 		else
+// 			console.log(res.rows)		
 
-		query = {
-			text: 'DELETE FROM usuario WHERE email = $1',
-			values: [email]
-		}
-		pool.query(query, function(err, res) {
-			if(err)
-				console.log(err)
-			else 	
-				console.log('Finish')
-			pool.end()
-		})
-	})	
-})
+// 		query = {
+// 			text: 'DELETE FROM usuario WHERE email = $1',
+// 			values: [email]
+// 		}
+// 		pool.query(query, function(err, res) {
+// 			if(err)
+// 				console.log(err)
+// 			else 	
+// 				console.log('Finish')
+// 			pool.end()
+// 		})
+// 	})	
+// })
 
 /* Hash the user password from signup. */
-app.post('/signup', function(req, res) {
-	var username = req.body.username
+// app.post('/signup', function(req, res) {
+// 	var username = req.body.username
 
-	auth.hash(req.body.password, 10, function(err, hash) {
+// 	auth.hash(req.body.password, 10, function(err, hash) {
 
-		var user = new User({username:username, password:hash})
+// 		var user = new User({username:username, password:hash})
 
-		user.save().then(function (newUser) {
-			console.log('Successfully added ' + username + ' to the database.')
-			req.session.regenerate(function() {
-				res.redirect('/index')
-				res.session.user = user
-			})
-		})
-	})
-})
+// 		user.save().then(function (newUser) {
+// 			console.log('Successfully added ' + username + ' to the database.')
+// 			req.session.regenerate(function() {
+// 				res.redirect('/index')
+// 				res.session.user = user
+// 			})
+// 		})
+// 	})
+// })
 
 /* Compares the user password stored in database. */
 app.post('/login', function(req, res) {
