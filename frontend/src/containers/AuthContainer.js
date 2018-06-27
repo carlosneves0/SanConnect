@@ -16,13 +16,13 @@ class AuthContainer extends Container<AuthState> {
   constructor(props) {
     super(props)
 
-    let auth = null
-    try {
-      auth = JSON.parse(Base64.decode(
-          window.localStorage.getItem(KEY_AUTH)
-      ))
-    } catch (error) {
-      window.removeItem(KEY_AUTH)
+    let auth = window.localStorage.getItem(KEY_AUTH)
+    if (auth !== null) {
+      try {
+        auth = JSON.parse(Base64.decode(auth))
+      } catch (error) {
+        window.localStorage.removeItem(KEY_AUTH)
+      }
     }
 
     this.state = {

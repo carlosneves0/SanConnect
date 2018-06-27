@@ -1,13 +1,20 @@
 /* #Layout-desktop, #Layout-mobile {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background-image: url('./background.png');
+
 } */
 
 .Home {
+  background-image: url('./background.png');
+  background-position: center;
+  position: fixed;
+  top: 52px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   color: #fff;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .Home h1 {
@@ -17,14 +24,23 @@
 .Home h2 {
   font-size: 2.4em;
   color: #eee;
+  margin-top: 0;
 }
 
-.Home button {
-  width: 60vw;
+.Home-desktop {
+  width: 520px;
+  margin: 0 auto;
+  margin-top: 1vh;
 }
 
-.Home hr {
-  border: none;
-  border-top: 1px solid #fff;
-  margin: 2vh 4vw;
+@media only screen and (min-device-width: 880px) {
+  /* .Home {
+    background-image: url('./background.png');
+    height: 100vh;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  } */
 }

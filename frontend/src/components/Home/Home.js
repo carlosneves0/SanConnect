@@ -1,33 +1,51 @@
 import React from 'react'
-import { Link } from "react-router-dom"
+import { withRouter } from 'react-router-dom'
+import MediaQuery from 'react-responsive'
 import { Button } from 'semantic-ui-react'
-import background from './background.png'
 import './Home.css'
 
-const Home = () => (
+const Home = ({ history }) => (
   <div className='Home'>
-    <div className='Home-sign-up'>
-      <h1>Conectando Pessoas</h1>
-      <h2>Tornando o mundo mais divertido!</h2>
-      <Link to='/sign-up'>
-        <Button primary size='huge'>Cadastre-se</Button>
-      </Link>
-      <hr />
-      <Link to='/feed'>
-        <Button secondary size='huge'>Explorar Eventos</Button>
-      </Link>
-    </div>
-  {/* </div>
-  <div>
-    <center>
-    <div class="hero-image" style = {{backgroundImage: "url(" + background + ")", backgroundRepeat: 'no-repeat', backgroundPosition: 'center', backgroundAttachment: 'fixed', backgroundSize: 1900, height: 650, align :'center'}}>
-      <div class="hero-text">
-        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-
-      </div>
-    </div>
-    </center> */}
+    <h1>Conectando Pessoas</h1>
+    <h2>Tornando o mundo mais divertido!</h2>
+    <MediaQuery minDeviceWidth={880}>
+      {matches => matches ? (
+        <div className='Home-desktop'>
+          <Button
+            color='olive' size='huge'
+            style={{ float: 'left' }}
+            onClick={() => history.push('/explore')}
+          >
+            Explorar Eventos
+          </Button>
+          <Button
+            primary size='huge'
+            style={{ float: 'right' }}
+            onClick={() => history.push('/sign-up')}
+          >
+            Cadastre-se
+          </Button>
+        </div>
+      ) : (
+        <div>
+          <Button
+            primary size='huge'
+            style={{ display: 'block', width: '80vw', margin: '3vh auto' }}
+            onClick={() => history.push('/sign-up')}
+          >
+            Cadastre-se
+          </Button>
+          <Button
+            color='olive' size='huge'
+            style={{ display: 'block', width: '80vw', margin: '3vh auto' }}
+            onClick={() => history.push('/explore')}
+          >
+            Explorar Eventos
+          </Button>
+        </div>
+      )}
+    </MediaQuery>
   </div>
-);
+)
 
-export default Home
+export default withRouter(Home)
