@@ -1,9 +1,9 @@
-#Layout-desktop, #Layout-mobile {
+/* #Layout-desktop, #Layout-mobile {
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-image: url('./background.png');
-}
+} */
 
 .Home {
   color: #fff;

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import { Container } from 'unstated'
+import { Base64 } from 'js-base64'
 
 type AuthState = {
   auth: ?{
@@ -12,12 +13,26 @@ type AuthState = {
 const KEY_AUTH = '__a'
 
 class AuthContainer extends Container<AuthState> {
-  state = {
-    auth: window.localStorage.getItem(KEY_AUTH) || null
+  constructor(props) {
+    super(props)
+
+    let auth = null
+    try {
+      auth = JSON.parse(Base64.decode(
+          window.localStorage.getItem(KEY_AUTH)
+      ))
+    } catch (error) {
+      window.removeItem(KEY_AUTH)
+    }
+
+    this.state = {
+      auth
+    }
   }
 
-  componentWillMount() {
-    console.log('AuthContainer will mount')
+  isSignedIn() {
+    const { auth } = this.state
+    return auth !== null && typeof auth.data === 'string'
   }
 
   signIn = (email: string, password: string) => {
@@ -29,14 +44,15 @@ class AuthContainer extends Container<AuthState> {
     })
 
     setTimeout(() => {
-      const accessToken = 'accessToken'
-      window.localStorage.setItem(KEY_AUTH, accessToken)
-      this.setState({
-        auth: {
-          data: accessToken,
-          error: null
-        }
-      })
+      const auth = {
+        data: 'accessToken',
+        error: null
+      }
+      window.localStorage.setItem(
+        KEY_AUTH,
+        Base64.encode(JSON.stringify(auth))
+      )
+      this.setState({ auth })
     }, 1200)
   }
 
