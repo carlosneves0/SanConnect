@@ -6,11 +6,17 @@ import './Home.css'
 
 const Home = () => (
   <div className='Home'>
-    <h1>Conectando Pessoas</h1>
-    <h2>Tornando o mundo mais divertido!</h2>
-    <Link to='/sign-up'>
-      <Button primary size='huge'>Cadastre-se</Button>
-    </Link>
+    <div className='Home-sign-up'>
+      <h1>Conectando Pessoas</h1>
+      <h2>Tornando o mundo mais divertido!</h2>
+      <Link to='/sign-up'>
+        <Button primary size='huge'>Cadastre-se</Button>
+      </Link>
+      <hr />
+      <Link to='/feed'>
+        <Button secondary size='huge'>Explorar Eventos</Button>
+      </Link>
+    </div>
   {/* </div>
   <div>
     <center>
@@ -21,9 +27,6 @@ const Home = () => (
       </div>
     </div>
     </center> */}
-
-
-
   </div>
 );
 
