@@ -1,28 +1,42 @@
 import React from 'react'
 import Sidebar from 'react-sidebar'
 import { Icon, Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
   <div className='Layout-Sidebar'>
     <nav className='Layout-nav'>
-      <Link to='/' className='Layout-brand'>SanConnect</Link>
+      <Link
+        to='/' className='Layout-brand'>SanConnect</Link>
     </nav>
     {isSignedIn ? (
       <p>signed in</p>
     ) : (
       <div>
-        <h2>
-          <Link to='/sign-up' onClick={toggleSidebar}>
-            Crie uma conta
-          </Link>
-        </h2>
-        <h2>ou</h2>
-        <h2>
-          <Link to='/sign-in' onClick={toggleSidebar}>
-            Acesse sua conta
-          </Link>
-        </h2>
+        <Link to='/sign-up' onClick={toggleSidebar}>
+          <Button
+            primary size='huge'
+            style={{ width: '-webkit-fill-available', marginTop: '2vh' }}
+          >
+            Criar uma Conta
+          </Button>
+        </Link>
+        <Link to='/explore' onClick={toggleSidebar}>
+          <Button
+            color='olive' size='huge'
+            style={{ width: '-webkit-fill-available', marginTop: '2vh' }}
+          >
+            Explorar Eventos
+          </Button>
+        </Link>
+        <Link to='/sign-in' onClick={toggleSidebar}>
+          <Button
+            secondary size='huge'
+            style={{ width: '-webkit-fill-available', marginTop: '2vh' }}
+          >
+            Acesse sua Conta
+          </Button>
+        </Link>
       </div>
     )}
   </div>
@@ -30,7 +44,7 @@ const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
 
 class LayoutMobile extends React.Component {
   state = {
-    sidebarOpen: false
+    sidebarOpen: true
   }
 
   toggleSidebar = () => {
