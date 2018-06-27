@@ -6,25 +6,25 @@
   left: 0;
   width: 100%;
   height: 52px;
-  background-color: #2185d0;
-  border-bottom: 1px solid #000;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
   text-align: center;
 }
 
 .Layout-nav a {
-  color: #fff;
+  color: #000;
   line-height: 52px;
 }
 
 .Layout-nav .Layout-brand {
-  color: #fff;
+  color: #000;
   font-family: 'Lobster Two', cursive;
   font-size: 1.4em;
   font-weight: bold;
 }
 
 .Layout-nav .Layout-brand:hover {
-  color: #eee;
+  color: #444;
   text-decoration: none;
 }
 
@@ -42,7 +42,7 @@
 .Layout-Sidebar {
   width: 76vw;
   height: 100%;
-  background: #efefef;
+  background: #fff;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -58,14 +58,12 @@
 }
 
 .Layout-nav a.anchor-disable {
-  color: #bbb;
-  pointer-events: none;
+  color: #aaa;
 }
 
 .Layout-nav a.anchor-disable:hover {
   cursor: not-allowed;
 }
-
 
 @media only screen and (min-device-width: 880px) {
   .Layout-nav .Layout-brand {
@@ -78,7 +76,7 @@
   }
 
   .Layout-nav a {
-    color: #fff;
+    color: #000;
     float: right;
     margin-right: 3vw;
   }
@@ -88,6 +86,20 @@
   }
 
   .Layout-nav a:hover {
-    color: #eee;
+    color: #444;
   }
+}
+
+#Layout-desktop {
+  width: 100%;
+  height: 100vh;
+  padding: 0 16vw;
+  padding-top: calc(52px + 4vh);
+}
+
+#Layout-mobile {
+  width: 100%;
+  height: 100vh;
+  padding-top: 4vh;
+  padding: 0 2vh;
 }

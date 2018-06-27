@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { Icon } from 'semantic-ui-react'
-import Sidebar from 'react-sidebar';
+import Sidebar from 'react-sidebar'
+// import { Subscribe } from 'unstated'
+// import AuthContainer from '../../containers/AuthContainer'
 import './Layout.css'
 
 const IS_SIGNED_IN = false
@@ -53,21 +55,26 @@ class Layout extends React.Component {
       <div>
         <MediaQuery minDeviceWidth={880}>
           {matches => matches ? (
-            <nav className='Layout-nav'>
-              <Link to='/' className='Layout-brand'>SanConnect</Link>
-              {IS_SIGNED_IN ? (
-                <p>is signed in</p>
-              ) : (
-                <span>
-                  <Link to='/sign-in' className={isOnline ? '' : 'anchor-disable'}>
-                    Acessar minha conta
-                  </Link>
-                  <Link to='/sign-up' className={isOnline ? '' : 'anchor-disable'}>
-                    Criar uma conta
-                  </Link>
-                </span>
-              )}
-            </nav>
+            <div>
+              <nav className='Layout-nav'>
+                <Link to='/' className='Layout-brand'>SanConnect</Link>
+                {IS_SIGNED_IN ? (
+                  <p>is signed in</p>
+                ) : (
+                  <span>
+                    <Link to='/sign-in' className={isOnline ? '' : 'anchor-disable'}>
+                      Acessar Conta
+                    </Link>
+                    <Link to='/sign-up' className={isOnline ? '' : 'anchor-disable'}>
+                      Cadastre-se
+                    </Link>
+                  </span>
+                )}
+              </nav>
+              <div id='Layout-desktop'>
+                {children}
+              </div>
+            </div>
           ) : (
             <Sidebar
               sidebar={<SidebarContent toggleSidebar={this.toggleSidebar} />}
@@ -82,12 +89,12 @@ class Layout extends React.Component {
                   onClick={this.toggleSidebar}
                 />
               </nav>
+              <div id='Layout-mobile'>
+                {children}
+              </div>
             </Sidebar>
           )}
         </MediaQuery>
-        <section>
-          {children}
-        </section>
       </div>
     )
   }

@@ -1,6 +1,30 @@
-.Home {
-  height: 100vh;
-  padding-top: 52px;
+#Layout-desktop, #Layout-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-image: url('./background.png');
+}
+
+.Home {
   color: #fff;
+  text-align: center;
+}
+
+.Home h1 {
+  font-size: 4em;
+}
+
+.Home h2 {
+  font-size: 2.4em;
+  color: #eee;
+}
+
+.Home button {
+  width: 60vw;
+}
+
+.Home hr {
+  border: none;
+  border-top: 1px solid #fff;
+  margin: 2vh 4vw;
 }
