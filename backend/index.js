@@ -5,34 +5,51 @@ const auth = require('./src/authentication')
 const app = express()
 var query
 
-pool.connect()
+const signUp = require('./signUp')
+
+usuario = {
+	email: 'vitor@sanconnect.usp',
+	password: '123456',
+	nome: 'Vitor',
+	descricao: 'NULL',
+	foto: 'NULL',
+	likes: 0,
+	dislikes: 0
+}
+
 /* Send a query to database. */
 query = 'select * from usuario;'
-pool.query(query, function (err, res) {
-	console.log(err, res)
-	pool.end()
-})
+pool.query(query, async function (err, res) {
+	if(err)
+		console.log(err)
+	else
+		console.log(res.rows)
 
-/* Send a query to database. */
-query = {
-  text: 'INSERT INTO usuario(username, password) VALUES($1, $2)',
-  values: ['brianc', 's4ad65a4s6'],
-}
-client.connect()
-client.query(query, (err, res) => {
-	console.log('Callback from Postgres')
-	console.log(err, res)
-})
+	/* Insere um novo usuário no banco. */
+	await signUp(usuario)	
 
-/* Send a query to database. */
-query = {
-  text: 'DELETE FROM usuario WHERE username=$1',
-  values: ['brianc'],
-}
-client.query(query, (err, res) => {
-	console.log('Callback from Postgres')
-	console.log(err, res)
-	client.end()
+	var email = 'vitor@sanconnect.usp'
+
+	/* Send a query to database. */
+	query = 'select * from usuario;'
+	pool.query(query, function (err, res) {
+		if(err)
+			console.log(err)
+		else
+			console.log(res.rows)		
+
+		query = {
+			text: 'DELETE FROM usuario WHERE email = $1',
+			values: [email]
+		}
+		pool.query(query, function(err, res) {
+			if(err)
+				console.log(err)
+			else 	
+				console.log('Finish')
+			pool.end()
+		})
+	})	
 })
 
 /* Hash the user password from signup. */

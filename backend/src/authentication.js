@@ -1,12 +1,21 @@
 const bcrypt = require('bcrypt')
 
 /* Testing the hash. */
-bcrypt.hash('myPassword', 10, function(err, hash) {
+function hash(password) {0
+	return new Promise(async (resolve, reject) => {
+		const hash = await bcrypt.hash(password, 10).catch(resolve)
+		resolve(hash)
+	})
+}
+
+bcrypt.hash('123456', 10, function(err, hash) {
 	// Store hash in database
 	console.log('Hash stored in database')  
 	console.log(hash)
 
-	bcrypt.compare('myPassword', hash, function(err, res) {
+	pass = hash
+
+	bcrypt.compare('123456', hash, function(err, res) {
 		if(res) {
 			console.log('Passwords match')      
 		} else {
@@ -15,4 +24,6 @@ bcrypt.hash('myPassword', 10, function(err, hash) {
   	})
 })
 
-module.exports = bcrypt
+module.exports = {
+	hash
+}
