@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from 'react-sidebar'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
