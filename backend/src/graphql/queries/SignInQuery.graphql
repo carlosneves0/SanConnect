@@ -1,8 +1,8 @@
 query {  
-  signIn(
-    email: "bruno@sanconnect.br", 
-    password: "123456")
-  {
-   accessToken
-  }
+	signIn(
+		email: "bruno@sanconnect.br", 
+		password: "123456")
+	{
+		accessToken
+	}
 }

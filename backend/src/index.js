@@ -10,7 +10,7 @@ app.use(cors()) // not having cors enabled will cause an access control error
 
 app.use('/graph', graphqlHTTP((request, response, graphQLParams) => {
   // The HTTP header will have an accessToken in Authorization: Bearer <token>
-  //  Parse the token, verify that it's valid with jsonwebtoken
+  // Parse the token, verify that it's valid with jsonwebtoken
   // Add viewer to GraphQL's context
   // Viewer is the user we get from
   // If no Authorization header is prensent, viewer = null

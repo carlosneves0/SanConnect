@@ -26,9 +26,7 @@ async function signUp({ user }, { pool }) {
 		user.dislikes = 0
 
 		return user
-	} catch(err) {
-		console.log(err)
-		/* Checar se tudo foi inserido com sucesso. */				
+	} catch(err) {		
 		throw err
 	}
 }

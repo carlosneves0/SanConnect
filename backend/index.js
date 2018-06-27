@@ -5,26 +5,25 @@ const auth = require('./src/authentication')
 const app = express()
 var query
 
-const signUp = require('./signUp')
+// const signUp = require('./signUp')
 
-usuario = {
-	email: 'vitor@sanconnect.usp',
-	password: '123456',
-	nome: 'Vitor',
-	descricao: 'NULL',
-	foto: 'NULL',
-	likes: 0,
-	dislikes: 0
-}
-
+// usuario = {
+// 	email: 'vitor@sanconnect.usp',
+// 	password: '123456',
+// 	nome: 'Vitor',
+// 	descricao: 'NULL',
+// 	foto: 'NULL',
+// 	likes: 0,
+// 	dislikes: 0
+// }
 
 /* Autentica um determinado usuário. */
-auth.authenticate('bruno@sanconnect.br', '123456').then(result => {
-	if(result === true)
-		console.log('Autenticado.')	
-	else
-		console.log('Usuário ou senha inválido.')
-})
+// auth.authenticate('bruno@sanconnect.br', '123456').then(result => {
+// 	if(result === true)
+// 		console.log('Autenticado.')	
+// 	else
+// 		console.log('Usuário ou senha inválido.')
+// })
 
 /* Send a query to database. */
 // query = 'select * from usuario;'
@@ -62,22 +61,22 @@ auth.authenticate('bruno@sanconnect.br', '123456').then(result => {
 // })
 
 /* Hash the user password from signup. */
-// app.post('/signup', function(req, res) {
-// 	var username = req.body.username
+app.post('/signup', function(req, res) {
+	var username = req.body.username
 
-// 	auth.hash(req.body.password, 10, function(err, hash) {
+	auth.hash(req.body.password, 10, function(err, hash) {
 
-// 		var user = new User({username:username, password:hash})
+		var user = new User({username:username, password:hash})
 
-// 		user.save().then(function (newUser) {
-// 			console.log('Successfully added ' + username + ' to the database.')
-// 			req.session.regenerate(function() {
-// 				res.redirect('/index')
-// 				res.session.user = user
-// 			})
-// 		})
-// 	})
-// })
+		user.save().then(function (newUser) {
+			console.log('Successfully added ' + username + ' to the database.')
+			req.session.regenerate(function() {
+				res.redirect('/index')
+				res.session.user = user
+			})
+		})
+	})
+})
 
 /* Compares the user password stored in database. */
 app.post('/login', function(req, res) {
