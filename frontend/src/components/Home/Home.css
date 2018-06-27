@@ -1,0 +1,6 @@
+.Home {
+  height: 100vh;
+  padding-top: 52px;
+  background-image: url('./background.png');
+  color: #fff;
+}

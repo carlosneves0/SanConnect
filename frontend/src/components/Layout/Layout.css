@@ -1,24 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster+Two:400,700');
 
 .Layout-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 52px;
-  border-bottom: 1px solid #ccc;
+  background-color: #2185d0;
+  border-bottom: 1px solid #000;
   text-align: center;
 }
 
 .Layout-nav a {
+  color: #fff;
   line-height: 52px;
 }
 
 .Layout-nav .Layout-brand {
-  color: #000;
+  color: #fff;
   font-family: 'Lobster Two', cursive;
   font-size: 1.4em;
   font-weight: bold;
 }
 
 .Layout-nav .Layout-brand:hover {
-  color: #555;
+  color: #eee;
   text-decoration: none;
 }
 
@@ -36,7 +42,7 @@
 .Layout-Sidebar {
   width: 76vw;
   height: 100%;
-  background: #fff;
+  background: #efefef;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -51,6 +57,16 @@
   right: 0;
 }
 
+.Layout-nav a.anchor-disable {
+  color: #bbb;
+  pointer-events: none;
+}
+
+.Layout-nav a.anchor-disable:hover {
+  cursor: not-allowed;
+}
+
+
 @media only screen and (min-device-width: 880px) {
   .Layout-nav .Layout-brand {
     float: left;
@@ -62,7 +78,7 @@
   }
 
   .Layout-nav a {
-    color: #4183c4;
+    color: #fff;
     float: right;
     margin-right: 3vw;
   }
@@ -72,6 +88,6 @@
   }
 
   .Layout-nav a:hover {
-    color: #1e70bf;
+    color: #eee;
   }
 }

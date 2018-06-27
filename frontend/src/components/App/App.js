@@ -1,19 +1,24 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import { Network } from 'react-fns'
 import Layout from '../Layout'
 import Offline from '../Offline'
 // import NotFound from '../NotFound'
-// import Home from '../Home'
-// import SignUp from '../SignUp'
-// import SignIn from '../SignIn'
+import Home from '../Home'
+import SignUp from '../SignUp'
+import SignIn from '../SignIn'
 
 const App = () => (
   <Network
     render={({ online }) => (
       <Layout isOnline={online}>
         {online ? (
-          <h1>Yey, we're online.</h1>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/sign-in" component={SignIn} />
+            <Route path="/sign-up" component={SignUp} />
+            {/* <Route component={NoMatch} /> */}
+          </Switch>
         ) : (
           <Offline />
         )}

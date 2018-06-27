@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
-import { Icon, Button } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 import Sidebar from 'react-sidebar';
 import './Layout.css'
 
@@ -34,7 +34,7 @@ const SidebarContent = ({ toggleSidebar }) => (
 
 class Layout extends React.Component {
   state = {
-    sidebarOpen: true
+    sidebarOpen: false
   }
 
   toggleSidebar = () => {
@@ -48,6 +48,7 @@ class Layout extends React.Component {
   }
 
   render() {
+    const { isOnline, children } = this.props
     return (
       <div>
         <MediaQuery minDeviceWidth={880}>
@@ -58,8 +59,12 @@ class Layout extends React.Component {
                 <p>is signed in</p>
               ) : (
                 <span>
-                  <Link to='/sign-in'>Acessar minha conta</Link>
-                  <Link to='/sign-up'>Criar uma conta</Link>
+                  <Link to='/sign-in' className={isOnline ? '' : 'anchor-disable'}>
+                    Acessar minha conta
+                  </Link>
+                  <Link to='/sign-up' className={isOnline ? '' : 'anchor-disable'}>
+                    Criar uma conta
+                  </Link>
                 </span>
               )}
             </nav>
@@ -81,6 +86,7 @@ class Layout extends React.Component {
           )}
         </MediaQuery>
         <section>
+          {children}
         </section>
       </div>
     )
