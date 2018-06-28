@@ -1,12 +1,16 @@
-const signIn = require('./signIn')
-const signUp = require('./signUp')
+const path = './src/graphql/root';
+const fs = require('fs');
 
 const root = {
-  viewer: (args, { viewer }) => {
+	viewer: (args, { viewer }) => {
     return viewer
-  },
-  signIn,
-  signUp
+  }
 }
+
+fs.readdirSync(path).forEach(file => {
+	file = file.split(".")[0]
+	if(file !== 'index')
+		root[file] = require(`./${file}`)		
+})
 
 module.exports = root

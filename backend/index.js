@@ -1,9 +1,11 @@
 const express = require('express')
-const {pool, client} = require('./database')
+const pool = require('./src/database')
 const auth = require('./src/authentication')
 
 const app = express()
 var query
+
+pool.query('SELECT * FROM CATEGORIA', console.log)
 
 // const signUp = require('./signUp')
 

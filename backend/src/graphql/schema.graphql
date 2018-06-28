@@ -6,10 +6,13 @@ schema {
 type Query {
   # viewer: User!
   signIn(email: String!, password: String!): AuthResponse!
+  userRecomendations: [User!]!
+  getTags: [String!]!
 }
 
 type Mutation {
   signUp(user:SignUpInput!): User!
+  createEvent(event:CreateEventInput!): Event!
   # searchEvent(query: String! ...)
 }
 
@@ -23,6 +26,29 @@ input SignUpInput {
 	nome: String!
 	descricao: String
 	foto: String
+}
+
+input CreateEventInput {
+  criador: String! 
+  titulo: String!
+  data_hora_evento: String!
+  descricao: String
+  min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
+  max_participantes: Int  
+  local: String
+  categorias: [String]!
+}
+
+type Event {
+  criador: String! 
+  titulo: String!
+  data_hora_evento: String!
+  descricao: String
+  min_participantes: Int!
+  max_participantes: Int
+  data_hora_criacao: String!
+  local: String
+  categorias: [String]!
 }
 
 type User {

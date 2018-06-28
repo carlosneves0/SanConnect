@@ -1,0 +1,24 @@
+mutation {
+	createEvent(
+		event:{
+			criador:"bruno@sanconnect.br",
+			titulo:"Partida de Roleta Russa",
+			data_hora_evento:"2018-07-11T06:00:00",      
+			descricao: "Partida educativa, instrutiva de um jogo de azar.",
+			min_participantes: 6,
+			max_participantes: 6,			
+			local: "ICMC - Sala E"
+			categorias: ["Jogos", "Esportes"]
+		}
+	){
+		criador
+  		titulo
+  		data_hora_evento
+  		descricao
+  		min_participantes
+  		max_participantes
+  		data_hora_criacao
+  		local
+  		categorias
+	}
+}
