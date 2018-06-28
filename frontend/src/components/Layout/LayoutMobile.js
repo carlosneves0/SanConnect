@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from 'react-sidebar'
 import { Icon, Button } from 'semantic-ui-react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
   <div className='Layout-Sidebar'>
@@ -44,13 +44,13 @@ const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
 
 class LayoutMobile extends React.Component {
   state = {
-    sidebarOpen: true
+    sidebarOpen: false
   }
 
   toggleSidebar = () => {
     this.setState(prevState => ({
       sidebarOpen: !prevState.sidebarOpen
-    }), () => console.log(this.state))
+    }))
   }
 
   onSetSidebarOpen = sidebarOpen => {

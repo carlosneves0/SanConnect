@@ -1,5 +1,4 @@
 // @flow
-import React from 'react'
 import { Container } from 'unstated'
 import { Base64 } from 'js-base64'
 
