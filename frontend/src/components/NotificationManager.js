@@ -1,6 +1,5 @@
 import React from 'react'
 import { Message } from 'semantic-ui-react'
-import { Portal } from 'react-portal'
 import { Subscribe } from 'unstated'
 import NotificationContainer from '../containers/NotificationContainer'
 
@@ -42,19 +41,17 @@ const Notification = ({ id, type, message, header, onClickClose }) => {
 const NotificationManager = () => (
   <Subscribe to={[NotificationContainer]}>
     {manager => (
-      <Portal isOpened={true} key='notificationsPortal'>
-        <div style={NOTIFICATION_CONTAINER_STYLE}>
-          {manager.state.notifications.map(
-            notification => (
-              <Notification
-                key={notification.id}
-                {...notification}
-                onClickClose={manager.dismiss}
-              />
-            )
-          )}
-        </div>
-      </Portal>
+      <div style={NOTIFICATION_CONTAINER_STYLE}>
+        {manager.state.notifications.map(
+          notification => (
+            <Notification
+              key={notification.id}
+              {...notification}
+              onClickClose={manager.dismiss}
+            />
+          )
+        )}
+      </div>
     )}
   </Subscribe>
 )
