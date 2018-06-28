@@ -1,3 +1,16 @@
 .SignIn {
   padding-top: 52px;
+  margin:0 20vw;
+  margin-top:3vh;
+  text-align: center;
+}
+
+.SignIn-input {
+	width: 100%;
+}
+
+.SignIn-button {
+	width: 100px;
+	margin: auto;
+
 }
