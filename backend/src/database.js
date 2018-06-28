@@ -1,21 +1,25 @@
-const { Client } = require('pg')
+const { Pool } = require('pg')
 
-const client = new Client({
-  user: 'postgres',
-  host: 'postgres',
-  // TODO: directly trying to connect to the database throws FALTA ERROR
-  // "db SanConnect does not exist" when deploying to producton. Figure out a
-  // way around this.
-  // database: 'SanConnect',
-  port: 5432
+const pool = new Pool({
+	user: 'tzpzrrtr',
+	host: 'stampy.db.elephantsql.com',
+	database: 'tzpzrrtr',
+	password: 'UbOKrlnAbJW3FqaiNlfve8jX6ZTCCOWn',
+	port: 5432,
 })
+pool.connect()
 
-client.connect()
-
-client.query('SELECT NOW()', (err, res) => {
-  console.log('Callback from Postgres')
-  console.log(err, res)
-  client.end()
-})
-
-module.exports = client
+module.exports = pool
+/* Outra forma de realizar a conexão. */
+//const connectionString = 'postgres://tzpzrrtr:UbOKrlnAbJW3FqaiNlfve8jX6ZTCCOWn@stampy.db.elephantsql.com:5432/tzpzrrtr'
+//const client = new Client({
+	//user:'dev',
+	//host:'postgres',
+	// TODO: directly trying to connect to the database throws FALTA ERROR
+	// "db SanConnect does not exist" when deploying to producton. Figure out a
+	// way around this.
+	// database: 'SanConnect',
+	//port: 5432
+	//connectionString: connectionString,
+//})
+//client.connect()

@@ -1,12 +1,12 @@
 {
   "name": "backend",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "SanConnect Project",
   "main": "index.js",
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^2.0.1",
+    "bcrypt": "github:BrunoxD/node.bcrypt.js",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
@@ -17,6 +17,10 @@
     "nodemon": "^1.17.5"
   },
   "scripts": {
-    "start": "nodemon ./index.js"
+    "start": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/c-neves/SanConnect"
   }
 }

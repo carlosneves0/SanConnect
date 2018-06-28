@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-  signUp(email: String!, password: String!): AuthResponse!
+  signUp(user:SignUpInput!): User!
   # searchEvent(query: String! ...)
 }
 
@@ -17,18 +17,22 @@ type AuthResponse {
   accessToken: String!
 }
 
-# type User {
-#   id: ID!
-#   email: String!
-#   emailVerified: Boolean!
-#   givenName: String
-#   familyName: String
-#   picture: String!
-#   gender: GENDER
-#   birthdate: String
-#   locale: String
-#   notNullArrayOfNotNullStrings: [String!]!
-# }
+input SignUpInput {
+	email: String!
+	password: String!
+	nome: String!
+	descricao: String
+	foto: String
+}
+
+type User {
+  email: String!
+  nome: String!
+  descricao: String
+  foto: String
+  likes: Int
+  dislikes: Int
+}
 #
 # enum GENDER {
 #   MALE,

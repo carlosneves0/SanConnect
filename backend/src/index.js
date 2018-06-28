@@ -2,27 +2,15 @@ const express = require('express')
 const cors = require('cors')
 const graphqlHTTP = require('express-graphql')
 const { schema, root } = require('./graphql')
-const database = require('./database')
+const pool = require('./database')
 
 const app = express()
-
-mockDb = {
-  users: {
-    'foo@bar.baz': {
-      email: 'foo@bar.baz',
-      password: '123456'
-    },
-    'a@b.c': {
-
-    }
-  }
-}
 
 app.use(cors()) // not having cors enabled will cause an access control error
 
 app.use('/graph', graphqlHTTP((request, response, graphQLParams) => {
   // The HTTP header will have an accessToken in Authorization: Bearer <token>
-  //  Parse the token, verify that it's valid with jsonwebtoken
+  // Parse the token, verify that it's valid with jsonwebtoken
   // Add viewer to GraphQL's context
   // Viewer is the user we get from
   // If no Authorization header is prensent, viewer = null
@@ -34,7 +22,7 @@ app.use('/graph', graphqlHTTP((request, response, graphQLParams) => {
   return {
     schema,
     rootValue: root,
-    context: { database, mockDb, viewer },
+    context: { pool, viewer },
     graphiql: true
   }
 }));

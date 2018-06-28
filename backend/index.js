@@ -5,54 +5,60 @@ const auth = require('./src/authentication')
 const app = express()
 var query
 
-const signUp = require('./signUp')
+// const signUp = require('./signUp')
 
-usuario = {
-	email: 'vitor@sanconnect.usp',
-	password: '123456',
-	nome: 'Vitor',
-	descricao: 'NULL',
-	foto: 'NULL',
-	likes: 0,
-	dislikes: 0
-}
+// usuario = {
+// 	email: 'vitor@sanconnect.usp',
+// 	password: '123456',
+// 	nome: 'Vitor',
+// 	descricao: 'NULL',
+// 	foto: 'NULL',
+// 	likes: 0,
+// 	dislikes: 0
+// }
 
-auth.authenticate('bruno@sanconnect.br', '123456')
+/* Autentica um determinado usuário. */
+// auth.authenticate('bruno@sanconnect.br', '123456').then(result => {
+// 	if(result === true)
+// 		console.log('Autenticado.')	
+// 	else
+// 		console.log('Usuário ou senha inválido.')
+// })
 
 /* Send a query to database. */
-query = 'select * from usuario;'
-pool.query(query, async function (err, res) {
-	if(err)
-		console.log(err)
-	else
-		console.log(res.rows)
+// query = 'select * from usuario;'
+// pool.query(query, async function (err, res) {
+// 	if(err)
+// 		console.log(err)
+// 	else
+// 		console.log(res.rows)
 
-	/* Insere um novo usuário no banco. */
-	await signUp(usuario)	
+// 	/* Insere um novo usuário no banco. */
+// 	await signUp(usuario)	
 
-	var email = 'vitor@sanconnect.usp'
+// 	var email = 'vitor@sanconnect.usp'
 
-	/* Send a query to database. */
-	query = 'select * from usuario;'
-	pool.query(query, function (err, res) {
-		if(err)
-			console.log(err)
-		else
-			console.log(res.rows)		
+// 	/* Send a query to database. */
+// 	query = 'select * from usuario;'
+// 	pool.query(query, function (err, res) {
+// 		if(err)
+// 			console.log(err)
+// 		else
+// 			console.log(res.rows)		
 
-		query = {
-			text: 'DELETE FROM usuario WHERE email = $1',
-			values: [email]
-		}
-		pool.query(query, function(err, res) {
-			if(err)
-				console.log(err)
-			else 	
-				console.log('Finish')
-			pool.end()
-		})
-	})	
-})
+// 		query = {
+// 			text: 'DELETE FROM usuario WHERE email = $1',
+// 			values: [email]
+// 		}
+// 		pool.query(query, function(err, res) {
+// 			if(err)
+// 				console.log(err)
+// 			else 	
+// 				console.log('Finish')
+// 			pool.end()
+// 		})
+// 	})	
+// })
 
 /* Hash the user password from signup. */
 app.post('/signup', function(req, res) {

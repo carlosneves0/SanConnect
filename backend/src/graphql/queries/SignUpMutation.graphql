@@ -1,0 +1,14 @@
+mutation {
+	signUp(
+		user:{
+			email:"guilherme@sanconnect.br",
+			password:"123456",
+			nome:"Guilherme",
+			descricao: null,
+			foto: null
+		}
+	){
+		email
+		likes
+	}
+}
