@@ -6,7 +6,8 @@ schema {
 type Query {
   # viewer: User!
   signIn(email: String!, password: String!): AuthResponse!
-  getTags: [String]!
+  userRecomendations: [User!]!
+  getTags: [String!]!
 }
 
 type Mutation {
