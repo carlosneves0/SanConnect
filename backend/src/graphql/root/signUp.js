@@ -20,13 +20,13 @@ async function signUp({ user }, { pool }) {
 	}
 
 	try {
-		await pool.query(query)				
-		
+		await pool.query(query)
+
 		user.likes = 0
 		user.dislikes = 0
 
 		return user
-	} catch(err) {		
+	} catch(err) {
 		throw err
 	}
 }

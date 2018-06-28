@@ -6,11 +6,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "github:BrunoxD/node.bcrypt.js",
+    "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
+    "jsonwebtoken": "^8.3.0",
     "pg": "^7.4.3"
   },
   "devDependencies": {
