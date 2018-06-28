@@ -4,17 +4,17 @@ const SignUp = () => (
   <div>
     <br></br><br></br>
     <center>
-      <div class="pt-control-group pt-vertical" style = {{width : 300}}>
-        <div class="pt-input-group pt-large">
-          <input type="text" class="pt-input" placeholder="Nome" />
+      <div className="pt-control-group pt-vertical" style = {{width : 300}}>
+        <div className="pt-input-group pt-large">
+          <input type="text" className="pt-input" placeholder="Nome" />
         </div>
-        <div class="pt-input-group pt-large">
-          <input type="text" class="pt-input" placeholder="Email" />
+        <div className="pt-input-group pt-large">
+          <input type="text" className="pt-input" placeholder="Email" />
         </div>
-        <div class="pt-input-group pt-large">
-          <input type="password" class="pt-input" placeholder="Senha" />
+        <div className="pt-input-group pt-large">
+          <input type="password" className="pt-input" placeholder="Senha" />
         </div>
-        <button class="pt-button pt-large pt-intent-success">Cadastrar</button>
+        <button className="pt-button pt-large pt-intent-success">Cadastrar</button>
       </div>
     </center>
   </div>
