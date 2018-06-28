@@ -1,0 +1,22 @@
+mutation {
+	createEvent(
+		event:{
+			criador:"bruno@sanconnect.br",
+			titulo:"Partida de Xadrez",
+			data_hora_evento:"2020-12-17T03:24:00",      
+			descricao: "Texto",
+			min_participantes: 2,
+			max_participantes: 10,			
+			local: "Rua X"
+		}
+	){
+		criador
+  		titulo
+  		data_hora_evento
+  		descricao
+  		min_participantes
+  		max_participantes
+  		data_hora_criacao
+  		local
+	}
+}
