@@ -28,6 +28,16 @@ input SignUpInput {
 	foto: String
 }
 
+# TODO List
+# getEvents (Retorna o evento, a tabela participa e as tags)
+# "" com sign in
+# UpdateEvents
+# SearchEvents
+# Participar de evento
+  # Atualizar a participação em evento (confirma ou sai do evento)
+  # Avaliar (Inserção, Update, Remove, Get)  
+# Preferência
+
 input CreateEventInput {
   criador: String! 
   titulo: String!
@@ -49,6 +59,7 @@ type Event {
   data_hora_criacao: String!
   local: String
   categorias: [String]!
+  participantes: [User!]!
 }
 
 type User {
