@@ -7,6 +7,7 @@ import Offline from '../Offline'
 import Home from '../Home'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn'
+import EventCreate from '../EventCreate/EventCreate'
 import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import NotificationContainer from '../../containers/NotificationContainer'
@@ -26,6 +27,7 @@ const App = () => (
                   render={() => <SignIn notify={notify} />}
                 />
                 <Route path='/sign-up' component={SignUp} />
+                <Route path='/create-event' component={EventCreate} />
                 <Route component={NotFound} />
               </Switch>
             )}
