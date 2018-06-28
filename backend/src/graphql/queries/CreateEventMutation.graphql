@@ -2,12 +2,13 @@ mutation {
 	createEvent(
 		event:{
 			criador:"bruno@sanconnect.br",
-			titulo:"Partida de Xadrez",
-			data_hora_evento:"2020-12-17T03:24:00",      
-			descricao: "Texto",
-			min_participantes: 2,
-			max_participantes: 10,			
-			local: "Rua X"
+			titulo:"Partida de Roleta Russa",
+			data_hora_evento:"2018-07-11T06:00:00",      
+			descricao: "Partida educativa, instrutiva de um jogo de azar.",
+			min_participantes: 6,
+			max_participantes: 6,			
+			local: "ICMC - Sala E"
+			categorias: ["Jogos", "Esportes"]
 		}
 	){
 		criador
@@ -18,5 +19,6 @@ mutation {
   		max_participantes
   		data_hora_criacao
   		local
+  		categorias
 	}
 }

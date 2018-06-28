@@ -6,7 +6,7 @@ schema {
 type Query {
   # viewer: User!
   signIn(email: String!, password: String!): AuthResponse!
-  userRecomendations: [User!]!
+  getTags: [String]!
 }
 
 type Mutation {
@@ -35,6 +35,7 @@ input CreateEventInput {
   min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
   max_participantes: Int  
   local: String
+  categorias: [String]!
 }
 
 type Event {
@@ -46,6 +47,7 @@ type Event {
   max_participantes: Int
   data_hora_criacao: String!
   local: String
+  categorias: [String]!
 }
 
 type User {

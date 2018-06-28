@@ -1,5 +1,3 @@
-# Running
- docker run -P sanconnect
 # Connecting to the docker database via terminal
 
 # First you check which port has been mapped to the postgresql port (5432):
