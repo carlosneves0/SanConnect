@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 /* Gera a hash correspondente a senha do usuário. */
 function hash(password, pool) {
