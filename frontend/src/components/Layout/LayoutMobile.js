@@ -69,6 +69,7 @@ class LayoutMobile extends React.Component {
         )}
         open={this.state.sidebarOpen}
         onSetOpen={this.onSetSidebarOpen}
+        styles={{ content: { overflowY: 'auto' } }}
       >
         <nav className='Layout-nav'>
           <Link to='/' className='Layout-brand'>SanConnect</Link>
@@ -78,7 +79,7 @@ class LayoutMobile extends React.Component {
             onClick={this.toggleSidebar}
           />
         </nav>
-        <div id='Layout-mobile'>
+        <div>
           {children}
         </div>
       </Sidebar>

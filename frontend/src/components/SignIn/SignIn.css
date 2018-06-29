@@ -1,16 +1,24 @@
 .SignIn {
-  padding-top: 52px;
-  margin:0 20vw;
-  margin-top:3vh;
+  height: fill-available;
+  width: fill-available;
+  padding: 0 6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.SignIn h2 {
   text-align: center;
+  margin-bottom: 4vh;
 }
 
-.SignIn-input {
-	width: 100%;
+.SignIn-error {
+  color: red;
+  font-size: 80%;
 }
 
-.SignIn-button {
-	width: 100px;
-	margin: auto;
-
+@media only screen and (min-device-width: 880px) {
+  .SignIn {
+    padding: 0 30vw;
+  }
 }

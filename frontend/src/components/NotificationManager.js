@@ -11,7 +11,7 @@ const NOTIFICATION_CONTAINER_STYLE = {
     zIndex: 1000,
     width: '80vw',
     maxWidth: '400px',
-    margin: 'auto',
+    margin: 'auto'
 }
 
 const Notification = ({ id, type, message, header, onClickClose }) => {

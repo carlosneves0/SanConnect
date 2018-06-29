@@ -30,15 +30,3 @@
   margin: 0 auto;
   margin-top: 1vh;
 }
-
-@media only screen and (min-device-width: 880px) {
-  /* .Home {
-    background-image: url('./background.png');
-    height: 100vh;
-    color: #fff;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  } */
-}

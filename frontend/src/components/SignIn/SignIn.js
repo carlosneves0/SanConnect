@@ -1,49 +1,127 @@
 import React, { Component } from 'react'
-import { Form } from 'semantic-ui-react'
+import MediaQuery from 'react-responsive'
+import { Form, Input, Button } from 'semantic-ui-react'
+import { withAuth } from '../../containers/AuthContainer'
 import './SignIn.css'
 
 class SignIn extends Component {
-  state = { email: '', pw: '', submittedEmail: '', submittedPw: '' }
-
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
-
-  handleSubmit = () => {
-    const { email, pw } = this.state
-
-    this.setState({ submittedEmail: email, submittedPw: pw })
+  state = {
+    email: '',
+    emailError: null,
+    password: '',
+    passwordError: null
   }
 
-  handleClick() {
+  componentWillMount() {
+    const { auth, history } = this.props
+    if (auth.isSignedIn()) {
+      history.push('/explore')
+    }
+  }
 
+  handleChange = (event, { name, value }) => {
+    this.setState({ [name]: value })
+
+    if (value === '') {
+      const displayName = name === 'email' ? 'email' : 'senha'
+      this.setState({
+        [`${name}Error`]: `O campo ${displayName} não pode estar vazio`
+      })
+    } else {
+      this.setState({ [`${name}Error`]: null })
+    }
+  }
+
+  handleSubmit = () => {
+    const { email, password } = this.state
+
+    let valid = true
+    if (email === '') {
+      this.setState({
+        emailError: `O campo email não pode estar vazio`
+      })
+      valid = false
+    }
+
+    if (password === '') {
+      this.setState({
+        passwordError: `O campo senha não pode estar vazio`
+      })
+      valid = false
+    }
+
+    // Valid data.
+    if (valid) {
+      const { auth, notify } = this.props
+      auth.signIn(email, password)
+      notify.info({ message: 'Attempting to sign in...', duration: null })
+    }
   }
 
   render() {
-    const { email, pw, submittedEmail, submittedPw } = this.state
+    const { auth } = this.props
+    const { email, emailError, password, passwordError } = this.state
+
+    const isLoading = auth.isLoading()
+
     return (
-      <div className='SignIn'>
-        <center>
-          <Form onSubmit={this.handleSubmit}>
-            <h1>Login</h1>
-            <br></br>
-            
-              <Form.Field className='SignIn-input'>
+      <MediaQuery minDeviceWidth={880}>
+        {matches => (
+          <div className='SignIn'>
+            <h2>Acessar Conta</h2>
+            <Form
+              className='SignIn-Form'
+              onSubmit={this.handleSubmit}
+              size={matches ? 'small' : 'big'}
+            >
+              <Form.Field>
                 <label>Email</label>
-                <Form.Input placeholder='Email' name='email' value={email} onChange={this.handleChange} />
+                <Input
+                  placeholder='Email'
+                  name='email'
+                  value={email}
+                  onChange={this.handleChange}
+                  loading={isLoading}
+                  disabled={isLoading}
+                  error={emailError !== null}
+                  ref={input => {
+                    if (input)
+                      input.focus()
+                  }}
+                />
+                {emailError !== null && (
+                  <span className='SignIn-error'>{emailError}</span>
+                )}
               </Form.Field>
-            
-              <Form.Field className='SignIn-input'>
+              <Form.Field>
                 <label>Senha</label>
-                <Form.Input placeholder='Senha' name='pw' value={pw} onChange={this.handleChange} />
+                <Input
+                  placeholder='Senha'
+                  name='password'
+                  value={password}
+                  onChange={this.handleChange}
+                  loading={isLoading}
+                  disabled={isLoading}
+                  error={passwordError !== null}
+                />
+                {passwordError !== null && (
+                  <span className='SignIn-error'>{passwordError}</span>
+                )}
               </Form.Field>
-            
-              <br></br>
-              <Form.Button className='SignIn-button' primary content='Submit' onClick={this.handleClick} />
-            
-          </Form>
-        </center>
-      </div>
+              <Button
+                primary fluid type='submit'
+                size={matches ? 'small' : 'big'}
+                loading={isLoading}
+                disabled={isLoading}
+              >
+                Acessar
+              </Button>
+            </Form>
+          </div>
+        )}
+      </MediaQuery>
     )
   }
 }
 
-export default SignIn
+export default withAuth(SignIn)

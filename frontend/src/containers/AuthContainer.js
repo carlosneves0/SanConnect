@@ -1,5 +1,6 @@
 // @flow
-import { Container } from 'unstated'
+import React from 'react'
+import { Container, Subscribe } from 'unstated'
 import { Base64 } from 'js-base64'
 
 type AuthState = {
@@ -29,6 +30,11 @@ class AuthContainer extends Container<AuthState> {
     }
   }
 
+  isLoading() {
+    const { auth } = this.state
+    return auth !== null && auth.data === null && auth.error === null
+  }
+
   isSignedIn() {
     const { auth } = this.state
     return auth !== null && typeof auth.data === 'string'
@@ -42,17 +48,17 @@ class AuthContainer extends Container<AuthState> {
       }
     })
 
-    setTimeout(() => {
-      const auth = {
-        data: 'accessToken',
-        error: null
-      }
-      window.localStorage.setItem(
-        KEY_AUTH,
-        Base64.encode(JSON.stringify(auth))
-      )
-      this.setState({ auth })
-    }, 1200)
+    // setTimeout(() => {
+    //   const auth = {
+    //     data: 'accessToken',
+    //     error: null
+    //   }
+    //   window.localStorage.setItem(
+    //     KEY_AUTH,
+    //     Base64.encode(JSON.stringify(auth))
+    //   )
+    //   this.setState({ auth })
+    // }, 1200)
   }
 
   signOut = () => {
@@ -62,3 +68,13 @@ class AuthContainer extends Container<AuthState> {
 }
 
 export default AuthContainer
+
+const withAuth = Component => (
+  props => (
+    <Subscribe to={[AuthContainer]}>
+      {auth => <Component {...props} auth={auth} />}
+    </Subscribe>
+  )
+)
+
+export { withAuth }

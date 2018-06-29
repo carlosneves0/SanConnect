@@ -19,7 +19,7 @@ const LayoutDesktop = ({ isSignedIn, children }) => (
         </span>
       )}
     </nav>
-    <div id='Layout-desktop'>
+    <div>
       {children}
     </div>
   </div>
