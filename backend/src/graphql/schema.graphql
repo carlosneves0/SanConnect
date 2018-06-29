@@ -9,6 +9,7 @@ type Query {
   userRecomendations: [User!]!
   getTags: [String!]!
   getAllEvents(event:GetAllEventsInput): [Event!]
+  getEvent(event:GetEventInput!): Event!
 }
 
 type Mutation {
@@ -62,6 +63,12 @@ input GetAllEventsInput {
   data_hora_criacao: String
   local: String
   categorias: [String]  
+}
+
+input GetEventInput {
+  criador: String!
+  titulo: String!
+  data_hora_evento: String!  
 }
 
 type Event {

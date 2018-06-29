@@ -1,5 +1,7 @@
 # SanConnect
 
+Software Engineering Project 2018 that aims to offer a micro events dissemination platform in order to integrate people with common interests and helps to make new friendships, originally designed for the city of São Carlos.
+
 ## Deploying to production
 
 Install [docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/).

@@ -6,7 +6,7 @@ async function getAllEvents(event, { pool }) {
 	
 	try {
 		res = await pool.query(query)		
-		for(i = 0; i < res.rows.length; i++) {			
+		for(i = 0; i < res.rowCount; i++) {			
 			event = {}		
 			event.criador = res.rows[i].criador			
 			event.titulo = res.rows[i].titulo
