@@ -1,7 +1,7 @@
 .SignUp {
   padding-top: 52px;
-  margin:0 20vw;
-  margin-top:3vh;
+  margin: 0 20vw;
+  margin-top: 3vh;
   text-align: center;
 }
 
@@ -12,5 +12,4 @@
 .SignUp-button {
   width: 100px;
   margin: auto;
-
 }

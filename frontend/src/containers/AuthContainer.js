@@ -2,6 +2,7 @@
 import React from 'react'
 import { Container, Subscribe } from 'unstated'
 import { Base64 } from 'js-base64'
+import SignInQuery from '../graphql/SignInQuery'
 
 type AuthState = {
   auth: ?{
@@ -22,6 +23,7 @@ class AuthContainer extends Container<AuthState> {
         auth = JSON.parse(Base64.decode(auth))
       } catch (error) {
         window.localStorage.removeItem(KEY_AUTH)
+        auth = null
       }
     }
 
@@ -30,17 +32,31 @@ class AuthContainer extends Container<AuthState> {
     }
   }
 
-  isLoading() {
+  isLoading = () => {
     const { auth } = this.state
     return auth !== null && auth.data === null && auth.error === null
   }
 
-  isSignedIn() {
+  isSignedIn = () => {
     const { auth } = this.state
     return auth !== null && typeof auth.data === 'string'
   }
 
-  signIn = (email: string, password: string) => {
+  getError = () => {
+    const { auth } = this.state
+    return auth && auth.error
+  }
+
+  clearError = () => {
+    const { auth } = this.state
+    if (auth !== null && auth.error !== null) {
+      this.setState({
+        auth: null
+      })
+    }
+  }
+
+  signIn = async (email: string, password: string) => {
     this.setState({
       auth: {
         data: null,
@@ -48,17 +64,28 @@ class AuthContainer extends Container<AuthState> {
       }
     })
 
-    // setTimeout(() => {
-    //   const auth = {
-    //     data: 'accessToken',
-    //     error: null
-    //   }
-    //   window.localStorage.setItem(
-    //     KEY_AUTH,
-    //     Base64.encode(JSON.stringify(auth))
-    //   )
-    //   this.setState({ auth })
-    // }, 1200)
+    try {
+      const accessToken = await SignInQuery(email, password)
+
+      const auth = {
+        data: accessToken,
+        error: null
+      }
+
+      window.localStorage.setItem(
+        KEY_AUTH,
+        Base64.encode(JSON.stringify(auth))
+      )
+
+      this.setState({ auth })
+    } catch(error) {
+      this.setState({
+        auth: {
+          data: null,
+          error: error.message
+        }
+      })
+    }
   }
 
   signOut = () => {
@@ -78,3 +105,17 @@ const withAuth = Component => (
 )
 
 export { withAuth }
+
+function getAccessToken() {
+  let auth = window.localStorage.getItem(KEY_AUTH)
+  if (auth !== null) {
+    try {
+      const { data } = JSON.parse(Base64.decode(auth))
+      return data || ''
+    } catch (error) {
+    }
+  }
+  return ''
+}
+
+export { getAccessToken }

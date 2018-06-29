@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { Form, Input, Button } from 'semantic-ui-react'
 import { withAuth } from '../../containers/AuthContainer'
@@ -12,10 +13,17 @@ class SignIn extends Component {
     passwordError: null
   }
 
-  componentWillMount() {
-    const { auth, history } = this.props
+  componentDidUpdate() {
+    const { auth, history, notify } = this.props
+
     if (auth.isSignedIn()) {
       history.push('/explore')
+    }
+
+    const authError = auth.getError()
+    if (authError) {
+      auth.clearError()
+      notify.danger({ message: authError })
     }
   }
 
@@ -52,9 +60,7 @@ class SignIn extends Component {
 
     // Valid data.
     if (valid) {
-      const { auth, notify } = this.props
-      auth.signIn(email, password)
-      notify.info({ message: 'Attempting to sign in...', duration: null })
+      this.props.auth.signIn(email, password)
     }
   }
 
@@ -84,10 +90,6 @@ class SignIn extends Component {
                   loading={isLoading}
                   disabled={isLoading}
                   error={emailError !== null}
-                  ref={input => {
-                    if (input)
-                      input.focus()
-                  }}
                 />
                 {emailError !== null && (
                   <span className='SignIn-error'>{emailError}</span>
@@ -98,6 +100,7 @@ class SignIn extends Component {
                 <Input
                   placeholder='Senha'
                   name='password'
+                  type='password'
                   value={password}
                   onChange={this.handleChange}
                   loading={isLoading}
@@ -124,4 +127,4 @@ class SignIn extends Component {
   }
 }
 
-export default withAuth(SignIn)
+export default withRouter(withAuth(SignIn))

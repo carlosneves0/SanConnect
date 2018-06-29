@@ -14,7 +14,7 @@ class SignUp extends Component {
   }
 
   render() {
-    const { name, email, pw, submittedName, submittedEmail, submittedPw } = this.state
+    const { name, email, pw } = this.state
 
     return (
       <div className='SignUp'>
@@ -23,31 +23,31 @@ class SignUp extends Component {
           <Form onSubmit={this.handleSubmit}>
             <h1>Cadastro</h1>
             <br></br>
-            
+
               <Form.Field className='SignUp-input'>
                 <label>Nome</label>
                 <Form.Input placeholder='Nome' name='name' value={name} onChange={this.handleChange} />
               </Form.Field>
-            
 
-            
+
+
               <Form.Field className='SignUp-input'>
                 <label>Email</label>
                 <Form.Input placeholder='Email' name='email' value={email} onChange={this.handleChange} />
               </Form.Field>
-            
 
-            
+
+
               <Form.Field className='SignUp-input'>
                 <label>Senha</label>
                 <Form.Input placeholder='Senha' name='pw' value={pw} onChange={this.handleChange} />
               </Form.Field>
 
               <br></br>
-              
+
               <Form.Button className='SignUp-button' primary content='Cadastrar' />
-            
-              
+
+
 
           </Form>
         </center>

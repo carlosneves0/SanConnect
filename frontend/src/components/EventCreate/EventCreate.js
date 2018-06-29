@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Checkbox, Form, TextArea, Dropdown } from 'semantic-ui-react'
+import { Button, Form, TextArea, Dropdown } from 'semantic-ui-react'
 import './EventCreate.css'
 
 const options = [
@@ -31,7 +31,7 @@ class EventCreate extends React.Component {
 					<Form>
 						<h1>Criar Evento</h1>
 						<Form.Field inline>
-							<label style = {{width : 200}}>Título do Evento: </label> 
+							<label style = {{width : 200}}>Título do Evento: </label>
 							<input placeholder='Nome' style = {{width : 400}} />
 						</Form.Field>
 						<Form.Field inline>
@@ -58,7 +58,7 @@ class EventCreate extends React.Component {
 							<input placeholder='Local' style = {{width : 400}}/>
 						</Form.Field>
 						<Form.Field inline>
-							<label style = {{width : 200}}>Tags do Evento: </label> 
+							<label style = {{width : 200}}>Tags do Evento: </label>
 							<div class="ui inline dropdown">
 								<Dropdown inline placeholder='Tags' fluid multiple selection options={options} style = {{width : 400}}  />
 							</div>
