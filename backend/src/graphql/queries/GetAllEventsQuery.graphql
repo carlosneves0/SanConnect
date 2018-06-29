@@ -1,0 +1,10 @@
+query {
+	getAllEvents(
+		event:{}
+  ){
+  	criador
+    titulo
+    data_hora_evento
+    categorias
+  }
+}

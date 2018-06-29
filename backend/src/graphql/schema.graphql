@@ -8,6 +8,7 @@ type Query {
   signIn(email: String!, password: String!): AuthResponse!
   userRecomendations: [User!]!
   getTags: [String!]!
+  getAllEvents(event:GetAllEventsInput): [Event!]
 }
 
 type Mutation {
@@ -47,6 +48,20 @@ input CreateEventInput {
   max_participantes: Int  
   local: String
   categorias: [String]!
+}
+
+# Pode ser usada para buscar todos os eventos, caso nenhum parâmetro receba valor.
+# Pode ser utilizada para buscar um único evento, caso todas as chaves sejam preenchidas.
+# Pode ser utilziada para filtrar uma busca por eventos, com filtros como por exemplo, categorias.
+input GetAllEventsInput {
+  criador: String
+  titulo: String
+  data_hora_evento: String
+  min_participantes: Int
+  max_participantes: Int
+  data_hora_criacao: String
+  local: String
+  categorias: [String]  
 }
 
 type Event {
