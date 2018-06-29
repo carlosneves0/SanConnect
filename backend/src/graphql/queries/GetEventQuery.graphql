@@ -1,0 +1,19 @@
+query {
+	getEvent(
+		event:{
+      criador: "bruno@sanconnect.br"
+      titulo: "Partida Xadrez"
+      data_hora_evento: "2018-07-11 06:00:00 +0000"
+    }
+  ){
+  	criador
+    titulo
+    data_hora_evento
+    descricao
+    min_participantes # Retirar caso não seja autenticado
+    max_participantes # Retirar caso não seja autenticado
+    data_hora_criacao
+    local # Retirar caso não seja autenticado
+    categorias
+  }
+}

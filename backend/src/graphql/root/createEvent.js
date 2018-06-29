@@ -1,10 +1,16 @@
 /* Função que cria um evento. */
-async function createEvent({ event }, { pool }) {
+async function createEvent({ event }, { pool, viewer }) {
 	let {criador, titulo, data_hora_evento, descricao, min_participantes, max_participantes, data_hora_criacao, local, categorias} = event
 	/*
 		TODO
 		Realizar verificações 
 	*/
+	
+	/* Exige que um usuário esteja autenticado para criar um evento. */
+	if(viewer === null) {		
+		throw new Error('Usuário não autenticado.') 
+	}
+
 	if(min_participantes === null)
 		min_participantes = 2
 
@@ -12,7 +18,7 @@ async function createEvent({ event }, { pool }) {
 	data_hora_criacao = new Date()	
 	
 	/* Caso passe em todas as verificações, tenta gravar no banco. */
-	var query = []
+	let query = []
 	query[0] = {
 		text: 'INSERT INTO EVENTO VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
 		values: [criador, titulo, data_hora_evento, descricao, min_participantes, max_participantes, data_hora_criacao, local]
@@ -30,6 +36,7 @@ async function createEvent({ event }, { pool }) {
 			values: [categorias[i], criador, titulo, data_hora_evento]
 		}
 	}
+
 	try {		
 		/* Inicia uma transação. */
 		await pool.query('BEGIN')
