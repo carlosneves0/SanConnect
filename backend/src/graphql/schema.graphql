@@ -10,7 +10,8 @@ type Query {
   getTags: [String!]!
   getAllEvents(event:GetAllEventsInput): [Event!]
   getEvent(event:GetEventInput!): Event!
-  searchEvents(event: GetAllEventsInput!): [Event!]
+  searchEvents(event:GetAllEventsInput!): [Event!]
+  getUser(user:GetUser!): User!
 }
 
 type Mutation {
@@ -83,6 +84,10 @@ type Event {
   local: String
   categorias: [String]!
   participantes: [User!]!
+}
+
+input GetUser {
+  email: String!
 }
 
 type User {

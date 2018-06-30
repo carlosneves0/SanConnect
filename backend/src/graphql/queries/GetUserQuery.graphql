@@ -1,0 +1,14 @@
+query {
+	getUser(
+    user:{
+			email:"milan@sanconnect.br"			
+    }
+  ){
+    email
+    nome
+    descricao
+    foto
+    likes
+    dislikes
+  }			
+}
