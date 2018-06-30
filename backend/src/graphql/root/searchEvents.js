@@ -5,7 +5,7 @@ async function serachEvents({ event }, { pool, viewer }) {
 	let values = []	
 	let index = 1
 
-	for(key in event) {
+	for(let key in event) {
 		if(event[key] !== null && key !== 'categorias')  {
 			if(index !== 1)	
 				params.push(' AND ')
@@ -23,7 +23,7 @@ async function serachEvents({ event }, { pool, viewer }) {
 
 	let counter = 0
 	if(event.categorias !== null) {
-		for(key in event.categorias) {
+		for(let key in event.categorias) {
 			if(counter > 0)
 				params2.push(' AND ')
 			else
@@ -33,12 +33,12 @@ async function serachEvents({ event }, { pool, viewer }) {
 		}
 	}
 
-	var query = "SELECT EVENTO.*, STRING_AGG(CATEGORIA,  ', ') AS CATEGORIAS FROM EVENTO JOIN EVENTO_CATEGORIA ON CRIADOR_EVENTO = CRIADOR AND TITULO_EVENTO = TITULO AND EVENTO.DATA_HORA_EVENTO = EVENTO_CATEGORIA.DATA_HORA_EVENTO" + params.join('') + " GROUP BY(CRIADOR, TITULO, EVENTO.DATA_HORA_EVENTO)" + params2.join('')
+	let query = "SELECT EVENTO.*, STRING_AGG(CATEGORIA,  ', ') AS CATEGORIAS FROM EVENTO JOIN EVENTO_CATEGORIA ON CRIADOR_EVENTO = CRIADOR AND TITULO_EVENTO = TITULO AND EVENTO.DATA_HORA_EVENTO = EVENTO_CATEGORIA.DATA_HORA_EVENTO" + params.join('') + " GROUP BY(CRIADOR, TITULO, EVENTO.DATA_HORA_EVENTO)" + params2.join('')
 
 	let events = []	
 	try {
-		res = await pool.query(query, values)		
-		for(i = 0; i < res.rowCount; i++) {			
+		let res = await pool.query(query, values)		
+		for(let i = 0; i < res.rowCount; i++) {			
 			event = {}		
 			event.criador = res.rows[i].criador			
 			event.titulo = res.rows[i].titulo

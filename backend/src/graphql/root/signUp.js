@@ -14,7 +14,7 @@ async function signUp({ user }, { pool }) {
 	}
 
 	/* Caso passe em todas as verificações, tenta gravar no banco. */
-	query = {
+	let query = {
 		text: 'INSERT INTO USUARIO VALUES($1, $2, $3, $4, $5, $6, $7)',
 		values: [email, password, nome, descricao, foto, 0, 0 ]
 	}

@@ -1,13 +1,13 @@
 /* Função que retorna um único evento cadastrado no banco. */
 async function getEvent({ event }, { pool, viewer }) {
-	query = {
+	let query = {
 		text: "SELECT EVENTO.*, STRING_AGG(CATEGORIA,  ', ') AS CATEGORIAS FROM EVENTO JOIN EVENTO_CATEGORIA ON CRIADOR_EVENTO = CRIADOR AND TITULO_EVENTO = TITULO AND EVENTO.DATA_HORA_EVENTO = EVENTO_CATEGORIA.DATA_HORA_EVENTO WHERE CRIADOR = $1 AND TITULO = $2 AND EVENTO.DATA_HORA_EVENTO = $3 GROUP BY(CRIADOR, TITULO, EVENTO.DATA_HORA_EVENTO)",
 		values: [event.criador, event.titulo, event.data_hora_evento]
 	}
 
 	try {
-		res = await pool.query(query)
-
+		let res = await pool.query(query)
+		let i
 		if((i = res.rowCount-1) === 0) {
 			event = {}		
 			event.criador = res.rows[i].criador			
