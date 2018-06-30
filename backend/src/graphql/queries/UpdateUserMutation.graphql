@@ -1,0 +1,8 @@
+mutation {
+	updateUser(
+    user:{
+			email: "bruno@sanconnect.br",
+      nome: "Bruno"
+    }
+  )		
+}

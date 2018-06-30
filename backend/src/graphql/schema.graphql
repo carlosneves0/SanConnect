@@ -17,10 +17,18 @@ type Query {
 type Mutation {
   signUp(user:SignUpInput!): User!
   createEvent(event:CreateEventInput!): Event!
+  updateUser(user:UpdateUserInput!): String!
 }
 
 type AuthResponse {
   accessToken: String!
+}
+
+input UpdateUserInput {
+  email: String!
+  nome: String!
+  descricao: String
+  foto: String
 }
 
 input SignUpInput {
