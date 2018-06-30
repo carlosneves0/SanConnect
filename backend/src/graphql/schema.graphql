@@ -10,12 +10,12 @@ type Query {
   getTags: [String!]!
   getAllEvents(event:GetAllEventsInput): [Event!]
   getEvent(event:GetEventInput!): Event!
+  searchEvents(event: GetAllEventsInput!): [Event!]
 }
 
 type Mutation {
   signUp(user:SignUpInput!): User!
   createEvent(event:CreateEventInput!): Event!
-  # searchEvent(query: String! ...)
 }
 
 type AuthResponse {
@@ -58,6 +58,7 @@ input GetAllEventsInput {
   criador: String
   titulo: String
   data_hora_evento: String
+  descricao: String
   min_participantes: Int
   max_participantes: Int
   data_hora_criacao: String

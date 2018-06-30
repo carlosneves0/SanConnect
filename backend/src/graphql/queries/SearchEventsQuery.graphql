@@ -1,5 +1,6 @@
-mutation {
-	createEvent(
+# Consegue filtrar por quais quer um destes atributos, coloque nulo em algum e veja o resultado.
+query {
+	searchEvents(
 		event:{
 			criador:"bruno@sanconnect.br",
 			titulo:"Partida de Roleta Russa",
@@ -13,12 +14,7 @@ mutation {
 	){
 		criador
   		titulo
-  		data_hora_evento
-  		descricao
-  		min_participantes
-  		max_participantes
-  		data_hora_criacao
-  		local
+  		data_hora_evento  		
   		categorias
 	}
 }
