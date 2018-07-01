@@ -10,7 +10,15 @@
 
 .Avatar-loading {
     border: 1px solid darkred;
-    animation: spin 1.6s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+.Avatar-loading:hover {
+  cursor: progress;
+}
+
+.Avatar-loaded {
+  cursor: pointer;
 }
 
 @keyframes spin {

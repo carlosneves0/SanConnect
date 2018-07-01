@@ -1,9 +1,10 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import defaultPicture from './default-picture.jpg'
 import errorPicture from './error-picture.jpg'
 import './Avatar.css'
 
-const Avatar = ({ viewer }) => {
+const Avatar = ({ viewer, history }) => {
   console.log(viewer)
   if (
     viewer === null || (
@@ -28,12 +29,13 @@ const Avatar = ({ viewer }) => {
   } else if (viewer.data !== null) {
     return (
       <img
-        className='Avatar'
+        className='Avatar Avatar-loaded'
         src={viewer.data.picture || defaultPicture}
         alt='Foto do Perfil do Usuário'
+        onClick={() => history.push('/my-profile')}
       />
     )
   }
 }
 
-export default Avatar
+export default withRouter(Avatar)

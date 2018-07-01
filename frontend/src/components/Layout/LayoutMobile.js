@@ -11,30 +11,47 @@ const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
         to='/' className='Layout-brand'>SanConnect</Link>
     </nav>
     {isSignedIn ? (
-      <p>signed in</p>
+      <div>
+        <Link to='/create-event' onClick={toggleSidebar}>
+          <Button color='olive' size='huge' className='LayoutMobile-Button'>
+            Criar um Evento
+          </Button>
+        </Link>
+        <Link to='/' onClick={toggleSidebar}>
+          <Button primary size='huge' className='LayoutMobile-Button'>
+            Feed de Eventos
+          </Button>
+        </Link>
+        <Link to='/my-events' onClick={toggleSidebar}>
+          <Button primary size='huge' className='LayoutMobile-Button'>
+            Meus Eventos
+          </Button>
+        </Link>
+        <Link to='/my-profile' onClick={toggleSidebar}>
+          <Button primary size='huge' className='LayoutMobile-Button'>
+            Meu Perfil
+          </Button>
+        </Link>
+        <Link to='/sign-out' onClick={toggleSidebar}>
+          <Button secondary size='huge' className='LayoutMobile-Button'>
+            Sair
+          </Button>
+        </Link>
+      </div>
     ) : (
       <div>
         <Link to='/sign-up' onClick={toggleSidebar}>
-          <Button
-            primary size='huge'
-            style={{ width: '-webkit-fill-available', marginTop: '2vh' }}
-          >
+          <Button primary size='huge' className='LayoutMobile-Button'>
             Criar uma Conta
           </Button>
         </Link>
         <Link to='/explore' onClick={toggleSidebar}>
-          <Button
-            color='olive' size='huge'
-            style={{ width: '-webkit-fill-available', marginTop: '2vh' }}
-          >
+          <Button color='olive' size='huge' className='LayoutMobile-Button'>
             Explorar Eventos
           </Button>
         </Link>
         <Link to='/sign-in' onClick={toggleSidebar}>
-          <Button
-            secondary size='huge'
-            style={{ width: '-webkit-fill-available', marginTop: '2vh' }}
-          >
+          <Button secondary size='huge' className='LayoutMobile-Button'>
             Acessar minha Conta
           </Button>
         </Link>

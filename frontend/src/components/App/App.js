@@ -6,6 +6,7 @@ import Offline from '../Offline'
 import Home from '../Home'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn'
+import SignOut from '../SignOut'
 import EventFeed from '../EventFeed'
 import MyProfile from '../MyProfile'
 import MyEvents from '../MyEvents'
@@ -45,6 +46,10 @@ class App extends React.Component {
                   <Redirect from='/sign-up' to='/' />
                   <Redirect from='/explore' to='/' />
                   <Route path='/' exact component={EventFeed} />
+                  <Route
+                    path='/sign-out'
+                    render={() => <SignOut auth={auth} />}
+                  />
                   <Route path='/my-profile' component={MyProfile} />
                   <Route path='/my-events' component={MyEvents} />
                   <Route path='/create-event' component={EventCreate} />
@@ -52,6 +57,7 @@ class App extends React.Component {
                 </Switch>
               ) : (
                 <Switch>
+                  <Redirect from='/sign-out' to='/' />
                   <Route path='/' exact component={Home} />
                   <Route
                     path='/sign-in'

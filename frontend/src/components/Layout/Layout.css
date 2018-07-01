@@ -48,6 +48,12 @@
   padding-top: 52px;
 }
 
+.ui.button.LayoutMobile-Button {
+  width: stretch;
+  margin: 0;
+  margin-top: 2vh;
+}
+
 @media only screen and (min-device-width: 880px) {
   .Layout-nav {
     padding: 0 10vw;
@@ -63,6 +69,6 @@
   }
 
   .Layout-nav * {
-    margin-right: 1vw;
+    margin-right: .4vw;
   }
 }
