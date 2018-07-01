@@ -11,6 +11,7 @@ import EventFeed from '../EventFeed'
 import MyProfile from '../MyProfile'
 import MyEvents from '../MyEvents'
 import EventCreate from '../EventCreate'
+import EventView from '../EventView'
 import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import { withAuth } from '../../containers/AuthContainer'
@@ -59,6 +60,7 @@ class App extends React.Component {
                 <Switch>
                   <Redirect from='/sign-out' to='/' />
                   <Route path='/' exact component={Home} />
+                  <Route path='/view-event' component={EventView} />
                   <Route
                     path='/sign-in'
                     render={() => <SignIn auth={auth} viewer={viewer} />}
