@@ -15,30 +15,21 @@ const LayoutDesktop = ({ isSignedIn, viewer, children }) => (
           <Link to='/'>
             <Button primary size='mini'>Feed de Eventos</Button>
           </Link>
-          {/* <Link to='/'>
-            Feed de Eventos
-          </Link> */}
           <Link to='/my-events'>
             <Button primary size='mini'>Meus Eventos</Button>
           </Link>
-          {/* <Link to='/my-events'>
-            Meus Eventos
-          </Link> */}
           <Link to='/sign-out'>
             <Button secondary size='mini'>Sair</Button>
           </Link>
-          {/* <Link to='/my-events'>
-            Sair
-          </Link> */}
           <Avatar viewer={viewer.viewer} />
         </span>
       ) : (
         <span>
-          <Link to='/sign-in'>
-            <Button secondary size='tiny'>Acessar minha Conta</Button>
-          </Link>
           <Link to='/sign-up'>
             <Button primary size='tiny'>Cadastrar-se</Button>
+          </Link>
+          <Link to='/sign-in'>
+            <Button secondary size='tiny'>Acessar minha Conta</Button>
           </Link>
         </span>
       )}

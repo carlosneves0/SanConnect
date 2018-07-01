@@ -89,9 +89,10 @@ class AuthContainer extends Container<AuthState> {
     }
   }
 
-  signOut = () => {
+  signOut = viewer => {
     window.localStorage.removeItem(KEY_AUTH)
     this.setState({ auth: null })
+    viewer.clear()
   }
 }
 

@@ -2,7 +2,8 @@ import React from 'react'
 
 class SignOut extends React.Component {
   componentDidMount() {
-    this.props.auth.signOut()
+    const { auth, viewer } = this.props
+    auth.signOut(viewer)
   }
 
   render() {

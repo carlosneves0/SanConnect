@@ -15,7 +15,7 @@ const SignInSchema = yup.object().shape({
     .max(60, 'Tamanho máximo de 60 catacteres')
 })
 
-const SignIn = ({ isDesktop, auth }) => (
+const SignIn = ({ isDesktop, auth, viewer }) => (
   <div className='SignIn'>
     <h2>Acessar Conta</h2>
     <Formik
@@ -27,6 +27,7 @@ const SignIn = ({ isDesktop, auth }) => (
       onSubmit={async ({ email, password }, { setSubmitting }) => {
         try {
           await auth.signIn(email, password)
+          viewer.poll()
         } catch (error) {
           setSubmitting(false)
         }
@@ -60,7 +61,7 @@ const SignIn = ({ isDesktop, auth }) => (
 
           <div className='App-form-field'>
             <Button type='submit' primary fluid size={`${isDesktop ? 'small' : 'big'}`}>
-              Criar conta
+              Acessar
             </Button>
           </div>
         </Form>

@@ -41,6 +41,10 @@ class ViewerContainer extends Container<ViewerState> {
     })
   }
 
+  clear = () => {
+    this.setState({ viewer: null })
+  }
+
   fetch = async () => {
     this.setState({
       viewer: {

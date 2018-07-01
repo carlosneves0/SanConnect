@@ -5,7 +5,6 @@ import errorPicture from './error-picture.jpg'
 import './Avatar.css'
 
 const Avatar = ({ viewer, history }) => {
-  console.log(viewer)
   if (
     viewer === null || (
       viewer.data === null && viewer.error === null

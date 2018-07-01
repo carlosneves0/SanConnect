@@ -57,7 +57,7 @@
 @media only screen and (min-device-width: 880px) {
   .Layout-nav {
     padding: 0 10vw;
-    text-align: right
+    text-align: right;
   }
 
   .Layout-nav .Layout-brand {
@@ -70,5 +70,17 @@
 
   .Layout-nav * {
     margin-right: .4vw;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .Layout-nav {
+    padding: 0 4vw;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .Layout-nav {
+    padding: 0 0.5vw;
   }
 }

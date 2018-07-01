@@ -48,7 +48,7 @@ class App extends React.Component {
                   <Route path='/' exact component={EventFeed} />
                   <Route
                     path='/sign-out'
-                    render={() => <SignOut auth={auth} />}
+                    render={() => <SignOut auth={auth} viewer={viewer} />}
                   />
                   <Route path='/my-profile' component={MyProfile} />
                   <Route path='/my-events' component={MyEvents} />
@@ -61,7 +61,7 @@ class App extends React.Component {
                   <Route path='/' exact component={Home} />
                   <Route
                     path='/sign-in'
-                    render={() => <SignIn auth={auth} />}
+                    render={() => <SignIn auth={auth} viewer={viewer} />}
                   />
                   <Route
                     path='/sign-up'
