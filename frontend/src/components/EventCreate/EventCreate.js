@@ -59,7 +59,7 @@ class EventCreate extends React.Component {
 						</Form.Field>
 						<Form.Field inline>
 							<label style = {{width : 200}}>Tags do Evento: </label>
-							<div class="ui inline dropdown">
+							<div className="ui inline dropdown">
 								<Dropdown inline placeholder='Tags' fluid multiple selection options={options} style = {{width : 400}}  />
 							</div>
 						</Form.Field>

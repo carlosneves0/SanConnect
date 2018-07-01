@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
 import MediaQuery from 'react-responsive'
 import { Form, Input, Button } from 'semantic-ui-react'
-import { withAuth } from '../../containers/AuthContainer'
 import './SignIn.css'
 
 class SignIn extends Component {
@@ -11,20 +9,6 @@ class SignIn extends Component {
     emailError: null,
     password: '',
     passwordError: null
-  }
-
-  componentDidUpdate() {
-    const { auth, history, notify } = this.props
-
-    if (auth.isSignedIn()) {
-      history.push('/explore')
-    }
-
-    const authError = auth.getError()
-    if (authError) {
-      auth.clearError()
-      notify.danger({ message: authError })
-    }
   }
 
   handleChange = (event, { name, value }) => {
@@ -127,4 +111,4 @@ class SignIn extends Component {
   }
 }
 
-export default withRouter(withAuth(SignIn))
+export default SignIn

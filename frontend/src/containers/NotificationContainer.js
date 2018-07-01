@@ -1,5 +1,6 @@
 // @flow
-import { Container } from 'unstated'
+import React from 'react'
+import { Container, Subscribe } from 'unstated'
 
 type NotificationState = [{
   id: string,
@@ -76,3 +77,13 @@ class NotificationContainer extends Container<NotificationState> {
 }
 
 export default NotificationContainer
+
+const withNotify = Component => (
+  props => (
+    <Subscribe to={[NotificationContainer]}>
+      {notify => <Component {...props} notify={notify} />}
+    </Subscribe>
+  )
+)
+
+export { withNotify }

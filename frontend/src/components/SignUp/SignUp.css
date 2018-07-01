@@ -1,15 +1,47 @@
 .SignUp {
-  padding-top: 52px;
-  margin: 0 20vw;
-  margin-top: 3vh;
+  padding: 0 6vw;
+  padding-top: calc(53px + 2vh)
+}
+
+.SignUp h2 {
   text-align: center;
 }
 
-.SignUp-input {
-  width: 100%;
+.SignUp-field {
+  margin-top: 2vh;
 }
 
-.SignUp-button {
-  width: 100px;
-  margin: auto;
+.SignUp-field-error {
+  background-color: #fff6f6;
+  border-color: #e0b4b4;
+  color: #9f3a38;
+  box-shadow: none;
+}
+
+.SignUp label {
+  font-size: .92857143em;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: .6vh;
+}
+
+.SignUp-error {
+  color: red;
+  font-size: 80%;
+  margin-top: 0.4vh;
+}
+
+.SignUp img {
+  display: block;
+  height: 12vw;
+  width: 12vw;
+  border-radius: 50%;
+  margin: 1vh auto;
+}
+
+@media only screen and (min-device-width: 880px) {
+  .SignUp {
+    padding: 0 30vw;
+    padding-top: calc(53px + 2vh)
+  }
 }

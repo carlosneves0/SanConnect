@@ -23,7 +23,7 @@ const Home = ({ history }) => (
             style={{ float: 'right' }}
             onClick={() => history.push('/sign-up')}
           >
-            Cadastre-se
+            Cadastrar-se
           </Button>
         </div>
       ) : (
@@ -33,7 +33,7 @@ const Home = ({ history }) => (
             style={{ display: 'block', width: '80vw', margin: '3vh auto' }}
             onClick={() => history.push('/sign-up')}
           >
-            Cadastre-se
+            Cadastrar-se
           </Button>
           <Button
             color='olive' size='huge'

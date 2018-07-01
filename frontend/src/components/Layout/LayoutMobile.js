@@ -34,7 +34,7 @@ const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
             secondary size='huge'
             style={{ width: '-webkit-fill-available', marginTop: '2vh' }}
           >
-            Acesse sua Conta
+            Acessar minha Conta
           </Button>
         </Link>
       </div>

@@ -1,59 +1,158 @@
-import React, { Component } from 'react'
-import { Form } from 'semantic-ui-react'
+import React from 'react'
+import * as yup from 'yup'
+import { Formik, Field, Form } from 'formik'
+import { Button } from 'semantic-ui-react'
+import ImageInput from './ImageInput'
+import { withIsDesktop } from '../IsDesktop'
+import SignUpMutation from '../../graphql/SignUpMutation'
+import { withAuth } from '../../containers/AuthContainer'
 import './SignUp.css'
 
-class SignUp extends Component {
-  state = { name: '', email: '', pw: '', submittedName: '', submittedEmail: '', submittedPw: '' }
+const SignUpSchema = yup.object().shape({
+  fullName: yup.string()
+    .required('Campo obrigatório')
+    .max(64, 'Tamanho máximo de 64 catacteres'),
+  picture: yup.string().nullable(),
+  description: yup.string().nullable(),
+  email: yup.string()
+  .required('Campo obrigatório')
+  .email('Endereço de email inválido')
+  .max(64, 'Tamanho máximo de 64 catacteres'),
+  password: yup.string()
+    .required('Campo obrigatório')
+    .max(60, 'Tamanho máximo de 60 catacteres')
+})
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
-
-  handleSubmit = () => {
-    const { name, email, pw } = this.state
-
-    this.setState({ submittedName: name, submittedEmail: email, submittedPw: pw })
-  }
-
-  render() {
-    const { name, email, pw } = this.state
-
-    return (
-      <div className='SignUp'>
-        <center>
-
-          <Form onSubmit={this.handleSubmit}>
-            <h1>Cadastro</h1>
-            <br></br>
-
-              <Form.Field className='SignUp-input'>
-                <label>Nome</label>
-                <Form.Input placeholder='Nome' name='name' value={name} onChange={this.handleChange} />
-              </Form.Field>
-
-
-
-              <Form.Field className='SignUp-input'>
-                <label>Email</label>
-                <Form.Input placeholder='Email' name='email' value={email} onChange={this.handleChange} />
-              </Form.Field>
-
-
-
-              <Form.Field className='SignUp-input'>
-                <label>Senha</label>
-                <Form.Input placeholder='Senha' name='pw' value={pw} onChange={this.handleChange} />
-              </Form.Field>
-
-              <br></br>
-
-              <Form.Button className='SignUp-button' primary content='Cadastrar' />
-
-
-
-          </Form>
-        </center>
-      </div>
-    )
+async function SignUpSignIn(
+  { fullName, picture, description, email, password },
+  notify,
+  auth,
+  setSubmitting
+) {
+  try {
+    const user = {
+      nome: fullName,
+      foto: picture,
+      descricao: description,
+      email,
+      password
+    }
+    const viewer = await SignUpMutation(user)
+    notify.success({ message: 'Conta criada com sucesso' })
+    console.warn('TODO: Cache viewer', viewer)
+    auth.signIn(email, password)
+  } catch (error) {
+    setSubmitting(false)
+    notify.danger({ message: error.message })
   }
 }
 
-export default SignUp
+const Required = () => (
+  <span style={{ color: 'red', fontWeight: 'normal' }}>*</span>
+)
+
+const SignUp = ({ isDesktop, notify, auth }) => (
+  <div className='SignUp'>
+    <h2>Criar uma Conta</h2>
+    <Formik
+      initialValues={{
+        fullName: '',
+        picture: '',
+        description: '',
+        email: '',
+        password: ''
+      }}
+      validationSchema={SignUpSchema}
+      onSubmit={async (values, { setSubmitting }) => {
+        if (typeof values.picture === 'undefined' || values.picture === '') {
+          values.picture = null
+        }
+
+        if (typeof values.description === 'undefined' || values.description === '') {
+          values.description = null
+        }
+
+        SignUpSignIn(values, notify, auth, setSubmitting)
+      }}
+      render={({
+        values,
+        errors,
+        touched,
+        handleChange,
+        setFieldValue,
+        handleBlur,
+        handleSubmit,
+        isSubmitting
+      }) => {
+        let rows = values.description && values.description.split('\n').length
+        if (rows < 3) {
+          rows = 3
+        }
+        return (
+          <Form className={`ui form${isSubmitting ? ' loading' : ''}${isDesktop ? ' small' : ' big'}`}>
+            <div className='SignUp-field'>
+              <label htmlFor='fullName'>Nome<Required /></label>
+              <Field name='fullName' placeholder='Nome' type='text' />
+              {errors.fullName && touched.fullName && (
+                <div className='SignUp-error'>{errors.fullName}</div>
+              )}
+            </div>
+
+            <div className='SignUp-field'>
+              <label htmlFor='picture'>Foto</label>
+              {values.picture && (
+                <img src={values.picture} alt='Foto do Perfil do Usuário' />
+              )}
+              <ImageInput
+                name='picture'
+                onBlur={handleBlur}
+                setFieldValue={setFieldValue}
+              />
+              {errors.picture && touched.picture && (
+                <div className='SignUp-error'>{errors.picture}</div>
+              )}
+            </div>
+
+            <div className='SignUp-field'>
+              <label htmlFor='description'>Descrição</label>
+              <textarea
+                name='description'
+                placeholder='Fale um pouco sobre você...'
+                rows={rows}
+                onBlur={handleBlur}
+                onChange={event => setFieldValue('description', event.target.value)}
+              />
+              {errors.description && touched.description && (
+                <div className='SignUp-error'>{errors.description}</div>
+              )}
+            </div>
+
+            <div className='SignUp-field'>
+              <label htmlFor='email'>Email<Required /></label>
+              <Field name='email' placeholder='Email' type='email' />
+              {errors.email && touched.email && (
+                <div className='SignUp-error'>{errors.email}</div>
+              )}
+            </div>
+
+            <div className='SignUp-field'>
+              <label htmlFor='password'>Senha<Required /></label>
+              <Field name='password' placeholder='Senha' type='password' />
+              {errors.password && touched.password && (
+                <div className='SignUp-error'>{errors.password}</div>
+              )}
+            </div>
+
+            <div className='SignUp-field'>
+              <Button type='submit' primary fluid size={`${isDesktop ? 'small' : 'big'}`}>
+                Criar conta
+              </Button>
+            </div>
+          </Form>
+        )
+      }}
+    />
+  </div>
+)
+
+export default withAuth(withIsDesktop(SignUp))

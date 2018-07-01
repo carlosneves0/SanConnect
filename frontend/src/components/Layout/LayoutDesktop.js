@@ -11,10 +11,10 @@ const LayoutDesktop = ({ isSignedIn, children }) => (
       ) : (
         <span>
           <Link to='/sign-in'>
-            <Button secondary size='tiny'>Acessar Conta</Button>
+            <Button secondary size='tiny'>Acessar minha Conta</Button>
           </Link>
           <Link to='/sign-up'>
-            <Button primary size='tiny'>Cadastre-se</Button>
+            <Button primary size='tiny'>Cadastrar-se</Button>
           </Link>
         </span>
       )}

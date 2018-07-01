@@ -1,7 +1,6 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Redirect, Route } from 'react-router-dom'
 import { Network } from 'react-fns'
-import { Subscribe } from 'unstated'
 import Layout from '../Layout'
 import Offline from '../Offline'
 import Home from '../Home'
@@ -10,34 +9,58 @@ import SignIn from '../SignIn'
 import EventCreate from '../EventCreate/EventCreate'
 import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
-import NotificationContainer from '../../containers/NotificationContainer'
+import { withAuth } from '../../containers/AuthContainer'
+import { withNotify } from '../../containers/NotificationContainer'
 
-const App = () => (
-  <Layout>
-    <NotificationManager />
-    <Network
-      render={({ online }) => (
-        online ? (
-          <Subscribe to={[NotificationContainer]}>
-            {notify => (
-              <Switch>
-                <Route path='/' exact component={Home} />
-                <Route
-                  path='/sign-in'
-                  render={() => <SignIn notify={notify} />}
-                />
-                <Route path='/sign-up' component={SignUp} />
-                <Route path='/create-event' component={EventCreate} />
-                <Route component={NotFound} />
-              </Switch>
-            )}
-          </Subscribe>
-        ) : (
-          <Offline />
-        )
-      )}
-    />
-  </Layout>
-)
+class App extends React.Component {
+  componentDidUpdate() {
+    const { auth, notify } = this.props
+    const authError = auth.getError()
+    if (authError) {
+      auth.clearError()
+      notify.danger({ message: authError })
+    }
+  }
 
-export default App
+  render() {
+    const { auth, notify } = this.props
+    return (
+      <Layout>
+        <NotificationManager />
+        <Network
+          render={({ online }) => (
+            online ? (
+              auth.isSignedIn() ? (
+                <Switch>
+                  <Redirect from='/sign-in' to='/' />
+                  <Redirect from='/sign-up' to='/' />
+                  <Route path='/' exact component={EventCreate} />
+                  <Route path='/create-event' component={EventCreate} />
+                  <Route render={() => <NotFound notify={notify} />} />
+                </Switch>
+              ) : (
+                <Switch>
+                  <Route path='/' exact component={Home} />
+                  <Route
+                    path='/sign-in'
+                    render={() => <SignIn auth={auth} notify={notify} />}
+                  />
+                  <Route
+                    path='/sign-up'
+                    render={() => <SignUp auth={auth} notify={notify} />}
+                  />
+                  <Route path='/create-event' component={EventCreate} />
+                  <Route render={() => <NotFound notify={notify} />} />
+                </Switch>
+              )
+            ) : (
+              <Offline />
+            )
+          )}
+        />
+      </Layout>
+    )
+  }
+}
+
+export default withAuth(withNotify(App))

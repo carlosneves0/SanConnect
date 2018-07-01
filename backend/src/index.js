@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const graphqlHTTP = require('express-graphql')
 const viewer = require('./middleware/viewer')
 const { schema, root } = require('./graphql')
@@ -9,6 +10,9 @@ const app = express()
 
 // We must enable cors so the website can have access to the API.
 app.use(cors())
+
+// Increase POST body's size limit to upload images.
+app.use(bodyParser.json({ limit: '6mb' }))
 
 app.use('/graph', viewer, graphqlHTTP(
   ({ viewer }, response, graphQLParams) => ({
