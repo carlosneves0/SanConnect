@@ -85,6 +85,7 @@ class AuthContainer extends Container<AuthState> {
           error: error.message
         }
       })
+      throw error
     }
   }
 

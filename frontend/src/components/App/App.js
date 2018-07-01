@@ -12,6 +12,7 @@ import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import { withAuth } from '../../containers/AuthContainer'
 import { withNotify } from '../../containers/NotificationContainer'
+import './App.css'
 
 class App extends React.Component {
   componentDidUpdate() {
@@ -44,7 +45,7 @@ class App extends React.Component {
                   <Route path='/' exact component={Home} />
                   <Route
                     path='/sign-in'
-                    render={() => <SignIn auth={auth} notify={notify} />}
+                    render={() => <SignIn auth={auth} />}
                   />
                   <Route
                     path='/sign-up'

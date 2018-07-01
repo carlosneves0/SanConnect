@@ -1,114 +1,72 @@
-import React, { Component } from 'react'
-import MediaQuery from 'react-responsive'
-import { Form, Input, Button } from 'semantic-ui-react'
+import React from 'react'
+import * as yup from 'yup'
+import { Formik, Field, Form } from 'formik'
+import { Button } from 'semantic-ui-react'
+import { withIsDesktop } from '../IsDesktop'
 import './SignIn.css'
 
-class SignIn extends Component {
-  state = {
-    email: '',
-    emailError: null,
-    password: '',
-    passwordError: null
-  }
+const SignInSchema = yup.object().shape({
+  email: yup.string()
+  .required('Campo obrigatório')
+  .email('Endereço de email inválido')
+  .max(64, 'Tamanho máximo de 64 catacteres'),
+  password: yup.string()
+    .required('Campo obrigatório')
+    .max(60, 'Tamanho máximo de 60 catacteres')
+})
 
-  handleChange = (event, { name, value }) => {
-    this.setState({ [name]: value })
-
-    if (value === '') {
-      const displayName = name === 'email' ? 'email' : 'senha'
-      this.setState({
-        [`${name}Error`]: `O campo ${displayName} não pode estar vazio`
-      })
-    } else {
-      this.setState({ [`${name}Error`]: null })
-    }
-  }
-
-  handleSubmit = () => {
-    const { email, password } = this.state
-
-    let valid = true
-    if (email === '') {
-      this.setState({
-        emailError: `O campo email não pode estar vazio`
-      })
-      valid = false
-    }
-
-    if (password === '') {
-      this.setState({
-        passwordError: `O campo senha não pode estar vazio`
-      })
-      valid = false
-    }
-
-    // Valid data.
-    if (valid) {
-      this.props.auth.signIn(email, password)
-    }
-  }
-
-  render() {
-    const { auth } = this.props
-    const { email, emailError, password, passwordError } = this.state
-
-    const isLoading = auth.isLoading()
-
-    return (
-      <MediaQuery minDeviceWidth={880}>
-        {matches => (
-          <div className='SignIn'>
-            <h2>Acessar Conta</h2>
-            <Form
-              className='SignIn-Form'
-              onSubmit={this.handleSubmit}
-              size={matches ? 'small' : 'big'}
-            >
-              <Form.Field>
-                <label>Email</label>
-                <Input
-                  placeholder='Email'
-                  name='email'
-                  value={email}
-                  onChange={this.handleChange}
-                  loading={isLoading}
-                  disabled={isLoading}
-                  error={emailError !== null}
-                />
-                {emailError !== null && (
-                  <span className='SignIn-error'>{emailError}</span>
-                )}
-              </Form.Field>
-              <Form.Field>
-                <label>Senha</label>
-                <Input
-                  placeholder='Senha'
-                  name='password'
-                  type='password'
-                  value={password}
-                  onChange={this.handleChange}
-                  loading={isLoading}
-                  disabled={isLoading}
-                  error={passwordError !== null}
-                />
-                {passwordError !== null && (
-                  <span className='SignIn-error'>{passwordError}</span>
-                )}
-              </Form.Field>
-              <Button
-                primary fluid type='submit'
-                size={matches ? 'small' : 'big'}
-                loading={isLoading}
-                disabled={isLoading}
-              >
-                Acessar
-              </Button>
-            </Form>
+const SignIn = ({ isDesktop, auth }) => (
+  <div className='SignIn'>
+    <h2>Acessar Conta</h2>
+    <Formik
+      initialValues={{
+        email: '',
+        password: ''
+      }}
+      validationSchema={SignInSchema}
+      onSubmit={async ({ email, password }, { setSubmitting }) => {
+        try {
+          await auth.signIn(email, password)
+        } catch (error) {
+          setSubmitting(false)
+        }
+      }}
+      render={({
+        values,
+        errors,
+        touched,
+        handleChange,
+        setFieldValue,
+        handleBlur,
+        handleSubmit,
+        isSubmitting
+      }) => (
+        <Form className={`ui form${isSubmitting ? ' loading' : ''}${isDesktop ? ' small' : ' big'}`}>
+          <div className='App-form-field'>
+            <label htmlFor='email'>Email</label>
+            <Field name='email' placeholder='Email' type='email' />
+            {errors.email && touched.email && (
+              <div className='App-form-error'>{errors.email}</div>
+            )}
           </div>
-        )}
-      </MediaQuery>
-    )
-  }
-}
 
-export default SignIn
+          <div className='App-form-field'>
+            <label htmlFor='password'>Senha</label>
+            <Field name='password' placeholder='Senha' type='password' />
+            {errors.password && touched.password && (
+              <div className='App-form-error'>{errors.password}</div>
+            )}
+          </div>
+
+          <div className='App-form-field'>
+            <Button type='submit' primary fluid size={`${isDesktop ? 'small' : 'big'}`}>
+              Criar conta
+            </Button>
+          </div>
+        </Form>
+      )}
+    />
+  </div>
+)
+
+export default withIsDesktop(SignIn)

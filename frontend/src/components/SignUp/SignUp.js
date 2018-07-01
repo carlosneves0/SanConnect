@@ -40,6 +40,10 @@ async function SignUpSignIn(
     const viewer = await SignUpMutation(user)
     notify.success({ message: 'Conta criada com sucesso' })
     console.warn('TODO: Cache viewer', viewer)
+    console.warn(
+      'TODO: wrap following statement in a try catch and handle ' +
+      'potential signIn errors.'
+    )
     auth.signIn(email, password)
   } catch (error) {
     setSubmitting(false)
@@ -63,7 +67,7 @@ const SignUp = ({ isDesktop, notify, auth }) => (
         password: ''
       }}
       validationSchema={SignUpSchema}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting }) => {
         if (typeof values.picture === 'undefined' || values.picture === '') {
           values.picture = null
         }
@@ -90,15 +94,15 @@ const SignUp = ({ isDesktop, notify, auth }) => (
         }
         return (
           <Form className={`ui form${isSubmitting ? ' loading' : ''}${isDesktop ? ' small' : ' big'}`}>
-            <div className='SignUp-field'>
+            <div className='App-form-field'>
               <label htmlFor='fullName'>Nome<Required /></label>
               <Field name='fullName' placeholder='Nome' type='text' />
               {errors.fullName && touched.fullName && (
-                <div className='SignUp-error'>{errors.fullName}</div>
+                <div className='App-form-error'>{errors.fullName}</div>
               )}
             </div>
 
-            <div className='SignUp-field'>
+            <div className='App-form-field'>
               <label htmlFor='picture'>Foto</label>
               {values.picture && (
                 <img src={values.picture} alt='Foto do Perfil do Usuário' />
@@ -109,11 +113,11 @@ const SignUp = ({ isDesktop, notify, auth }) => (
                 setFieldValue={setFieldValue}
               />
               {errors.picture && touched.picture && (
-                <div className='SignUp-error'>{errors.picture}</div>
+                <div className='App-form-error'>{errors.picture}</div>
               )}
             </div>
 
-            <div className='SignUp-field'>
+            <div className='App-form-field'>
               <label htmlFor='description'>Descrição</label>
               <textarea
                 name='description'
@@ -123,27 +127,27 @@ const SignUp = ({ isDesktop, notify, auth }) => (
                 onChange={event => setFieldValue('description', event.target.value)}
               />
               {errors.description && touched.description && (
-                <div className='SignUp-error'>{errors.description}</div>
+                <div className='App-form-error'>{errors.description}</div>
               )}
             </div>
 
-            <div className='SignUp-field'>
+            <div className='App-form-field'>
               <label htmlFor='email'>Email<Required /></label>
               <Field name='email' placeholder='Email' type='email' />
               {errors.email && touched.email && (
-                <div className='SignUp-error'>{errors.email}</div>
+                <div className='App-form-error'>{errors.email}</div>
               )}
             </div>
 
-            <div className='SignUp-field'>
+            <div className='App-form-field'>
               <label htmlFor='password'>Senha<Required /></label>
               <Field name='password' placeholder='Senha' type='password' />
               {errors.password && touched.password && (
-                <div className='SignUp-error'>{errors.password}</div>
+                <div className='App-form-error'>{errors.password}</div>
               )}
             </div>
 
-            <div className='SignUp-field'>
+            <div className='App-form-field'>
               <Button type='submit' primary fluid size={`${isDesktop ? 'small' : 'big'}`}>
                 Criar conta
               </Button>

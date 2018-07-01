@@ -1,28 +1,17 @@
-.App {
-  text-align: center;
+.App-form-field {
+  margin-top: 2vh;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.App-form-error {
+  color: red;
+  font-size: 80%;
+  margin-top: 0.4vh;
 }
 
-.App-header {
-  background-color: red;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+form label {
+  font-size: .93em;
+  font-weight: 700;
+  display: inline-block;
+  font-size: .92857143em;
+  margin-bottom: .6vh;
 }

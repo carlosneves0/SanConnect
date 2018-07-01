@@ -6,16 +6,9 @@
 .SignUp h2 {
   text-align: center;
 }
-
+/* 
 .SignUp-field {
   margin-top: 2vh;
-}
-
-.SignUp-field-error {
-  background-color: #fff6f6;
-  border-color: #e0b4b4;
-  color: #9f3a38;
-  box-shadow: none;
 }
 
 .SignUp label {
@@ -29,7 +22,7 @@
   color: red;
   font-size: 80%;
   margin-top: 0.4vh;
-}
+} */
 
 .SignUp img {
   display: block;
