@@ -49,21 +49,20 @@
 }
 
 @media only screen and (min-device-width: 880px) {
+  .Layout-nav {
+    padding: 0 10vw;
+    text-align: right
+  }
+
   .Layout-nav .Layout-brand {
     float: left;
-    margin-left: 10vw;
   }
 
   #Layout-Icon {
     display: none;
   }
 
-  .Layout-nav a {
-    float: right;
+  .Layout-nav * {
     margin-right: 1vw;
-  }
-
-  .Layout-nav a:first-child {
-    margin-right: 10vw;
   }
 }

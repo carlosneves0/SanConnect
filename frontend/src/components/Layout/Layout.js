@@ -4,14 +4,20 @@ import LayoutDesktop from './LayoutDesktop'
 import LayoutMobile from './LayoutMobile'
 import './Layout.css'
 
-const Layout = ({ auth, children }) => (
+const Layout = ({ auth, viewer, children }) => (
   <MediaQuery minDeviceWidth={880}>
     {matches => matches ? (
-      <LayoutDesktop isSignedIn={auth.isSignedIn()}>
+      <LayoutDesktop
+        isSignedIn={auth.isSignedIn()}
+        viewer={viewer.state}
+      >
         {children}
       </LayoutDesktop>
       ) : (
-        <LayoutMobile isSignedIn={auth.isSignedIn()}>
+        <LayoutMobile
+          isSignedIn={auth.isSignedIn()}
+          viewer={viewer.state}
+        >
           {children}
         </LayoutMobile>
     )}

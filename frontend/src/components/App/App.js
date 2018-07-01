@@ -7,14 +7,21 @@ import Home from '../Home'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn'
 import EventFeed from '../EventFeed'
+import MyProfile from '../MyProfile'
+import MyEvents from '../MyEvents'
 import EventCreate from '../EventCreate'
 import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import { withAuth } from '../../containers/AuthContainer'
 import { withNotify } from '../../containers/NotificationContainer'
+import { withViewer } from '../../containers/ViewerContainer'
 import './App.css'
 
 class App extends React.Component {
+  componentDidMount() {
+    this.props.viewer.poll()
+  }
+
   componentDidUpdate() {
     const { auth, notify } = this.props
     const authError = auth.getError()
@@ -25,9 +32,9 @@ class App extends React.Component {
   }
 
   render() {
-    const { auth, notify } = this.props
+    const { auth, notify, viewer } = this.props
     return (
-      <Layout auth={auth}>
+      <Layout auth={auth} viewer={viewer}>
         <NotificationManager />
         <Network
           render={({ online }) => (
@@ -36,7 +43,10 @@ class App extends React.Component {
                 <Switch>
                   <Redirect from='/sign-in' to='/' />
                   <Redirect from='/sign-up' to='/' />
-                  <Route path='/' exact component={EventCreate} />
+                  <Redirect from='/explore' to='/' />
+                  <Route path='/' exact component={EventFeed} />
+                  <Route path='/my-profile' component={MyProfile} />
+                  <Route path='/my-events' component={MyEvents} />
                   <Route path='/create-event' component={EventCreate} />
                   <Route render={() => <NotFound notify={notify} />} />
                 </Switch>
@@ -65,4 +75,4 @@ class App extends React.Component {
   }
 }
 
-export default withAuth(withNotify(App))
+export default withAuth(withNotify(withViewer(App)))

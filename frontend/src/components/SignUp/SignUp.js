@@ -6,6 +6,7 @@ import ImageInput from './ImageInput'
 import { withIsDesktop } from '../IsDesktop'
 import SignUpMutation from '../../graphql/SignUpMutation'
 import { withAuth } from '../../containers/AuthContainer'
+import { withViewer } from '../../containers/ViewerContainer'
 import './SignUp.css'
 
 const SignUpSchema = yup.object().shape({
@@ -27,6 +28,7 @@ async function SignUpSignIn(
   { fullName, picture, description, email, password },
   notify,
   auth,
+  viewer,
   setSubmitting
 ) {
   try {
@@ -37,9 +39,9 @@ async function SignUpSignIn(
       email,
       password
     }
-    const viewer = await SignUpMutation(user)
+    const viewerData = await SignUpMutation(user)
     notify.success({ message: 'Conta criada com sucesso' })
-    console.warn('TODO: Cache viewer', viewer)
+    viewer.set(viewerData)
     console.warn(
       'TODO: wrap following statement in a try catch and handle ' +
       'potential signIn errors.'
@@ -55,7 +57,7 @@ const Required = () => (
   <span style={{ color: 'red', fontWeight: 'normal' }}>*</span>
 )
 
-const SignUp = ({ isDesktop, notify, auth }) => (
+const SignUp = ({ isDesktop, notify, auth, viewer }) => (
   <div className='SignUp'>
     <h2>Criar uma Conta</h2>
     <Formik
@@ -76,7 +78,7 @@ const SignUp = ({ isDesktop, notify, auth }) => (
           values.description = null
         }
 
-        SignUpSignIn(values, notify, auth, setSubmitting)
+        SignUpSignIn(values, notify, auth, viewer, setSubmitting)
       }}
       render={({
         values,
@@ -159,4 +161,4 @@ const SignUp = ({ isDesktop, notify, auth }) => (
   </div>
 )
 
-export default withAuth(withIsDesktop(SignUp))
+export default withAuth(withViewer(withIsDesktop(SignUp)))

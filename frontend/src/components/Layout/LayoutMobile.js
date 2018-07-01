@@ -2,6 +2,7 @@ import React from 'react'
 import Sidebar from 'react-sidebar'
 import { Icon, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import Avatar from './Avatar'
 
 const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
   <div className='Layout-Sidebar'>
@@ -58,7 +59,7 @@ class LayoutMobile extends React.Component {
   }
 
   render() {
-    const { isSignedIn, children } = this.props
+    const { isSignedIn, viewer, children } = this.props
     return (
       <Sidebar
         sidebar={(
@@ -78,6 +79,7 @@ class LayoutMobile extends React.Component {
             name='bars' size='large'
             onClick={this.toggleSidebar}
           />
+          {isSignedIn && <Avatar viewer={viewer.viewer} />}
         </nav>
         <div>
           {children}

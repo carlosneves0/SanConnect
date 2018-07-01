@@ -4,7 +4,7 @@ schema {
 }
 
 type Query {
-  # viewer: User!
+  viewer: User!
   signIn(email: String!, password: String!): AuthResponse!
   userRecomendations: [User!]!
   getTags: [String!]!
@@ -47,16 +47,16 @@ input SignUpInput {
 # SearchEvents
 # Participar de evento
   # Atualizar a participação em evento (confirma ou sai do evento)
-  # Avaliar (Inserção, Update, Remove, Get)  
+  # Avaliar (Inserção, Update, Remove, Get)
 # Preferência
 
 input CreateEventInput {
-  criador: String! 
+  criador: String!
   titulo: String!
   data_hora_evento: String!
   descricao: String
   min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
-  max_participantes: Int  
+  max_participantes: Int
   local: String
   categorias: [String]!
 }
@@ -73,17 +73,17 @@ input GetAllEventsInput {
   max_participantes: Int
   data_hora_criacao: String
   local: String
-  categorias: [String]  
+  categorias: [String]
 }
 
 input GetEventInput {
   criador: String!
   titulo: String!
-  data_hora_evento: String!  
+  data_hora_evento: String!
 }
 
 type Event {
-  criador: String! 
+  criador: String!
   titulo: String!
   data_hora_evento: String!
   descricao: String
