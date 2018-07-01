@@ -6,7 +6,8 @@ import Offline from '../Offline'
 import Home from '../Home'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn'
-import EventCreate from '../EventCreate/EventCreate'
+import EventFeed from '../EventFeed'
+import EventCreate from '../EventCreate'
 import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import { withAuth } from '../../containers/AuthContainer'
@@ -25,7 +26,7 @@ class App extends React.Component {
   render() {
     const { auth, notify } = this.props
     return (
-      <Layout>
+      <Layout auth={auth}>
         <NotificationManager />
         <Network
           render={({ online }) => (
@@ -49,7 +50,7 @@ class App extends React.Component {
                     path='/sign-up'
                     render={() => <SignUp auth={auth} notify={notify} />}
                   />
-                  <Route path='/create-event' component={EventCreate} />
+                  <Route path='/explore' component={EventFeed} />
                   <Route render={() => <NotFound notify={notify} />} />
                 </Switch>
               )
