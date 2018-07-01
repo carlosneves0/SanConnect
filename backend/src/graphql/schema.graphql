@@ -18,6 +18,7 @@ type Mutation {
   signUp(user:SignUpInput!): User!
   createEvent(event:CreateEventInput!): Event!
   updateUser(user:UpdateUserInput!): String!
+  updatePassword(user:UpdatePassword!): String!
 }
 
 type AuthResponse {
@@ -92,6 +93,12 @@ type Event {
   local: String
   categorias: [String]!
   participantes: [User!]!
+}
+
+input UpdatePassword {
+  email: String!
+  password: String!
+  newPassword: String!
 }
 
 input GetUser {

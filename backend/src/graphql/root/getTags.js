@@ -1,5 +1,4 @@
 /* Obtém todas as categorias cadastradas no banco. */
-
 async function getTags(args, { pool, viewer }) {
 	try {
 		let tags = await pool.query('SELECT * FROM CATEGORIA')
