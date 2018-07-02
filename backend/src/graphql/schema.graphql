@@ -19,6 +19,7 @@ type Mutation {
   createEvent(event:CreateEventInput!): Event!
   updateUser(user:UpdateUserInput!): String!
   updatePassword(user:UpdatePassword!): String!
+  updateEvent(event:UpdateEventInput!): Event!
 }
 
 type AuthResponse {
@@ -57,6 +58,17 @@ input CreateEventInput {
   descricao: String
   min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
   max_participantes: Int
+  local: String
+  categorias: [String]!
+}
+
+input UpdateEventInput {
+  criador: String! # Não muda
+  titulo: String! # Não muda
+  data_hora_evento: String! # Não muda
+  descricao: String
+  min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
+  max_participantes: Int  
   local: String
   categorias: [String]!
 }
