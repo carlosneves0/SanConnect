@@ -1,4 +1,5 @@
 import json
+import pandas as pd
 
 class Usuario:
 	def __init__(self, json_usuario=''):
@@ -48,3 +49,11 @@ class Usuario:
 		for preferencia in self.preferencias.keys():
 			ret.append(self.preferencias[preferencia])
 		return ret
+
+	def to_series(self):
+		dict_preferencias = {}
+		for nome_preferencia in self.preferencias.keys(): 
+			dict_preferencias[nome_preferencia+'_usr'] = self.preferencias[nome_preferencia]
+		series_form = pd.Series(data=dict_preferencias)
+
+		return series_form 

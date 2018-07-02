@@ -5,9 +5,14 @@ import pandas as pd
 import json
 import pprint
 from usuario import Usuario
+import sanconnect_parsers as parsers
 
 def agrupa_usando_json(json_request):
-	usuario_referencia, usuarios = parse_json(json_request)
+	json_usuario_referencia = json_request["usuario_referencia"]
+	usuario_referencia = Usuario(json_usuario_referencia)
+	print('Usuario referencia:', usuario_referencia)
+
+	usuarios = parsers.parse_json_usuarios(json_request)
 	
 	agrupamentos = agrupa_usuarios(usuario_referencia, usuarios)
 	for agrupamento in agrupamentos:
@@ -20,7 +25,11 @@ def testa_localmente():
 	with open('usuarios.js') as user_data_file:
 		json_arquivo = json.load(user_data_file)
 
-	usuario_referencia, usuarios = parse_json(json_arquivo)
+	json_usuario_referencia = json_arquivo["usuario_referencia"]
+	usuario_referencia = Usuario(json_usuario_referencia)
+	print('Usuario referencia:', usuario_referencia)
+
+	usuarios = parsers.parse_json_usuarios(json_arquivo)
 	agrupamentos = agrupa_usuarios(usuario_referencia, usuarios)
 
 	json_agrupamentos = json.dumps([agrupamento.__dict__ for agrupamento in agrupamentos])	
@@ -87,19 +96,6 @@ def monta_matriz_de_preferencias(usuarios):
 	for usuario in usuarios:
 		matriz.append(usuario.get_lista_preferencias())
 	return np.array(matriz)
-
-def parse_json(json_source):
-	json_usuarios = json_source["usuarios"]
-	json_usuario_referencia = json_source["usuario_referencia"]
-	
-	usuario_referencia = Usuario(json_usuario_referencia)
-	print('Usuario referencia:', usuario_referencia)
-
-	usuarios = []
-	for json_usuario in json_usuarios:
-		usuarios.append(Usuario(json_usuario))
-	
-	return usuario_referencia, usuarios
 
 def plota_dendrograma(matriz, labels):
 	plt.figure(figsize=(25,10))
