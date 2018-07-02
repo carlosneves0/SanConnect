@@ -25,7 +25,7 @@ async function updateEvent({ event }, { pool, viewer }) {
 			Ao efetuar a operação, notificar e remover todos os participantes atuais do evento.
 	*/
 
-	/* --
+	/* REVIEW
 		Quanto às categorias, é necessário verificar quais mudaram ou não.
 		Para isso, temos que fazer uma query sobre o evento em questão, e fazer uma comparação de conjuntos entre
 			as categorias atuais e as novas.
@@ -36,13 +36,13 @@ async function updateEvent({ event }, { pool, viewer }) {
 	let query = []
 	/* Atualiza valores da tabela evento. */
 	query[0] = {
-		text: 'UPDATE EVENTO SET descrição = $4, min_participantes = $5, max_participantes = $6, local = $7 WHERE UPPER(CRIADOR) = $1 AND UPPER(TITULO) = $2 AND DATA_HORA_EVENTO = $3',
+		text: 'UPDATE EVENTO SET descricao = $4, min_participantes = $5, max_participantes = $6, local = $7 WHERE UPPER(CRIADOR) = UPPER($1) AND UPPER(TITULO) = UPPER($2) AND DATA_HORA_EVENTO = $3',
 		values: [criador, titulo, data_hora_evento, descricao, min_participantes, max_participantes, local]
 	}
 
 	/* Deleta as categorias atuais do evento. */
 	query[1] = {
-		text: 'DELETE FROM EVENTO_CATEGORIA WHERE UPPER(CRIADOR_EVENTO) = $1 AND UPPER(TITULO_EVENTO) = $2 AND DATA_HORA_EVENTO = $3',
+		text: 'DELETE FROM EVENTO_CATEGORIA WHERE UPPER(CRIADOR_EVENTO) = UPPER($1) AND UPPER(TITULO_EVENTO) = UPPER($2) AND DATA_HORA_EVENTO = $3',
 		values: [criador, titulo, data_hora_evento]
 	}
 
