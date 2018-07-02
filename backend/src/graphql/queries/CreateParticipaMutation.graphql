@@ -1,0 +1,10 @@
+mutation {
+	createParticia(
+		participa:{
+			criador_evento:"bruno@sanconnect.com",
+			titulo:"Partida de Roleta Russa",
+			data_hora_evento:"2018-07-11T06:00:00",
+			email:"andre@sanconnect.com"
+		}
+	)
+}
