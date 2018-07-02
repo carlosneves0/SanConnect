@@ -66,7 +66,7 @@ async function updateEvent({ event }, { pool, viewer }) {
 		await pool.query('COMMIT')
 		
 		event.data_hora_evento = data_hora_evento.toString()
-		event.data_hora_criacao = data_hora_criacao.toString()
+		//event.data_hora_criacao = data_hora_criacao.toString()
 		
 		return event
 	} catch(err) {		
