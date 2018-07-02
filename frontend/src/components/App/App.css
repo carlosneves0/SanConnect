@@ -15,3 +15,23 @@ form label {
   font-size: .92857143em;
   margin-bottom: .6vh;
 }
+
+.App-fixed-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.App-fixed-content {
+  position: fixed;
+  top: calc(50% + 52px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.danger {
+  color: darkred;
+}
