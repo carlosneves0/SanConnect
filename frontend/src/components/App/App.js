@@ -21,7 +21,10 @@ import './App.css'
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.viewer.poll()
+    const { auth, viewer, notify } = this.props
+    if (auth.isSignedIn()) {
+      viewer.poll(notify)
+    }
   }
 
   componentDidUpdate() {
@@ -46,7 +49,10 @@ class App extends React.Component {
                   <Redirect from='/sign-in' to='/' />
                   <Redirect from='/sign-up' to='/' />
                   <Redirect from='/explore' to='/' />
-                  <Route path='/' exact component={EventFeed} />
+                  <Route
+                    path='/' exact
+                    render={() => <EventFeed auth={auth} />}
+                  />
                   <Route
                     path='/sign-out'
                     render={() => <SignOut auth={auth} viewer={viewer} />}
@@ -69,7 +75,10 @@ class App extends React.Component {
                     path='/sign-up'
                     render={() => <SignUp auth={auth} notify={notify} />}
                   />
-                  <Route path='/explore' component={EventFeed} />
+                  <Route
+                    path='/explore'
+                    render={() => <EventFeed auth={auth} />}
+                  />
                   <Route render={() => <NotFound notify={notify} />} />
                 </Switch>
               )

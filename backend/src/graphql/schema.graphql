@@ -8,7 +8,7 @@ type Query {
   signIn(email: String!, password: String!): AuthResponse!
   userRecomendations: [User!]!
   getTags: [String!]!
-  getAllEvents(event:GetAllEventsInput): [Event!]
+  getAllEvents(event: GetAllEventsInput): [PublicEvent!]!
   getEvent(event:GetEventInput!): Event!
   searchEvents(event:GetAllEventsInput!): [Event!]
   getUser(user:GetUser!): User!
@@ -68,7 +68,7 @@ input UpdateEventInput {
   data_hora_evento: String! # Não muda
   descricao: String
   min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
-  max_participantes: Int  
+  max_participantes: Int
   local: String
   categorias: [String]!
 }
@@ -107,6 +107,13 @@ type Event {
   participantes: [User!]!
 }
 
+type PublicEvent {
+  criador: String!
+  titulo: String!
+  data_hora_evento: String!
+  categorias: [String!]!
+}
+
 input UpdatePassword {
   email: String!
   password: String!
@@ -125,8 +132,3 @@ type User {
   likes: Int
   dislikes: Int
 }
-#
-# enum GENDER {
-#   MALE,
-#   FEMALE
-# }

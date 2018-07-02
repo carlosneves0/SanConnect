@@ -14,8 +14,8 @@ type AuthState = {
 const KEY_AUTH = '__a'
 
 class AuthContainer extends Container<AuthState> {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     let auth = window.localStorage.getItem(KEY_AUTH)
     if (auth !== null) {

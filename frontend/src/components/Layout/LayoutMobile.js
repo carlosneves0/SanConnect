@@ -8,7 +8,12 @@ const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
   <div className='Layout-Sidebar'>
     <nav className='Layout-nav'>
       <Link
-        to='/' className='Layout-brand'>SanConnect</Link>
+        to='/'
+        className='Layout-brand'
+        onClick={toggleSidebar}
+      >
+        SanConnect
+      </Link>
     </nav>
     {isSignedIn ? (
       <div>
