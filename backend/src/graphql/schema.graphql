@@ -125,7 +125,52 @@ type User {
   likes: Int
   dislikes: Int
 }
-#
+
+type Participa {
+  criador_evento: String!
+  titulo: String!
+  data_hora_evento: String!
+  email: String!
+  confirmacao: Boolean!
+  data_hora_ingresso: String!
+}
+
+# Entrar em um evento, ou em sua lista de espera;
+input CreateParticipaInput {
+  criador_evento: String!
+  titulo: String!
+  data_hora_evento: String!
+  email: String!
+}
+
+# Confirmar presença em um evento.
+input UpdateParticipaInput {
+  criador_evento: String!
+  titulo: String!
+  data_hora_evento: String!
+  email: String!
+}
+
+# Sair de um evento.
+input RemoveParticipaInput {
+  criador_evento: String!
+  titulo: String!
+  data_hora_evento: String!
+  email: String!
+}
+
+# Buscar participações de um usuário
+input GetParticipaUserInput {
+  user: String! # needs only email
+}
+
+# Buscar participantes de um evento
+input GetParticipaEventInput {
+  criador: String!
+  titulo: String!
+  data_hora_evento: String!
+}
+
 # enum GENDER {
 #   MALE,
 #   FEMALE
