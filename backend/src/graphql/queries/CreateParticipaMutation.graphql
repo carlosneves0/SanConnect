@@ -1,5 +1,5 @@
 mutation {
-	createParticia(
+	createParticipa(
 		participa:{
 			criador_evento:"bruno@sanconnect.com",
 			titulo:"Partida de Roleta Russa",
