@@ -3,7 +3,7 @@ import http.client
 import urllib.request
 
 def main():
-	with open('usuarios.js') as user_data_file:
+	with open('base_treino_usuarios.js') as user_data_file:
 		json_arquivo = json.load(user_data_file)#le como string
 	json_arquivo = json.dumps(json_arquivo)#converte pra algum formato que faz funcionar
 

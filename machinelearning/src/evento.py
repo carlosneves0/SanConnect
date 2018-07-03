@@ -11,8 +11,8 @@ class Evento:
 			self.local = ''
 			self.categorias = {}
 		else:
-			self.criador = json.dumps(json_evento["criador"]).strip('"')
-			self.titulo = json.dumps(json_evento["titulo"].strip('"'))
+			self.criador = json.dumps(json_evento["criador"]).replace('"','')
+			self.titulo = json.dumps(json_evento["titulo"]).replace('"','')
 			data_hora_string = json.dumps(json_evento["dataHoraEvento"]).strip('"')
 			self.data_hora_evento = datetime.strptime(data_hora_string, '%d/%m/%Y')
 
@@ -20,8 +20,6 @@ class Evento:
 			json_categorias = json_evento["categorias"]
 			i = 0
 			for json_categoria in json_categorias:
-				print('categoria da iteracao atual')
-				print(json_categoria)
 				categoria = json_categoria.strip('"')
 				self.categorias.append(categoria)
 				i += 1
@@ -33,3 +31,6 @@ class Evento:
 			dict_atributos[nome_categoria+'_evnt'] = True
 		print('lista de atributos que vai virar serie', dict_atributos)
 		return pd.Series(data=dict_atributos)
+
+	def to_json(self):
+		return json.dumps(self.__dict__, default=str)

@@ -13,7 +13,9 @@ def agrupamento():
 @app.route('/evento')
 def evento():
 	json_request = request.get_json()
-	return 'asda'
+	json_usuario = json_request['usuario']
+	json_eventos = json_request['eventos']
+	return classifica_interesse_de_usuario_em_multiplos_eventos_usando_json()
 
 if __name__ == '__main__':
 	app.run()
