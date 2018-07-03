@@ -18,6 +18,10 @@ FROM python:3
 WORKDIR /usr/src/app
 
 # Instalação de requisitos
+RUN sudo apt-get update 
+RUN sudo apt-get install python3-tk
+RUN sudo apt-get install graphviz
+
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -26,4 +30,4 @@ COPY . .
 
 # Sempre que tu usar o comando "docker run nome-do-container", o container executará esse comando por padrão
 # Mudar, se necessário
-CMD [ "python", "./src/sanconnect_ml.py" ]
+CMD [ "python", "./src/webservice.py" ]

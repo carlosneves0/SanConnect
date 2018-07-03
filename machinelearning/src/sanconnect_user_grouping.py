@@ -22,7 +22,7 @@ def agrupa_usando_json(json_request):
 	return json_agrupamentos
 
 def testa_localmente():
-	with open('usuarios.js') as user_data_file:
+	with open('base_treino_usuarios.js') as user_data_file:
 		json_arquivo = json.load(user_data_file)
 
 	json_usuario_referencia = json_arquivo["usuario_referencia"]

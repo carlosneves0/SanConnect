@@ -3,7 +3,8 @@ dependencias
 (maquina local)
 virtualenv
 setuptools
-python3-tk 
+python3-tk
+graphviz
 
 (ambiente virtual)
 matplotlib
