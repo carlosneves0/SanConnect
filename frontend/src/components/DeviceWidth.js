@@ -1,7 +1,7 @@
 import React from 'react'
 import MediaQuery from 'react-responsive'
 
-const withIsDesktop = Component => (
+const withDeviceWidth = Component => (
   props => (
     <MediaQuery minDeviceWidth={880}>
       {matches => (
@@ -11,4 +11,4 @@ const withIsDesktop = Component => (
   )
 )
 
-export { withIsDesktop }
+export { withDeviceWidth }

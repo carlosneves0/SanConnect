@@ -27,7 +27,9 @@ const PublicEvent = ({
       </Card.Meta>
     </Card.Content>
     <Card.Content>
-      {categories.map(category => <Category category={category} />)}
+      {categories.map(
+        category => <Category key={category} category={category} />
+      )}
     </Card.Content>
   </Card>
 )

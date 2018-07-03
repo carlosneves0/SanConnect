@@ -5,6 +5,18 @@ import { withEvents } from '../../containers/EventsContainer'
 import './EventFeed.css'
 
 const EventFeed = ({ auth, events }) => {
+  return (
+    <div>
+      <h1>EventFeed</h1>
+      <h1>EventFeed</h1>
+      <h1>EventFeed</h1>
+      <h1>EventFeed</h1>
+      <h1>EventFeed</h1>
+      <h1>EventFeed</h1>
+      <h1>EventFeed</h1>
+      <h1>EventFeed</h1>
+    </div>
+  )
   const request = events.state.events
   if (
     request === null || (

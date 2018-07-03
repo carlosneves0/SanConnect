@@ -1,6 +1,5 @@
 // @flow
-import React from 'react'
-import { Container, Subscribe } from 'unstated'
+import { Container } from 'unstated'
 import ViewerQuery from '../graphql/ViewerQuery'
 
 type ViewerState = {
@@ -81,13 +80,3 @@ class ViewerContainer extends Container<ViewerState> {
 }
 
 export default ViewerContainer
-
-const withViewer = Component => (
-  props => (
-    <Subscribe to={[ViewerContainer]}>
-      {viewer => <Component {...props} viewer={viewer} />}
-    </Subscribe>
-  )
-)
-
-export { withViewer }

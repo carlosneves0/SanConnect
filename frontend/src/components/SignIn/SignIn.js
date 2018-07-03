@@ -2,7 +2,7 @@ import React from 'react'
 import * as yup from 'yup'
 import { Formik, Field, Form } from 'formik'
 import { Button } from 'semantic-ui-react'
-import { withIsDesktop } from '../IsDesktop'
+import { withDeviceWidth } from '../DeviceWidth'
 import './SignIn.css'
 
 const SignInSchema = yup.object().shape({
@@ -60,7 +60,10 @@ const SignIn = ({ isDesktop, auth, viewer }) => (
           </div>
 
           <div className='App-form-field'>
-            <Button type='submit' primary fluid size={`${isDesktop ? 'small' : 'big'}`}>
+            <Button
+              type='submit' primary fluid
+              size={`${isDesktop ? 'small' : 'big'}`}
+            >
               Acessar
             </Button>
           </div>
@@ -70,4 +73,4 @@ const SignIn = ({ isDesktop, auth, viewer }) => (
   </div>
 )
 
-export default withIsDesktop(SignIn)
+export default withDeviceWidth(SignIn)

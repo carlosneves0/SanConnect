@@ -1,9 +1,21 @@
 import _query from './_query'
 
+function convertEnToPt(
+  { fullName, picture, description, email, password }
+) {
+  return {
+    nome: fullName,
+    foto: picture,
+    descricao: description,
+    email,
+    password
+  }
+}
+
 async function SignUpMutation(user) {
   const query = `
     mutation SignUpMutation($user: SignUpInput!) {
-      signUp(user: $user) {
+      vewier: signUp(user: $user) {
         email
         nome
         descricao
@@ -14,11 +26,11 @@ async function SignUpMutation(user) {
     }
   `
 
-  const variables = { user }
+  const variables = { user: convertEnToPt(user) }
 
-  const { signUp } = await _query(query, variables)
+  const { viewer } = await _query(query, variables)
 
-  return signUp
+  return viewer
 }
 
 export default SignUpMutation

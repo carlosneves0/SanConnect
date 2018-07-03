@@ -3,10 +3,7 @@ import * as yup from 'yup'
 import { Formik, Field, Form } from 'formik'
 import { Button } from 'semantic-ui-react'
 import ImageInput from './ImageInput'
-import { withIsDesktop } from '../IsDesktop'
-import SignUpMutation from '../../graphql/SignUpMutation'
-import { withAuth } from '../../containers/AuthContainer'
-import { withViewer } from '../../containers/ViewerContainer'
+import { withDeviceWidth } from '../DeviceWidth'
 import './SignUp.css'
 
 const SignUpSchema = yup.object().shape({
@@ -24,40 +21,11 @@ const SignUpSchema = yup.object().shape({
     .max(60, 'Tamanho máximo de 60 catacteres')
 })
 
-async function SignUpSignIn(
-  { fullName, picture, description, email, password },
-  notify,
-  auth,
-  viewer,
-  setSubmitting
-) {
-  try {
-    const user = {
-      nome: fullName,
-      foto: picture,
-      descricao: description,
-      email,
-      password
-    }
-    const viewerData = await SignUpMutation(user)
-    notify.success({ message: 'Conta criada com sucesso' })
-    viewer.set(viewerData)
-    console.warn(
-      'TODO: wrap following statement in a try catch and handle ' +
-      'potential signIn errors.'
-    )
-    auth.signIn(email, password)
-  } catch (error) {
-    setSubmitting(false)
-    notify.danger({ message: error.message })
-  }
-}
-
 const Required = () => (
   <span style={{ color: 'red', fontWeight: 'normal' }}>*</span>
 )
 
-const SignUp = ({ isDesktop, notify, auth, viewer }) => (
+const SignUp = ({ isDesktop, auth, history }) => (
   <div className='SignUp'>
     <h2>Criar uma Conta</h2>
     <Formik
@@ -69,7 +37,7 @@ const SignUp = ({ isDesktop, notify, auth, viewer }) => (
         password: ''
       }}
       validationSchema={SignUpSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting }) => {
         if (typeof values.picture === 'undefined' || values.picture === '') {
           values.picture = null
         }
@@ -78,7 +46,11 @@ const SignUp = ({ isDesktop, notify, auth, viewer }) => (
           values.description = null
         }
 
-        SignUpSignIn(values, notify, auth, viewer, setSubmitting)
+        try {
+          await auth.signUp(values)
+        } catch (error) {
+          setSubmitting(false)
+        }
       }}
       render={({
         values,
@@ -161,4 +133,4 @@ const SignUp = ({ isDesktop, notify, auth, viewer }) => (
   </div>
 )
 
-export default withAuth(withViewer(withIsDesktop(SignUp)))
+export default withDeviceWidth(SignUp)

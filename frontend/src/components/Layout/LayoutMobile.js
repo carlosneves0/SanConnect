@@ -92,7 +92,12 @@ class LayoutMobile extends React.Component {
         )}
         open={this.state.sidebarOpen}
         onSetOpen={this.onSetSidebarOpen}
-        styles={{ content: { overflowY: 'auto' } }}
+        styles={{
+          sidebar: { zIndex: 3 },
+          content: { overflowY: 'auto' },
+          overlay: { zIndex: 2 },
+          dragHandle: { zIndex: 2 }
+        }}
       >
         <nav className='Layout-nav'>
           <Link to='/' className='Layout-brand'>SanConnect</Link>
