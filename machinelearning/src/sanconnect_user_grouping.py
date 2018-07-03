@@ -47,8 +47,8 @@ def agrupa_usuarios(usuario_referencia, usuarios):
 
 	lista_usuarios_ordenada_por_grupo = transforma_agrupamento_em_lista(usuario_referencia, usuarios, matriz_agrupamentos)
 
-	#labels = monta_lista_de_labels(usuarios)
-	#plota_dendrograma(matriz_agrupamentos, labels)
+	labels = monta_lista_de_labels(usuarios)
+	plota_dendrograma(matriz_agrupamentos, labels)
 
 	return lista_usuarios_ordenada_por_grupo
 
@@ -110,7 +110,8 @@ def plota_dendrograma(matriz, labels):
 		leaf_font_size=12.,
 	)
 
-	plt.show()	
+	plt.savefig('exemplo_agrupamento_usuario.png')
+	#plt.show()	
 	return 0
 
 testa_localmente()

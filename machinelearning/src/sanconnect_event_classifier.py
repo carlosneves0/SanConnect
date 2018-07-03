@@ -169,7 +169,7 @@ def gera_classificador_arvore_decisao():
 
 	info_grafico = tree.export_graphviz(arvore_decisao, out_file=None, filled=True)
 	grafico = graphviz.Source(info_grafico)
-	grafico.render('interesse_usuario_evento')
+	grafico.render('exemplo_interesse_usuario_evento')
 
 	scores = cross_val_score(arvore_decisao, matriz_atributos, matriz_classes, cv=5)
 	print(scores)
