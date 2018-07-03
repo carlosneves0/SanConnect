@@ -14,19 +14,6 @@ type ViewerState = {
   }
 }
 
-function convertPtToEn(
-  { nome, foto, descricao, email, likes, dislikes }
-) {
-  return {
-    name: nome,
-    picture: foto,
-    description: descricao,
-    email,
-    likes,
-    dislikes
-  }
-}
-
 class ViewerContainer extends Container<ViewerState> {
   state = {
     viewer: null
@@ -35,7 +22,7 @@ class ViewerContainer extends Container<ViewerState> {
   set = data => {
     this.setState({
       viewer: {
-        data: convertPtToEn(data),
+        data: data,
         error: null
       }
     })
@@ -57,19 +44,21 @@ class ViewerContainer extends Container<ViewerState> {
       const data = await ViewerQuery()
       this.setState({
         viewer: {
-          data: convertPtToEn(data),
+          data: data,
           error: null
         }
       })
     } catch (error) {
       this.setState({
-        data: null,
-        error: error.message,
+        viewer: {
+          data: null,
+          error: error.message
+        }
       })
     }
   }
 
-  poll = (notify) => {
+  poll = notify => {
     if (typeof this.polling === 'undefined' || this.polling === null) {
       this.polling = setInterval(() => {
         const { viewer } = this.state

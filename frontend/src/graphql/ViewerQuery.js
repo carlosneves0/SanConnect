@@ -1,5 +1,18 @@
 import _query from './_query'
 
+function convertPtToEn(
+  { nome, foto, descricao, email, likes, dislikes }
+) {
+  return {
+    name: nome,
+    picture: foto,
+    description: descricao,
+    email,
+    likes,
+    dislikes
+  }
+}
+
 async function ViewerQuery() {
   const query = `
     query ViewerQuery {
@@ -18,7 +31,7 @@ async function ViewerQuery() {
 
   const { viewer } = await _query(query, variables)
 
-  return viewer
+  return convertPtToEn(viewer)
 }
 
 export default ViewerQuery

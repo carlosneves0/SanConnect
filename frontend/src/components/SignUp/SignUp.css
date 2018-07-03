@@ -1,12 +1,12 @@
 .SignUp {
-  padding: 0 6vw;
-  padding-top: calc(53px + 2vh)
+  padding: 4vh 6vw;
+  padding-top: calc(53px + 4vh);
 }
 
 .SignUp h2 {
   text-align: center;
 }
-/* 
+/*
 .SignUp-field {
   margin-top: 2vh;
 }

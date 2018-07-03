@@ -1,0 +1,27 @@
+.EventFeed {
+  padding: calc(52px + 4vh) 6vw 4vh 6vw;
+}
+
+.App-fixed-content.ui.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Category {
+  color: white;
+  /* background: #2185d0;
+  background: #8ea013; */
+  background: #b5cc18;
+  margin: 2px;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+@media only screen and (min-device-width: 880px) {
+  .EventFeed .ui.card {
+    width: 360px;
+    margin: 2vh auto;
+  }
+}

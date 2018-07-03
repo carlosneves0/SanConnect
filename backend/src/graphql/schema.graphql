@@ -8,7 +8,7 @@ type Query {
   signIn(email: String!, password: String!): AuthResponse!
   userRecomendations: [User!]!
   getTags: [String!]!
-  getAllEvents(event:GetAllEventsInput): [Event!]
+  getAllEvents(event: GetAllEventsInput): [PublicEvent!]!
   getEvent(event:GetEventInput!): Event!
   searchEvents(event:GetAllEventsInput!): [Event!]
   getUser(user:GetUser!): User!
@@ -20,6 +20,7 @@ type Mutation {
   updateUser(user:UpdateUserInput!): String!
   updatePassword(user:UpdatePassword!): String!
   updateEvent(event:UpdateEventInput!): Event!
+  createParticipa(participa:CreateParticipaInput!): Boolean!
 }
 
 type AuthResponse {
@@ -68,7 +69,7 @@ input UpdateEventInput {
   data_hora_evento: String! # Não muda
   descricao: String
   min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
-  max_participantes: Int  
+  max_participantes: Int
   local: String
   categorias: [String]!
 }
@@ -107,6 +108,13 @@ type Event {
   participantes: [User!]!
 }
 
+type PublicEvent {
+  criador: String!
+  titulo: String!
+  data_hora_evento: String!
+  categorias: [String!]!
+}
+
 input UpdatePassword {
   email: String!
   password: String!
@@ -125,8 +133,48 @@ type User {
   likes: Int
   dislikes: Int
 }
-#
-# enum GENDER {
-#   MALE,
-#   FEMALE
-# }
+
+type Participa {
+  criador_evento: String!
+  titulo: String!
+  data_hora_evento: String!
+  email: String!
+  confirmacao: Boolean!
+  data_hora_ingresso: String!
+}
+
+# Entrar em um evento, ou em sua lista de espera;
+input CreateParticipaInput {
+  criador_evento: String!
+  titulo: String!
+  data_hora_evento: String!
+  email: String!
+}
+
+# Confirmar presença em um evento.
+input UpdateParticipaInput {
+  criador_evento: String!
+  titulo: String!
+  data_hora_evento: String!
+  email: String!
+}
+
+# Sair de um evento.
+input RemoveParticipaInput {
+  criador_evento: String!
+  titulo: String!
+  data_hora_evento: String!
+  email: String!
+}
+
+# Buscar participações de um usuário
+input GetParticipaUserInput {
+  user: String! # needs only email
+}
+
+# Buscar participantes de um evento
+input GetParticipaEventInput {
+  criador: String!
+  titulo: String!
+  data_hora_evento: String!
+}

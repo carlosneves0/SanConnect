@@ -3,9 +3,9 @@
   height: 40px;
   border-radius: 50%;
   border: 1px solid darkred;
-  float: right;
-  margin-top: 6px;
-  margin-right: 6px;
+  position: fixed;
+  top: 6px;
+  right: 4vw;
 }
 
 .Avatar-loading {
@@ -24,4 +24,12 @@
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+@media only screen and (min-device-width: 880px) {
+  .Avatar {
+    position: unset;
+    margin-top: 6px;
+    float: right;
+  }
 }
