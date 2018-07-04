@@ -8,9 +8,9 @@ type Query {
   signIn(email: String!, password: String!): AuthResponse!
   userRecomendations: [User!]!
   getTags: [String!]!
-  getAllEvents(event: GetAllEventsInput): [PublicEvent!]!
+  publicEvents: [PublicEvent!]!
   getEvent(event:GetEventInput!): Event!
-  searchEvents(event:GetAllEventsInput!): [Event!]
+  searchEvents(event:GetAllEventsInput!): [Event!]!
   getUser(user:GetUser!): User!
 }
 

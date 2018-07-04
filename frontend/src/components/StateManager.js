@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import AuthContainer from '../containers/AuthContainer'
 import NotificationContainer from '../containers/NotificationContainer'
 import ViewerContainer from '../containers/ViewerContainer'
+import PublicEventsContainer from '../containers/PublicEventsContainer'
 
 const withState = Component => (
   props => (
@@ -14,16 +15,18 @@ const withState = Component => (
           to={[
             AuthContainer,
             NotificationContainer,
-            ViewerContainer
+            ViewerContainer,
+            PublicEventsContainer
           ]}
         >
-          {(auth, notify, viewer) => (
+          {(auth, notify, viewer, publicEvents) => (
             <Component
               {...props}
               online={online}
               auth={auth}
               notify={notify}
               viewer={viewer}
+              publicEvents={publicEvents}
             />
           )}
         </Subscribe>
@@ -36,7 +39,7 @@ class StateManager extends React.Component {
   constructor(props) {
     super(props)
 
-    const { auth } = props
+    const { auth, viewer, publicEvents } = props
 
     window.addEventListener('online', this.handleOnline)
     window.addEventListener('offline', this.handleOffline)
@@ -45,32 +48,35 @@ class StateManager extends React.Component {
     auth.setOnSignUp(this.handleSignUp)
     auth.setOnSignIn(this.handleSignIn)
     auth.setOnSignOut(this.handleSignOut)
+
+    viewer.setOnError(this.handleError)
+
+    publicEvents.setOnError(this.handleError)
   }
 
   componentDidMount() {
-    const { online, auth, viewer } = this.props
+    this.handleOnline()
+  }
+
+  componentWillUnmount() {
+    this.handleOffline()
+  }
+
+  handleOnline = () => {
+    const { online, auth, viewer, publicEvents } = this.props
     if (online) {
       if (auth.isSignedIn()) {
         viewer.poll()
       } else {
-        // publicFeed.poll()
+        publicEvents.poll()
       }
     }
   }
 
-  componentWillUnmount() {
-    const { viewer } = this.props
-    viewer.freeze()
-  }
-
-  handleOnline = () => {
-    const { viewer } = this.props
-    viewer.poll()
-  }
-
   handleOffline = () => {
-    const { viewer } = this.props
+    const { viewer, publicEvents } = this.props
     viewer.freeze()
+    publicEvents.freeze()
   }
 
   handleError = error => {
@@ -84,28 +90,21 @@ class StateManager extends React.Component {
   }
 
   handleSignIn = () => {
-    const { viewer } = this.props
+    const { viewer, publicEvents } = this.props
     viewer.poll()
-    // publicFeed.clear()
+    publicEvents.clear()
     // privateFeed.poll()
   }
 
   handleSignOut = () => {
-    const { viewer } = this.props
+    const { viewer, publicEvents } = this.props
     viewer.clear()
+    publicEvents.poll()
     // privateFeed.clear()
-    // publicFeed.poll()
   }
 
   render() {
-    return (
-      <div>
-        {React.cloneElement(
-          this.props.children,
-          {...this.props}
-        )}
-      </div>
-    )
+    return React.cloneElement(this.props.children, {...this.props})
   }
 }
 

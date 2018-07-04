@@ -1,21 +1,22 @@
-// @flow
+//  @flow
 import { Container } from 'unstated'
-import ViewerQuery from '../graphql/ViewerQuery'
+import PublicEventsQuery from '../graphql/PublicEventsQuery'
 
-type ViewerState = {
-  viewer: ?{
-    email: string,
-    name: string,
-    description: ?string,
-    picture: ?string,
-    likes: number,
-    dislikes: number
-  }
+type PublicEvent = {
+  creator: string,
+  title: string,
+  beginsAt: string,
+  categories: Array<string>
 }
 
-class ViewerContainer extends Container<ViewerState> {
+type PublicEventsState = {
+  data: ?Array<PublicEvent>,
+  error: ?{}
+}
+
+class PublicEventsContainer extends Container<PublicEventsState> {
   state = {
-    viewer: null
+    publicEvents: null
   }
 
   constructor() {
@@ -25,36 +26,38 @@ class ViewerContainer extends Container<ViewerState> {
 
   setOnError(callback) {
     if (typeof callback !== 'function') {
-      throw new Error('Callback provided to ViewerContainer must be a funcion.')
+      throw new Error(
+        'Callback provided to PublicEventsContainer must be a funcion.'
+      )
     }
     this.onError = callback
   }
 
   clear() {
-    this.setState({ viewer: null })
+    this.setState({ publicEvents: null })
   }
 
   async fetch() {
     this.setState({
-      viewer: {
+      publicEvents: {
         data: null,
         error: null
       }
     })
 
     try {
-      const data = await ViewerQuery()
+      const data = await PublicEventsQuery()
       this.setState({
-        viewer: {
-          data,
+        publicEvents: {
+          data: data,
           error: null
         }
       })
     } catch (error) {
       this.onError(new Error(
-        'Falha ao carregar os dados da conta. Tentando novamente...'
+        'Falha ao carregar os eventos atuais. Tentando novamente...'
       ))
-      this.setState({ viewer: null })
+      this.setState({ publicEvents: null })
     }
   }
 
@@ -66,11 +69,11 @@ class ViewerContainer extends Container<ViewerState> {
   poll() {
     if (this._polling === null) {
       this._polling = setInterval(() => {
-        const { viewer } = this.state
-        if (viewer === null) {
+        const { publicEvents } = this.state
+        if (publicEvents === null) {
           this.fetch()
         } else {
-          const { data, error } = viewer
+          const { data, error } = publicEvents
           if (data !== null) {
             this.freeze()
           } else if (error !== null) {
@@ -86,4 +89,4 @@ class ViewerContainer extends Container<ViewerState> {
   }
 }
 
-export default ViewerContainer
+export default PublicEventsContainer

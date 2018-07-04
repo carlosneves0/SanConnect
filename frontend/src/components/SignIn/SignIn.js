@@ -27,7 +27,6 @@ const SignIn = ({ isDesktop, auth, viewer }) => (
       onSubmit={async ({ email, password }, { setSubmitting }) => {
         try {
           await auth.signIn(email, password)
-          viewer.poll()
         } catch (error) {
           setSubmitting(false)
         }

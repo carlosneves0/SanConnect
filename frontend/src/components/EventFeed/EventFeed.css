@@ -9,10 +9,12 @@
   transform: translate(-50%, -50%);
 }
 
+.Event-Card:hover {
+  cursor: pointer;
+}
+
 .Category {
   color: white;
-  /* background: #2185d0;
-  background: #8ea013; */
   background: #b5cc18;
   margin: 2px;
   padding: 2px 4px;
@@ -20,8 +22,7 @@
 }
 
 @media only screen and (min-device-width: 880px) {
-  .EventFeed .ui.card {
-    width: 360px;
-    margin: 2vh auto;
+  .ui.cards > .ui.card.Event-Card {
+    width: 280px;
   }
 }

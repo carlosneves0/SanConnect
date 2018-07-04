@@ -9,9 +9,10 @@ const PublicEvent = ({
   title,
   creator,
   beginsAt,
-  categories
+  categories,
+  onClick
 }) => (
-  <Card>
+  <Card className='Event-Card' onClick={onClick}>
     <Card.Content>
       <Card.Header>{title}</Card.Header>
     </Card.Content>
