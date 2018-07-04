@@ -17,24 +17,24 @@ async function createParticipa({ participa }, { pool, viewer }) {
 	}
 
 	let ret = false /* Valor de retorno. Mais informações abaixo. */
-	let q = await pool.query(query)
+	try{
+		let q = await pool.query(query)
 
-	/* Checagem para inserção*/
-	if(q.rows[0].count >= q.rows[0].max){
-		/* Ingresso na lista de espera. */
-		query = {
-		text: "INSERT INTO PARTICIPA VALUES($1, $2, $3, $4, FALSE, $5)",
-		values: [criador_evento, titulo, data_hora_evento, email, data_hora_ingresso]
+		/* Checagem para inserção*/
+		if(q.rows[0].count >= q.rows[0].max){
+				/* Ingresso na lista de espera. */
+				query = {
+				text: "INSERT INTO PARTICIPA VALUES($1, $2, $3, $4, FALSE, $5)",
+				values: [criador_evento, titulo, data_hora_evento, email, data_hora_ingresso]
+				}
+		} else{
+				/* Ingresso com confirmação */
+				ret = true
+				query = {
+				text: "INSERT INTO PARTICIPA VALUES($1, $2, $3, $4, TRUE, $5)",
+				values: [criador_evento, titulo, data_hora_evento, email, data_hora_ingresso]
+				}
 		}
-	} else{
-		/* Ingresso com confirmação */
-		ret = true
-		query = {
-		text: "INSERT INTO PARTICIPA VALUES($1, $2, $3, $4, TRUE, $5)",
-		values: [criador_evento, titulo, data_hora_evento, email, data_hora_ingresso]
-		}
-	}
-	try {		
 		/* Inicia uma transação. */
 		await pool.query('BEGIN')
 		/* Insere as informações no banco. */
