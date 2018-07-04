@@ -50,8 +50,8 @@ type Event {
   title: String!
   beginsAt: String!
   description: String
-  minParticipantes: Int!
-  maxParticipantes: Int
+  minParticipants: Int!
+  maxParticipants: Int
   createdAt: String!
   location: String
   categories: [String!]!
@@ -88,8 +88,8 @@ input CreateEventInput {
   title: String!
   beginsAt: String!
   description: String
-  minParticipantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
-  maxParticipantes: Int
+  minParticipants: Int # Se nulo, trocar para 2 antes de inserir no banco.
+  maxParticipants: Int
   location: String
   categories: [String]!
 }
@@ -99,8 +99,8 @@ input UpdateEventInput {
   title: String! # Não muda
   beginsAt: String! # Não muda
   description: String
-  minParticipantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
-  maxParticipantes: Int
+  minParticipants: Int # Se nulo, trocar para 2 antes de inserir no banco.
+  maxParticipants: Int
   location: String
   categories: [String]!
 }
@@ -113,8 +113,8 @@ input GetAllEventsInput {
   title: String
   beginsAt: String
   description: String
-  minParticipantes: Int
-  maxParticipantes: Int
+  minParticipants: Int
+  maxParticipants: Int
   createdAt: String
   location: String
   categories: [String]

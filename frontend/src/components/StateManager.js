@@ -6,6 +6,7 @@ import AuthContainer from '../containers/AuthContainer'
 import NotificationContainer from '../containers/NotificationContainer'
 import ViewerContainer from '../containers/ViewerContainer'
 import PublicEventsContainer from '../containers/PublicEventsContainer'
+import EventsContainer from '../containers/EventsContainer'
 
 const withState = Component => (
   props => (
@@ -16,10 +17,11 @@ const withState = Component => (
             AuthContainer,
             NotificationContainer,
             ViewerContainer,
-            PublicEventsContainer
+            PublicEventsContainer,
+            EventsContainer
           ]}
         >
-          {(auth, notify, viewer, publicEvents) => (
+          {(auth, notify, viewer, publicEvents, events) => (
             <Component
               {...props}
               online={online}
@@ -27,6 +29,7 @@ const withState = Component => (
               notify={notify}
               viewer={viewer}
               publicEvents={publicEvents}
+              events={events}
             />
           )}
         </Subscribe>
@@ -39,7 +42,7 @@ class StateManager extends React.Component {
   constructor(props) {
     super(props)
 
-    const { auth, viewer, publicEvents } = props
+    const { auth, viewer, publicEvents, events } = props
 
     window.addEventListener('online', this.handleOnline)
     window.addEventListener('offline', this.handleOffline)
@@ -52,6 +55,8 @@ class StateManager extends React.Component {
     viewer.setOnError(this.handleError)
 
     publicEvents.setOnError(this.handleError)
+
+    events.setOnError(this.handleError)
   }
 
   componentDidMount() {
@@ -63,10 +68,11 @@ class StateManager extends React.Component {
   }
 
   handleOnline = () => {
-    const { online, auth, viewer, publicEvents } = this.props
+    const { online, auth, viewer, publicEvents, events } = this.props
     if (online) {
       if (auth.isSignedIn()) {
         viewer.poll()
+        events.poll()
       } else {
         publicEvents.poll()
       }
@@ -74,8 +80,9 @@ class StateManager extends React.Component {
   }
 
   handleOffline = () => {
-    const { viewer, publicEvents } = this.props
+    const { viewer, publicEvents, events } = this.props
     viewer.freeze()
+    events.freeze()
     publicEvents.freeze()
   }
 
@@ -90,15 +97,17 @@ class StateManager extends React.Component {
   }
 
   handleSignIn = () => {
-    const { viewer, publicEvents } = this.props
+    const { viewer, publicEvents, events } = this.props
     viewer.poll()
+    events.poll()
     publicEvents.clear()
     // privateFeed.poll()
   }
 
   handleSignOut = () => {
-    const { viewer, publicEvents } = this.props
+    const { viewer, publicEvents, events } = this.props
     viewer.clear()
+    events.clear()
     publicEvents.poll()
     // privateFeed.clear()
   }

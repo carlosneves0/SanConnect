@@ -54,7 +54,8 @@ class ViewerContainer extends Container<ViewerState> {
       this.onError(new Error(
         'Falha ao carregar os dados da conta. Tentando novamente...'
       ))
-      this.setState({ viewer: null })
+      // Retry after 8s
+      setTimeout(() => this.setState({ viewer: null }), 8000)
     }
   }
 
@@ -74,9 +75,7 @@ class ViewerContainer extends Container<ViewerState> {
           if (data !== null) {
             this.freeze()
           } else if (error !== null) {
-            throw new Error(
-              'Should never reach this. Error is never set with setState.'
-            )
+            // There was an error fetching.
           } else {
             // Still loading...just wait.
           }

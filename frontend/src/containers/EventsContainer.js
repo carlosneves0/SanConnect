@@ -1,22 +1,9 @@
-//  @flow
 import { Container } from 'unstated'
-import PublicEventsQuery from '../graphql/PublicEventsQuery'
+import EventsQuery from '../graphql/EventsQuery'
 
-type PublicEvent = {
-  creator: string,
-  title: string,
-  beginsAt: string,
-  categories: Array<string>
-}
-
-type PublicEventsState = {
-  data: ?Array<PublicEvent>,
-  error: ?{}
-}
-
-class PublicEventsContainer extends Container<PublicEventsState> {
+class PublicEventsContainer extends Container {
   state = {
-    publicEvents: null
+    events: null
   }
 
   constructor() {
@@ -34,31 +21,31 @@ class PublicEventsContainer extends Container<PublicEventsState> {
   }
 
   clear() {
-    this.setState({ publicEvents: null })
+    this.setState({ events: null })
   }
 
   async fetch() {
     this.setState({
-      publicEvents: {
+      events: {
         data: null,
         error: null
       }
     })
 
     try {
-      const data = await PublicEventsQuery()
+      const data = await EventsQuery()
       this.setState({
-        publicEvents: {
+        events: {
           data: data,
           error: null
         }
       })
     } catch (error) {
       this.onError(new Error(
-        'Falha ao carregar os eventos públicos atuais. Tentando novamente...'
+        'Falha ao carregar os eventos atuais. Tentando novamente...'
       ))
       // Retry after 8s
-      setTimeout(() => this.setState({ publicEvents: null }), 8000)
+      setTimeout(() => this.setState({ events: null }), 8000)
     }
   }
 
@@ -70,11 +57,11 @@ class PublicEventsContainer extends Container<PublicEventsState> {
   poll() {
     if (this._polling === null) {
       this._polling = setInterval(() => {
-        const { publicEvents } = this.state
-        if (publicEvents === null) {
+        const { events } = this.state
+        if (events === null) {
           this.fetch()
         } else {
-          const { data, error } = publicEvents
+          const { data, error } = events
           if (data !== null) {
             this.freeze()
           } else if (error !== null) {

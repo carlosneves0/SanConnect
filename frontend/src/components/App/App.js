@@ -15,7 +15,7 @@ import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import './App.css'
 
-const App = ({ online, auth, notify, viewer, publicEvents }) => (
+const App = ({ online, auth, notify, viewer, publicEvents, events }) => (
   <Layout auth={auth} viewer={viewer}>
     <NotificationManager />
     {online ? (
@@ -26,7 +26,7 @@ const App = ({ online, auth, notify, viewer, publicEvents }) => (
           <Redirect from='/explore' to='/' />
           <Route
             path='/' exact
-            render={() => <EventFeed auth={auth} />}
+            render={() => <EventFeed auth={auth} events={events} />}
           />
           <Route
             path='/sign-out'
