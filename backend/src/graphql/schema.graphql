@@ -6,22 +6,23 @@ schema {
 type Query {
   viewer: User!
   signIn(email: String!, password: String!): AuthResponse!
-  userRecomendations: [User!]!
-  getTags: [String!]!
   publicEvents: [PublicEvent!]!
-  getEvent(event:GetEventInput!): Event!
-  searchEvents(event:GetAllEventsInput!): [Event!]!
-  getUser(user:GetUser!): User!
+  # events: [Event!]!
+  # userRecomendations: [User!]!
+  # getTags: [String!]!
+  # getEvent(event:GetEventInput!): Event!
+  # searchEvents(event:GetAllEventsInput!): [Event!]!
+  # getUser(user:GetUser!): User!
 }
 
 type Mutation {
-  signUp(user:SignUpInput!): User!
-  createEvent(event:CreateEventInput!): Event!
-  updateUser(user:UpdateUserInput!): String!
-  updatePassword(user:UpdatePassword!): String!
-  updateEvent(event:UpdateEventInput!): Event!
-  createParticipa(participa:CreateParticipaInput!): Boolean!
-  deleteParticipa(participa:DeleteParticipaInput!): Int!
+  signUp(user: SignUpInput!): User!
+  # createEvent(event:CreateEventInput!): Event!
+  # updateUser(user:UpdateUserInput!): String!
+  # updatePassword(user:UpdatePassword!): String!
+  # updateEvent(event:UpdateEventInput!): Event!
+  # createParticipa(participa:CreateParticipaInput!): Boolean!
+  # deleteParticipa(participa:DeleteParticipaInput!): Int!
 }
 
 type AuthResponse {
@@ -30,17 +31,17 @@ type AuthResponse {
 
 input UpdateUserInput {
   email: String!
-  nome: String!
-  descricao: String
-  foto: String
+  name: String!
+  description: String
+  picture: String
 }
 
 input SignUpInput {
 	email: String!
 	password: String!
-	nome: String!
-	descricao: String
-	foto: String
+	name: String!
+	description: String
+	picture: String
 }
 
 # TODO List
@@ -54,66 +55,66 @@ input SignUpInput {
 # Preferência
 
 input CreateEventInput {
-  criador: String!
-  titulo: String!
-  data_hora_evento: String!
-  descricao: String
-  min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
-  max_participantes: Int
-  local: String
-  categorias: [String]!
+  creator: String!
+  title: String!
+  beginsAt: String!
+  description: String
+  minParticipantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
+  maxParticipantes: Int
+  location: String
+  categories: [String]!
 }
 
 input UpdateEventInput {
-  criador: String! # Não muda
-  titulo: String! # Não muda
-  data_hora_evento: String! # Não muda
-  descricao: String
-  min_participantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
-  max_participantes: Int
-  local: String
-  categorias: [String]!
+  creator: String! # Não muda
+  title: String! # Não muda
+  beginsAt: String! # Não muda
+  description: String
+  minParticipantes: Int # Se nulo, trocar para 2 antes de inserir no banco.
+  maxParticipantes: Int
+  location: String
+  categories: [String]!
 }
 
 # Pode ser usada para buscar todos os eventos, caso nenhum parâmetro receba valor.
 # Pode ser utilizada para buscar um único evento, caso todas as chaves sejam preenchidas.
-# Pode ser utilziada para filtrar uma busca por eventos, com filtros como por exemplo, categorias.
+# Pode ser utilziada para filtrar uma busca por eventos, com filtros como por exemplo, categories.
 input GetAllEventsInput {
-  criador: String
-  titulo: String
-  data_hora_evento: String
-  descricao: String
-  min_participantes: Int
-  max_participantes: Int
-  data_hora_criacao: String
-  local: String
-  categorias: [String]
+  creator: String
+  title: String
+  beginsAt: String
+  description: String
+  minParticipantes: Int
+  maxParticipantes: Int
+  createdAt: String
+  location: String
+  categories: [String]
 }
 
 input GetEventInput {
-  criador: String!
-  titulo: String!
-  data_hora_evento: String!
+  creator: String!
+  title: String!
+  beginsAt: String!
 }
 
 type Event {
-  criador: String!
-  titulo: String!
-  data_hora_evento: String!
-  descricao: String
-  min_participantes: Int!
-  max_participantes: Int
-  data_hora_criacao: String!
-  local: String
-  categorias: [String]!
-  participantes: [User!]!
+  creator: User!
+  title: String!
+  beginsAt: String!
+  description: String
+  minParticipantes: Int!
+  maxParticipantes: Int
+  createdAt: String!
+  location: String
+  categories: [String!]!
+  participants: [User!]!
 }
 
 type PublicEvent {
-  criador: String!
-  titulo: String!
-  data_hora_evento: String!
-  categorias: [String!]!
+  creator: String!
+  title: String!
+  beginsAt: String!
+  categories: [String!]!
 }
 
 input UpdatePassword {
@@ -128,17 +129,17 @@ input GetUser {
 
 type User {
   email: String!
-  nome: String!
-  descricao: String
-  foto: String
+  name: String!
+  description: String
+  picture: String
   likes: Int
   dislikes: Int
 }
 
 type Participa {
-  criador_evento: String!
-  titulo: String!
-  data_hora_evento: String!
+  creator_evento: String!
+  title: String!
+  beginsAt: String!
   email: String!
   confirmacao: Boolean!
   data_hora_ingresso: String!
@@ -146,17 +147,17 @@ type Participa {
 
 # Entrar em um evento, ou em sua lista de espera;
 input CreateParticipaInput {
-  criador_evento: String!
-  titulo: String!
-  data_hora_evento: String!
+  creator_evento: String!
+  title: String!
+  beginsAt: String!
   email: String!
 }
 
 # Sair de um evento. Também confirma o próxima da lista de espera no evento.
 input DeleteParticipaInput {
-  criador_evento: String!
-  titulo: String!
-  data_hora_evento: String!
+  creator_evento: String!
+  title: String!
+  beginsAt: String!
   email: String!
 }
 
@@ -167,7 +168,7 @@ input GetParticipaUserInput {
 
 # Buscar participantes de um evento
 input GetParticipaEventInput {
-  criador: String!
-  titulo: String!
-  data_hora_evento: String!
+  creator: String!
+  title: String!
+  beginsAt: String!
 }

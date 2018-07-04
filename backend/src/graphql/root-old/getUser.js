@@ -4,7 +4,7 @@ async function getUser({ user }, { pool, viewer }) {
 		throw new Error('Usuário não autenticado.')
 
 	let query = {
-		text: 'SELECT EMAIL, NOME, DESCRICAO, FOTO, LIKES, DISLIKES FROM USUARIO WHERE EMAIL = $1',
+		text: 'SELECT EMAIL, NOME, DESCRICAO, FOTO, LIKES, DISLIKES FROM _USER WHERE EMAIL = $1',
 		values: [user.email]
 	}
 

@@ -11,7 +11,7 @@ async function viewer(request, response, next) {
     const { email } = jwt.verify(token, JWT_SECRET)
 
     const query = {
-      text: 'SELECT * FROM USUARIO WHERE EMAIL = $1',
+      text: 'SELECT * FROM _USER WHERE EMAIL = $1',
       values: [email]
     }
 

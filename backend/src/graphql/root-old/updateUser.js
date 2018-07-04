@@ -4,7 +4,7 @@ async function updateUser({ user }, { pool, viewer }) {
 		throw new Error('Usuário não autenticado.')
 
 	let query = {
-		text: 'UPDATE USUARIO SET NOME = $1, DESCRICAO = $2, FOTO = $3 WHERE EMAIL = $4',
+		text: 'UPDATE _USER SET NOME = $1, DESCRICAO = $2, FOTO = $3 WHERE EMAIL = $4',
 		values: [user.nome, user.descricao, user.foto, viewer.email]
 	}
 

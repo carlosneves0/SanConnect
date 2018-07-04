@@ -15,7 +15,7 @@ async function updatePassword({ user }, { pool, viewer }) {
 			let password = await auth.hash(user.newPassword, pool)
 
 			let query = {
-				text: 'UPDATE USUARIO SET PASSWORD = $1 WHERE EMAIL = $2',
+				text: 'UPDATE _USER SET PASSWORD = $1 WHERE EMAIL = $2',
 				values: [password, viewer.email]
 			}
 

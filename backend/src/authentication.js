@@ -11,7 +11,7 @@ function hash(password, pool) {
 /* Autentica um determinado usuário pelo banco de dados. */
 async function authenticate(email, password, pool) {	
 	let query = {
-		text: 'SELECT PASSWORD FROM USUARIO WHERE EMAIL=$1',
+		text: 'SELECT PASSWORD FROM _USER WHERE EMAIL=$1',
 		values: [email]
 	}	
 	/* Verifica se o usuário está no banco. */

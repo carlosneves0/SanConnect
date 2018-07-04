@@ -4,7 +4,7 @@ const JWT_SECRET = require('../../jwt-secret')
 
 async function signIn({ email, password }, { pool }) {
   /* Autentica um determinado usuário. */
-  if(await auth.authenticate(email, password, pool) !== true) {
+  if (await auth.authenticate(email, password, pool) !== true) {
     throw new Error('Usuário ou senha inválido.')
   }
 

@@ -1,13 +1,13 @@
 /* Função que realiza uma busca por todos os eventos cadastrados no banco junto de suas categorias. */
 async function publicEvents(args, { pool }) {
   const query = `
-    SELECT EVENTO.*, NOME, STRING_AGG(CATEGORIA,  ', ') AS CATEGORIAS
-    FROM EVENTO
-    JOIN USUARIO
-      ON CRIADOR = EMAIL
-    JOIN EVENTO_CATEGORIA
-      ON CRIADOR_EVENTO = CRIADOR AND TITULO_EVENTO = TITULO AND EVENTO.DATA_HORA_EVENTO = EVENTO_CATEGORIA.DATA_HORA_EVENTO
-    GROUP BY(CRIADOR, NOME, TITULO, EVENTO.DATA_HORA_EVENTO)
+    SELECT EVENT.*, NAME, STRING_AGG(CATEGORY,  ', ') AS CATEGORIES
+    FROM EVENT
+    JOIN _USER
+      ON CREATOR = EMAIL
+    JOIN EVENT_CATEGORY
+      ON CREATOR_EVENT = CREATOR AND TITLE_EVENT = TITLE AND EVENT.BEGINS_AT = EVENT_CATEGORY.BEGINS_AT
+    GROUP BY (CREATOR, NAME, TITLE, EVENT.BEGINS_AT)
   `
 
   try {
@@ -15,15 +15,15 @@ async function publicEvents(args, { pool }) {
 
     return result.rows.map(
       ({
-        nome,
-        titulo,
-        data_hora_evento,
-        categorias
+        name,
+        title,
+        begins_at,
+        categories
       }) => ({
-        criador: nome,
-        titulo,
-        data_hora_evento,
-        categorias: categorias.split(', ')
+        creator: name,
+        title,
+        beginsAt: begins_at,
+        categories: categories.split(', ')
       })
     )
   } catch(err) {

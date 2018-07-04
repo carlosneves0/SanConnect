@@ -7,7 +7,7 @@ import { withDeviceWidth } from '../DeviceWidth'
 import './SignUp.css'
 
 const SignUpSchema = yup.object().shape({
-  fullName: yup.string()
+  name: yup.string()
     .required('Campo obrigatório')
     .max(64, 'Tamanho máximo de 64 catacteres'),
   picture: yup.string().nullable(),
@@ -30,7 +30,7 @@ const SignUp = ({ isDesktop, auth, history }) => (
     <h2>Criar uma Conta</h2>
     <Formik
       initialValues={{
-        fullName: '',
+        name: '',
         picture: '',
         description: '',
         email: '',
@@ -69,10 +69,10 @@ const SignUp = ({ isDesktop, auth, history }) => (
         return (
           <Form className={`ui form${isSubmitting ? ' loading' : ''}${isDesktop ? ' small' : ' big'}`}>
             <div className='App-form-field'>
-              <label htmlFor='fullName'>Nome<Required /></label>
-              <Field name='fullName' placeholder='Nome' type='text' />
-              {errors.fullName && touched.fullName && (
-                <div className='App-form-error'>{errors.fullName}</div>
+              <label htmlFor='name'>Nome<Required /></label>
+              <Field name='name' placeholder='Nome' type='text' />
+              {errors.name && touched.name && (
+                <div className='App-form-error'>{errors.name}</div>
               )}
             </div>
 

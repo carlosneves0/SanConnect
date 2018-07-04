@@ -3,7 +3,7 @@ async function createParticipa({ participa }, { pool, viewer }) {
 	let {criador_evento, titulo, data_hora_evento, email} = participa
 
 	/* Exige que um usuário esteja autenticado para ingressar em um evento. */
-	if(viewer.email !== email) {	
+	if(viewer.email !== email) {
 		throw new Error('Usuário não autenticado.')
 	}
 	data_hora_evento = new Date(data_hora_evento)
@@ -21,7 +21,7 @@ async function createParticipa({ participa }, { pool, viewer }) {
 	}
 	/* Confirmar candidato da lista de espera */
 	query[2] = {
-		text: "UPDATE PARTICIPA P SET P.CONFIRMACAO = TRUE WHERE UPPER(P.CRIADOR_EVENTO) = UPPER($1) AND UPPER(P.TITULO_EVENTO) = UPPER($2) AND P.DATA_HORA_EVENTO = $3 AND P.PARTICIPANTE = $4"
+		text: "UPDATE PARTICIPA P SET P.CONFIRMACAO = TRUE WHERE UPPER(P.CRIADOR_EVENTO) = UPPER($1) AND UPPER(P.TITULO_EVENTO) = UPPER($2) AND P.DATA_HORA_EVENTO = $3 AND P.PARTICIPANTE = $4",
 		values: [criador_evento, titulo, data_hora_evento, email, data_hora_ingresso]
 	}
 
@@ -36,15 +36,15 @@ async function createParticipa({ participa }, { pool, viewer }) {
 		await pool
 
 		/* Selecionar candidatos da lista de espera */
-		
+
 		q = await pool.query(query[2])
 		console.log(q)
-		/* Finaliza a transação. */	
+		/* Finaliza a transação. */
 		await pool.query('COMMIT')
 
 		data_hora_evento = data_hora_evento.toString()
 		return 1
-	} catch(err) {		
+	} catch(err) {
 		await pool.query('ROLLBACK')
 		throw err
 	}
