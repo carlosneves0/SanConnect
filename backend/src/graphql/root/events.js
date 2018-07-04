@@ -1,69 +1,69 @@
 /* Função que realiza uma busca por todos os eventos cadastrados no banco junto de suas categorias. */
 async function events(args, { viewer, pool }) {
-  // if (viewer === null) {
-  //   throw new Error('Usuário não autenticado')
-  // }
+  if (viewer === null) {
+    throw new Error('Usuário não autenticado')
+  }
 
   const query = `
-    SELECT EVENTO.*, STRING_AGG(CATEGORIA,  ', ') AS CATEGORIAS, EMAIL, NOME, _USER.DESCRICAO AS USUARIO_DESCRICAO, FOTO, LIKES, DISLIKES
-    FROM EVENTO
+    SELECT EVENT.*, STRING_AGG(CATEGORY,  ', ') AS CATEGORIES, EMAIL, NAME, _USER.DESCRIPTION AS CREATOR_DESCRIPTION, PICTURE, LIKES, DISLIKES
+    FROM EVENT
     JOIN _USER
-      ON CRIADOR = EMAIL
-    JOIN EVENTO_CATEGORIA
-      ON CRIADOR_EVENTO = CRIADOR AND TITULO_EVENTO = TITULO AND EVENTO.DATA_HORA_EVENTO = EVENTO_CATEGORIA.DATA_HORA_EVENTO
-    GROUP BY(CRIADOR, EMAIL, NOME, TITULO, EVENTO.DATA_HORA_EVENTO)
+      ON CREATOR = EMAIL
+    JOIN EVENT_CATEGORY
+      ON CREATOR_EVENT = CREATOR AND TITLE_EVENT = TITLE AND EVENT.BEGINS_AT = EVENT_CATEGORY.BEGINS_AT
+    GROUP BY (CREATOR, EMAIL, NAME, TITLE, EVENT.BEGINS_AT)
   `
 
   try {
     let result = await pool.query(query)
     return result.rows.map(async ({
-      criador,
-      titulo,
-      data_hora_evento,
-      descricao,
+      creator,
+      title,
+      begins_at,
+      description,
       min_participantes,
       max_participantes,
-      data_hora_criacao,
-      local,
-      categorias,
+      created_at,
+      location,
+      categories,
       email,
-      nome,
-      usuario_descricao,
-      foto,
+      name,
+      creator_description,
+      picture,
       likes,
       dislikes
     }) => {
       // Fetch all participants of this event.
       const text = `
-        select usuario.*
-        from participa
-        join usuario on participa.participante = usuario.email
-        where participa.criador_evento = $1
-          and participa.titulo_evento = $2
-          and participa.data_hora_evento = $3
+        SELECT _USER.*
+        FROM PARTICIPATES
+        JOIN _USER ON PARTICIPATES.PARTICIPANT = _USER.EMAIL
+        WHERE PARTICIPATES.CREATOR_EVENT = $1
+          AND PARTICIPATES.TITLE_EVENT = $2
+          AND PARTICIPATES.BEGINS_AT = $3
       `
-      const values = [criador, titulo, data_hora_evento]
+      const values = [creator, title, begins_at]
 
       result = await pool.query({ text, values })
 
       return {
-        criador: {
-          nome,
+        creator: {
+          name,
           email,
-          descricao: usuario_descricao,
-          foto,
+          description: creator_description,
+          picture,
           likes,
           dislikes
         },
-        titulo,
-        data_hora_evento,
-        descricao,
-        min_participantes,
-        max_participantes,
-        data_hora_criacao,
-        local,
-        categorias: categorias.split(', '),
-        participantes: result.rows
+        title,
+        beginsAt: begins_at,
+        description,
+        minParticipantes: min_participantes,
+        maxParticipantes: max_participantes,
+        createdAt: created_at,
+        location,
+        categories: categories.split(', '),
+        participants: result.rows
       }
     })
   } catch(err) {

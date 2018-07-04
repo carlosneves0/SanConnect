@@ -7,7 +7,7 @@ type Query {
   viewer: User!
   signIn(email: String!, password: String!): AuthResponse!
   publicEvents: [PublicEvent!]!
-  # events: [Event!]!
+  events: [Event!]!
   # userRecomendations: [User!]!
   # getTags: [String!]!
   # getEvent(event:GetEventInput!): Event!
@@ -25,8 +25,45 @@ type Mutation {
   # deleteParticipa(participa:DeleteParticipaInput!): Int!
 }
 
+type User {
+  email: String!
+  name: String!
+  description: String
+  picture: String
+  likes: Int
+  dislikes: Int
+}
+
 type AuthResponse {
   accessToken: String!
+}
+
+type PublicEvent {
+  creator: String!
+  title: String!
+  beginsAt: String!
+  categories: [String!]!
+}
+
+type Event {
+  creator: User!
+  title: String!
+  beginsAt: String!
+  description: String
+  minParticipantes: Int!
+  maxParticipantes: Int
+  createdAt: String!
+  location: String
+  categories: [String!]!
+  participants: [User!]!
+}
+
+input SignUpInput {
+  email: String!
+  password: String!
+  name: String!
+  description: String
+  picture: String
 }
 
 input UpdateUserInput {
@@ -34,14 +71,6 @@ input UpdateUserInput {
   name: String!
   description: String
   picture: String
-}
-
-input SignUpInput {
-	email: String!
-	password: String!
-	name: String!
-	description: String
-	picture: String
 }
 
 # TODO List
@@ -97,26 +126,6 @@ input GetEventInput {
   beginsAt: String!
 }
 
-type Event {
-  creator: User!
-  title: String!
-  beginsAt: String!
-  description: String
-  minParticipantes: Int!
-  maxParticipantes: Int
-  createdAt: String!
-  location: String
-  categories: [String!]!
-  participants: [User!]!
-}
-
-type PublicEvent {
-  creator: String!
-  title: String!
-  beginsAt: String!
-  categories: [String!]!
-}
-
 input UpdatePassword {
   email: String!
   password: String!
@@ -125,15 +134,6 @@ input UpdatePassword {
 
 input GetUser {
   email: String!
-}
-
-type User {
-  email: String!
-  name: String!
-  description: String
-  picture: String
-  likes: Int
-  dislikes: Int
 }
 
 type Participa {
