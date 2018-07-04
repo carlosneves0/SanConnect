@@ -1,49 +1,64 @@
 import React from 'react'
-import { Loader, Icon } from 'semantic-ui-react'
-import Event from './PublicEvent'
-import { withEvents } from '../../containers/EventsContainer'
+import { Loader, Icon, Card } from 'semantic-ui-react'
+import PublicEvent from './PublicEvent'
 import './EventFeed.css'
 
-const EventFeed = ({ auth, events }) => {
-  return (
-    <div>
-      <h1>EventFeed</h1>
-      <h1>EventFeed</h1>
-      <h1>EventFeed</h1>
-      <h1>EventFeed</h1>
-      <h1>EventFeed</h1>
-      <h1>EventFeed</h1>
-      <h1>EventFeed</h1>
-      <h1>EventFeed</h1>
-    </div>
-  )
-  const request = events.state.events
-  if (
-    request === null || (
-      request.error === null && request.data === null
-    )
-  ) {
+const EventFeed = ({ auth, notify, publicEvents }) => {
+  if (auth.isSignedIn()) {
     return (
-      <Loader className='App-fixed-content' active>
-        Carregando Eventos...
-      </Loader>
-    )
-  } else if (request.error !== null) {
-    return (
-      <h3 className='App-fixed-center danger'>
-        <Icon name='warning circle' />
-        Erro ao carregar os eventos
-      </h3>
-    )
-  } else if (request.data !== null) {
-    return (
-      <div className='EventFeed'>
-        {request.data.map(
-          (event, index) => <Event key={index} {...event} />
-        )}
+      <div>
+        <h1>Signed in EventFeed</h1>
+        <h1>Signed in EventFeed</h1>
+        <h1>Signed in EventFeed</h1>
+        <h1>Signed in EventFeed</h1>
+        <h1>Signed in EventFeed</h1>
+        <h1>Signed in EventFeed</h1>
+        <h1>Signed in EventFeed</h1>
+        <h1>Signed in EventFeed</h1>
       </div>
     )
+  } else {
+    const request = publicEvents.state.publicEvents
+    if (
+      request === null || (
+        request.error === null && request.data === null
+      )
+    ) {
+      return (
+        <Loader className='App-fixed-content' active>
+          Carregando Eventos...
+        </Loader>
+      )
+    } else if (request.error !== null) {
+      return (
+        <h3 className='App-fixed-center danger'>
+          <Icon name='warning circle' />
+          Erro ao carregar os eventos
+        </h3>
+      )
+    } else if (request.data !== null) {
+      return (
+        <div className='EventFeed'>
+          <Card.Group>
+            {request.data.map(
+              (event, index) => (
+                <PublicEvent
+                  key={index}
+                  onClick={() => {
+                    notify.info({
+                      message: 'Cadastre-se para ver mais informações!',
+                      duration: 1400
+                    })
+                  }}
+                  {...event}
+                />
+              )
+            )}
+          </Card.Group>
+        </div>
+      )
+    }
   }
 }
 
-export default withEvents(EventFeed)
+export default EventFeed

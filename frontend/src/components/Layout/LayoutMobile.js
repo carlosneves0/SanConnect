@@ -93,10 +93,10 @@ class LayoutMobile extends React.Component {
         open={this.state.sidebarOpen}
         onSetOpen={this.onSetSidebarOpen}
         styles={{
-          sidebar: { zIndex: 3 },
+          sidebar: { zIndex: 102 },
           content: { overflowY: 'auto' },
-          overlay: { zIndex: 2 },
-          dragHandle: { zIndex: 2 }
+          overlay: { zIndex: 101 },
+          dragHandle: { zIndex: 101 }
         }}
       >
         <nav className='Layout-nav'>

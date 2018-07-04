@@ -15,7 +15,7 @@ import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import './App.css'
 
-const App = ({ online, auth, notify, viewer }) => (
+const App = ({ online, auth, notify, viewer, publicEvents }) => (
   <Layout auth={auth} viewer={viewer}>
     <NotificationManager />
     {online ? (
@@ -52,7 +52,13 @@ const App = ({ online, auth, notify, viewer }) => (
           />
           <Route
             path='/explore'
-            render={() => <EventFeed auth={auth} />}
+            render={() => (
+              <EventFeed
+                auth={auth}
+                notify={notify}
+                publicEvents={publicEvents}
+              />
+            )}
           />
           <Route render={() => <NotFound notify={notify} />} />
         </Switch>
