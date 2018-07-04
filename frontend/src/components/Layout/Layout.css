@@ -54,6 +54,23 @@
   margin-top: 2vh;
 }
 
+.ui.segment.DesktopMenu-Segment {
+  width: 180px;
+  line-height: 1.2em;
+  margin: 0;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  padding: 6px;
+  padding-top: 50px;
+}
+
+.ui.segment.DesktopMenu-Segment * {
+  width: 100%;
+  line-height: 1.2em;
+  margin: .4vh 0;
+}
+
 @media only screen and (min-device-width: 880px) {
   .Layout-nav {
     padding: 0 10vw;
@@ -71,16 +88,28 @@
   .Layout-nav * {
     margin-right: .4vw;
   }
+
+  .ui.segment.DesktopMenu-Segment {
+    right: 10vw;
+  }
 }
 
 @media only screen and (max-width: 800px) {
   .Layout-nav {
     padding: 0 4vw;
   }
+
+  .ui.segment.DesktopMenu-Segment {
+    right: 4vw;
+  }
 }
 
 @media only screen and (max-width: 680px) {
   .Layout-nav {
     padding: 0 0.5vw;
+  }
+
+  .ui.segment.DesktopMenu-Segment {
+    right: 0;
   }
 }

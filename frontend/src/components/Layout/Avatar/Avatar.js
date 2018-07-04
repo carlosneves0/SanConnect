@@ -4,7 +4,7 @@ import defaultPicture from './default-picture.jpg'
 import errorPicture from './error-picture.jpg'
 import './Avatar.css'
 
-const Avatar = ({ viewer, history }) => {
+const Avatar = ({ viewer, history, onClickAvatar }) => {
   if (
     viewer === null || (
       viewer.data === null && viewer.error === null
@@ -31,7 +31,12 @@ const Avatar = ({ viewer, history }) => {
         className='Avatar Avatar-loaded'
         src={viewer.data.picture || defaultPicture}
         alt='Foto do Perfil do Usuário'
-        onClick={() => history.push('/my-profile')}
+        onClick={() => {
+          history.push('/my-profile')
+          if (onClickAvatar) {
+            onClickAvatar()
+          }
+        }}
       />
     )
   }

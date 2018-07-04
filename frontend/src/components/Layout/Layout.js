@@ -9,14 +9,14 @@ const Layout = ({ auth, viewer, children }) => (
     {matches => matches ? (
       <LayoutDesktop
         isSignedIn={auth.isSignedIn()}
-        viewer={viewer.state}
+        viewer={viewer.state.viewer}
       >
         {children}
       </LayoutDesktop>
       ) : (
         <LayoutMobile
           isSignedIn={auth.isSignedIn()}
-          viewer={viewer.state}
+          viewer={viewer.state.viewer}
         >
           {children}
         </LayoutMobile>

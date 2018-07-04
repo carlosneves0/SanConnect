@@ -1,5 +1,5 @@
 import React from 'react'
-import { Loader, Icon, Card } from 'semantic-ui-react'
+import { Loader, Icon } from 'semantic-ui-react'
 import PublicEvent from './PublicEvent'
 import './EventFeed.css'
 
@@ -39,22 +39,20 @@ const EventFeed = ({ auth, notify, publicEvents }) => {
     } else if (request.data !== null) {
       return (
         <div className='EventFeed'>
-          <Card.Group>
-            {request.data.map(
-              (event, index) => (
-                <PublicEvent
-                  key={index}
-                  onClick={() => {
-                    notify.info({
-                      message: 'Cadastre-se para ver mais informações!',
-                      duration: 1400
-                    })
-                  }}
-                  {...event}
-                />
-              )
-            )}
-          </Card.Group>
+          {request.data.map(
+            (event, index) => (
+              <PublicEvent
+                key={index}
+                onClick={() => {
+                  notify.info({
+                    message: 'Cadastre-se para ver mais informações!',
+                    duration: 1400
+                  })
+                }}
+                {...event}
+              />
+            )
+          )}
         </div>
       )
     }

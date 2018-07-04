@@ -1,5 +1,5 @@
 .EventFeed {
-  padding: calc(52px + 4vh) 6vw 4vh 6vw;
+  padding: 52px 6vw 0 6vw;
 }
 
 .App-fixed-content.ui.loader {
@@ -7,6 +7,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.EventFeed > .ui.card.Event-Card {
+  font-size: 130%;
+  width: 90vw;
+  margin: 2vh auto;
 }
 
 .Event-Card:hover {
@@ -22,7 +28,10 @@
 }
 
 @media only screen and (min-device-width: 880px) {
-  .ui.cards > .ui.card.Event-Card {
-    width: 280px;
+  .EventFeed > .ui.card.Event-Card {
+    font-size: 130%;
+    min-width: 460px;
+    max-width: 36vw;
+    margin: 2vh auto;
   }
 }

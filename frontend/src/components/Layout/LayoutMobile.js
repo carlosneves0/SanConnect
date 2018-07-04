@@ -34,7 +34,7 @@ const SidebarContent = ({ isSignedIn, toggleSidebar }) => (
         </Link>
         <Link to='/my-profile' onClick={toggleSidebar}>
           <Button primary size='huge' className='LayoutMobile-Button'>
-            Meu Perfil
+            Minha Conta
           </Button>
         </Link>
         <Link to='/sign-out' onClick={toggleSidebar}>
@@ -106,7 +106,7 @@ class LayoutMobile extends React.Component {
             name='bars' size='large'
             onClick={this.toggleSidebar}
           />
-          {isSignedIn && <Avatar viewer={viewer.viewer} />}
+          {isSignedIn && <Avatar viewer={viewer} />}
         </nav>
         <div>
           {children}
