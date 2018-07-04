@@ -36,7 +36,7 @@ class StateManager extends React.Component {
   constructor(props) {
     super(props)
 
-    const { auth } = props
+    const { auth, viewer } = props
 
     window.addEventListener('online', this.handleOnline)
     window.addEventListener('offline', this.handleOffline)
@@ -45,6 +45,8 @@ class StateManager extends React.Component {
     auth.setOnSignUp(this.handleSignUp)
     auth.setOnSignIn(this.handleSignIn)
     auth.setOnSignOut(this.handleSignOut)
+
+    viewer.setOnError(this.handleError)
   }
 
   componentDidMount() {

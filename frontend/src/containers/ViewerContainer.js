@@ -18,6 +18,18 @@ class ViewerContainer extends Container<ViewerState> {
     viewer: null
   }
 
+  constructor() {
+    super()
+    this.polling = null
+  }
+
+  setOnError(callback) {
+    if (typeof callback !== 'function') {
+      throw new Error('Callback provided to ViewerContainer must be a funcion.')
+    }
+    this.onError = callback
+  }
+
   set = data => {
     this.setState({
       viewer: {
@@ -43,22 +55,18 @@ class ViewerContainer extends Container<ViewerState> {
       const data = await ViewerQuery()
       this.setState({
         viewer: {
-          data: data,
+          data,
           error: null
         }
       })
     } catch (error) {
-      this.setState({
-        viewer: {
-          data: null,
-          error: error.message
-        }
-      })
+      this.onError(error)
+      this.setState({ viewer: null })
     }
   }
 
-  poll = notify => {
-    if (typeof this.polling === 'undefined' || this.polling === null) {
+  poll = () => {
+    if (this.polling === null) {
       this.polling = setInterval(() => {
         const { viewer } = this.state
         if (viewer === null) {
@@ -66,16 +74,20 @@ class ViewerContainer extends Container<ViewerState> {
         } else {
           const { data, error } = viewer
           if (data !== null) {
-            clearInterval(this.polling)
-            this.polling = null
+            this.freeze()
           } else if (error !== null) {
-            notify.danger({ message: error })
+            throw new Error('Should never reach this. Error is never set with setState.')
           } else {
-            // Loading...
+            // Still loading...let's wait.
           }
         }
       }, 1000)
     }
+  }
+
+  freeze = () => {
+    clearInterval(this.polling)
+    this.polling = null
   }
 }
 
