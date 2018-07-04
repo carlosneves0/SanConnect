@@ -21,6 +21,7 @@ type Mutation {
   updatePassword(user:UpdatePassword!): String!
   updateEvent(event:UpdateEventInput!): Event!
   createParticipa(participa:CreateParticipaInput!): Boolean!
+  deleteParticipa(participa:DeleteParticipaInput!): Int!
 }
 
 type AuthResponse {
@@ -151,16 +152,8 @@ input CreateParticipaInput {
   email: String!
 }
 
-# Confirmar presença em um evento.
-input UpdateParticipaInput {
-  criador_evento: String!
-  titulo: String!
-  data_hora_evento: String!
-  email: String!
-}
-
-# Sair de um evento.
-input RemoveParticipaInput {
+# Sair de um evento. Também confirma o próxima da lista de espera no evento.
+input DeleteParticipaInput {
   criador_evento: String!
   titulo: String!
   data_hora_evento: String!
