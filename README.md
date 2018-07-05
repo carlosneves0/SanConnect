@@ -42,6 +42,7 @@ yarn test
 // TODO;
 
 Prioridades:
+
   view event
   
   participar evento
