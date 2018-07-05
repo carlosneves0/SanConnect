@@ -1,74 +1,203 @@
 import React from 'react'
-import { Button, Form, TextArea, Dropdown } from 'semantic-ui-react'
+import * as yup from 'yup'
+import { Formik, Field, Form } from 'formik'
+import { Loader, Dropdown, Button } from 'semantic-ui-react'
+import DatePicker from 'react-datepicker'
+import { withRouter } from 'react-router-dom'
+import moment from 'moment'
+import { withDeviceWidth } from '../DeviceWidth'
+import 'react-datepicker/dist/react-datepicker.css'
 import './EventCreate.css'
 
-const options = [
-  { key: 'angular', text: 'Angular', value: 'angular' },
-  { key: 'css', text: 'CSS', value: 'css' },
-  { key: 'design', text: 'Graphic Design', value: 'design' },
-  { key: 'ember', text: 'Ember', value: 'ember' },
-  { key: 'html', text: 'HTML', value: 'html' },
-  { key: 'ia', text: 'Information Architecture', value: 'ia' },
-  { key: 'javascript', text: 'Javascript', value: 'javascript' },
-  { key: 'mech', text: 'Mechanical Engineering', value: 'mech' },
-  { key: 'meteor', text: 'Meteor', value: 'meteor' },
-  { key: 'node', text: 'NodeJS', value: 'node' },
-  { key: 'plumbing', text: 'Plumbing', value: 'plumbing' },
-  { key: 'python', text: 'Python', value: 'python' },
-  { key: 'rails', text: 'Rails', value: 'rails' },
-  { key: 'react', text: 'React', value: 'react' },
-  { key: 'repair', text: 'Kitchen Repair', value: 'repair' },
-  { key: 'ruby', text: 'Ruby', value: 'ruby' },
-  { key: 'ui', text: 'UI Design', value: 'ui' },
-  { key: 'ux', text: 'User Experience', value: 'ux' },
-]
+const CreateEventSchema = yup.object().shape({
+  title: yup.string()
+    .required('Campo obrigatório')
+    .max(32, 'Tamanho máximo de 32 catacteres'),
+  beginsAtDate: yup.string()
+    .required('Campo obrigatório'),
+  beginsAtTime: yup.string()
+    .required('Campo obrigatório'),
+  description: yup.string().nullable(),
+  minParticipants: yup.number()
+    .required('Campo obrigatório')
+    .min(2, 'Valor mínimo de 2'),
+  maxParticipants: yup.number().nullable()
+    .min(2, 'Valor mínimo de 2'),
+  location: yup.string().nullable()
+    .max(64, 'Tamanho máximo de 64 catacteres'),
+  categories: yup.array().of(
+    yup.string().max(32, 'Tag Inválida')
+  )
+})
 
-class EventCreate extends React.Component {
-	render() {
-		return(
-			<div className='EventCreate'>
-				<center>
-					<Form>
-						<h1>Criar Evento</h1>
-						<Form.Field inline>
-							<label style = {{width : 200}}>Título do Evento: </label>
-							<input placeholder='Nome' style = {{width : 400}} />
-						</Form.Field>
-						<Form.Field inline>
-							<label style = {{width : 200}}>Data: </label>
-							<input type="date" style = {{width : 400}} />
-						</Form.Field>
-						<Form.Field inline>
-							<label style = {{width : 200}}>Hora: </label>
-							<input type="time" style = {{width : 400}} />
-						</Form.Field>
-						<Form.Field inline>
-							<label style = {{width : 200}}>Descrição: </label>
-							 <TextArea placeholder='Descrição' style = {{width : 400, height: 160}}  />
-						</Form.Field>
-						<Form.Field inline>
-							<label style = {{width : 200}}>Número de participantes: </label>
-							<label style = {{width : 100}}>Mínimo(2): </label>
-							<input placeholder='Mín' style = {{width : 100}} />
-							<label style = {{width : 100}}>Máximo: </label>
-							<input placeholder='Máx' style = {{width : 100}} />
-						</Form.Field>
-						<Form.Field inline>
-							<label style = {{width : 200}}>Local: </label>
-							<input placeholder='Local' style = {{width : 400}}/>
-						</Form.Field>
-						<Form.Field inline>
-							<label style = {{width : 200}}>Tags do Evento: </label>
-							<div className="ui inline dropdown">
-								<Dropdown inline placeholder='Tags' fluid multiple selection options={options} style = {{width : 400}}  />
-							</div>
-						</Form.Field>
-						<Button type='submit' primary>Enviar</Button>
-					</Form>
-				</center>
-			</div>
-		)
-	}
+const Required = () => (
+  <span style={{ color: 'red', fontWeight: 'normal' }}>*</span>
+)
+
+const EventCreate = ({ isDesktop, events, notify, categories: { state: { categories } }, history }) => {
+  if (categories === null || categories.data === null) {
+    return (
+      <Loader className='App-fixed-center' active>
+        Carregando formulário...
+      </Loader>
+    )
+  } else {
+    return (
+      <div className='EventCreate'>
+        <h2>Criar um Evento</h2>
+        <Formik
+          initialValues={{
+            title: '',
+            beginsAtDate: moment().format(),
+            beginsAtTime: moment().format(),
+            description: '',
+            minParticipants: 2,
+            maxParticipants: '',
+            location: '',
+            categories: []
+          }}
+          validationSchema={CreateEventSchema}
+          onSubmit={async (values, { setSubmitting }) => {
+            const event = { ...values }
+            if (event.maxParticipants === '') {
+              event.maxParticipants = null
+            }
+
+            event.beginsAt = (
+              moment(event.beginsAtDate).format('YYYY-MM-DD') + ' ' +
+              moment(event.beginsAtTime).format('HH:mm') + ':00'
+            )
+            delete event.beginsAtDate
+            delete event.beginsAtTime
+
+            setTimeout(() => setSubmitting(false), 2000)
+            try {
+              await events.createEvent(event)
+              history.push('/my-events')
+            } catch (error) {
+              notify.danger({ message: error.message })
+              setSubmitting(false)
+            }
+          }}
+          render={({
+            values,
+            errors,
+            touched,
+            handleChange,
+            setFieldValue,
+            handleBlur,
+            handleSubmit,
+            isSubmitting
+          }) => {
+            let rows = values.description && values.description.split('\n').length
+            if (rows < 3) {
+              rows = 3
+            }
+            return (
+              <Form className={`ui form${isSubmitting ? ' loading' : ''}${isDesktop ? ' small' : ' big'}`}>
+                <div className='App-form-field'>
+                  <label htmlFor='title'>Título<Required /></label>
+                  <Field name='title' placeholder='Título' type='text' />
+                  {errors.title && touched.title && (
+                    <div className='App-form-error'>{errors.title}</div>
+                  )}
+                </div>
+
+                <div className='App-form-field'>
+                  <label htmlFor='beginsAtDate'>Data<Required /></label>
+                  <DatePicker
+                      selected={moment(values.beginsAtDate)}
+                      onChange={date => setFieldValue('beginsAtDate', date.format())}
+                      dateFormat='DD/MM/YYYY'
+                  />
+                  {errors.beginsAtDate && touched.beginsAtDate && (
+                    <div className='App-form-error'>{errors.beginsAtDate}</div>
+                  )}
+                </div>
+
+                <div className='App-form-field'>
+                  <label htmlFor='beginsAtTime'>Data<Required /></label>
+                  <DatePicker
+                    selected={moment(values.beginsAtTime)}
+                    onChange={time => setFieldValue('beginsAtTime', time.format())}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    dateFormat='LT'
+                    timeCaption='Hora'
+                  />
+                  {errors.beginsAtTime && touched.beginsAtTime && (
+                    <div className='App-form-error'>{errors.beginsAtTime}</div>
+                  )}
+                </div>
+
+                <div className='App-form-field'>
+                  <label htmlFor='description'>Descrição</label>
+                  <textarea
+                    name='description'
+                    placeholder='Fale um pouco sobre o evento...'
+                    rows={rows}
+                    onBlur={handleBlur}
+                    onChange={event => setFieldValue('description', event.target.value)}
+                  />
+                  {errors.description && touched.description && (
+                    <div className='App-form-error'>{errors.description}</div>
+                  )}
+                </div>
+
+                <div className='App-form-field'>
+                  <label htmlFor='minParticipants'>Número Mínimo de Participantes<Required /></label>
+                  <Field name='minParticipants' placeholder='Número Mínimo de Participantes' type='number' />
+                  {errors.minParticipants && touched.minParticipants && (
+                    <div className='App-form-error'>{errors.minParticipants}</div>
+                  )}
+                </div>
+
+                <div className='App-form-field'>
+                  <label htmlFor='maxParticipants'>Número Máximo de Participantes</label>
+                  <Field name='maxParticipants' placeholder='Número Máximo de Participantes' type='number' />
+                  {errors.maxParticipants && touched.maxParticipants && (
+                    <div className='App-form-error'>{errors.maxParticipants}</div>
+                  )}
+                </div>
+
+                <div className='App-form-field'>
+                  <label htmlFor='location'>Local</label>
+                  <Field name='location' placeholder='Local' type='text' />
+                  {errors.location && touched.location && (
+                    <div className='App-form-error'>{errors.location}</div>
+                  )}
+                </div>
+
+                <div className='App-form-field'>
+                  <label htmlFor='categories'>Tags</label>
+                  <Dropdown
+                    fluid multiple selection
+                    placeholder='Tags'
+                    options={(
+                      categories && categories.data && categories.data.map(
+                        c => ({ key: c, text: c, value: c })
+                      )
+                    )}
+                    onChange={(e, { value }) => setFieldValue('categories', value)}
+                  />
+                  {errors.categories && touched.categories && (
+                    <div className='App-form-error'>{errors.categories}</div>
+                  )}
+                </div>
+
+                <div className='App-form-field'>
+                  <Button type='submit' primary fluid size={`${isDesktop ? 'small' : 'big'}`}>
+                    Criar Evento
+                  </Button>
+                </div>
+              </Form>
+            )
+          }}
+        />
+      </div>
+    )
+  }
 }
 
-export default EventCreate
+export default withRouter(withDeviceWidth(EventCreate))

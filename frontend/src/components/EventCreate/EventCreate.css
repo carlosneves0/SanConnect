@@ -1,9 +1,33 @@
 .EventCreate{
-	padding-top: 90px;
-	width: auto; 
+  padding: 4vh 6vw;
+  padding-top: calc(53px + 4vh);
 }
 
-.EventCreateInput{
-	width: auto; 
+.EventCreate h2 {
+  text-align: center;
+}
 
+.ui.loader.App-fixed-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.react-datepicker-wrapper, .react-datepicker__input-container {
+  width: 100%;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+  padding: 0;
+  width: unset;
+}
+
+@media only screen and (min-device-width: 880px) {
+  .EventCreate {
+    padding: 4vh 30vw;
+    padding-top: calc(53px + 2vh)
+  }
 }

@@ -123,7 +123,7 @@ const SignUp = ({ isDesktop, auth, history }) => (
 
             <div className='App-form-field'>
               <Button type='submit' primary fluid size={`${isDesktop ? 'small' : 'big'}`}>
-                Criar conta
+                Criar Conta
               </Button>
             </div>
           </Form>

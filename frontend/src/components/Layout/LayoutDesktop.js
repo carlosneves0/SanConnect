@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
 import DesktopMenu from './DesktopMenu'
-import Avatar from './Avatar'
 
 const LayoutDesktop = ({ isSignedIn, viewer, children }) => (
   <div>

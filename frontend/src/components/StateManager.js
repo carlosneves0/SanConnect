@@ -7,6 +7,7 @@ import NotificationContainer from '../containers/NotificationContainer'
 import ViewerContainer from '../containers/ViewerContainer'
 import PublicEventsContainer from '../containers/PublicEventsContainer'
 import EventsContainer from '../containers/EventsContainer'
+import CategoriesContainer from '../containers/CategoriesContainer'
 
 const withState = Component => (
   props => (
@@ -18,10 +19,11 @@ const withState = Component => (
             NotificationContainer,
             ViewerContainer,
             PublicEventsContainer,
-            EventsContainer
+            EventsContainer,
+            CategoriesContainer
           ]}
         >
-          {(auth, notify, viewer, publicEvents, events) => (
+          {(auth, notify, viewer, publicEvents, events, categories) => (
             <Component
               {...props}
               online={online}
@@ -30,6 +32,7 @@ const withState = Component => (
               viewer={viewer}
               publicEvents={publicEvents}
               events={events}
+              categories={categories}
             />
           )}
         </Subscribe>
@@ -68,11 +71,12 @@ class StateManager extends React.Component {
   }
 
   handleOnline = () => {
-    const { online, auth, viewer, publicEvents, events } = this.props
+    const { online, auth, viewer, events, categories, publicEvents } = this.props
     if (online) {
       if (auth.isSignedIn()) {
         viewer.poll()
         events.poll()
+        categories.poll()
       } else {
         publicEvents.poll()
       }
@@ -80,9 +84,10 @@ class StateManager extends React.Component {
   }
 
   handleOffline = () => {
-    const { viewer, publicEvents, events } = this.props
+    const { viewer, events, categories, publicEvents } = this.props
     viewer.freeze()
     events.freeze()
+    categories.freeze()
     publicEvents.freeze()
   }
 
@@ -97,19 +102,19 @@ class StateManager extends React.Component {
   }
 
   handleSignIn = () => {
-    const { viewer, publicEvents, events } = this.props
+    const { viewer, events, categories, publicEvents } = this.props
     viewer.poll()
     events.poll()
+    categories.poll()
     publicEvents.clear()
-    // privateFeed.poll()
   }
 
   handleSignOut = () => {
-    const { viewer, publicEvents, events } = this.props
+    const { viewer, events, categories, publicEvents } = this.props
     viewer.clear()
     events.clear()
+    categories.clear()
     publicEvents.poll()
-    // privateFeed.clear()
   }
 
   render() {

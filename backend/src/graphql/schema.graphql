@@ -8,8 +8,8 @@ type Query {
   signIn(email: String!, password: String!): AuthResponse!
   publicEvents: [PublicEvent!]!
   events: [Event!]!
+  categories: [String!]!
   # userRecomendations: [User!]!
-  # getTags: [String!]!
   # getEvent(event:GetEventInput!): Event!
   # searchEvents(event:GetAllEventsInput!): [Event!]!
   # getUser(user:GetUser!): User!
@@ -17,7 +17,7 @@ type Query {
 
 type Mutation {
   signUp(user: SignUpInput!): User!
-  # createEvent(event:CreateEventInput!): Event!
+  createEvent(event: CreateEventInput!): Event!
   # updateUser(user:UpdateUserInput!): String!
   # updatePassword(user:UpdatePassword!): String!
   # updateEvent(event:UpdateEventInput!): Event!
@@ -84,14 +84,13 @@ input UpdateUserInput {
 # Preferência
 
 input CreateEventInput {
-  creator: String!
   title: String!
   beginsAt: String!
   description: String
   minParticipants: Int # Se nulo, trocar para 2 antes de inserir no banco.
   maxParticipants: Int
   location: String
-  categories: [String]!
+  categories: [String!]!
 }
 
 input UpdateEventInput {

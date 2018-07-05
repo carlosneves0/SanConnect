@@ -9,8 +9,10 @@
   "dependencies": {
     "formik": "^0.11.11",
     "js-base64": "^2.4.5",
+    "moment": "^2.22.2",
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
+    "react-datepicker": "^1.5.0",
     "react-dom": "^16.4.1",
     "react-file-input-previews-base64": "^1.0.6",
     "react-fns": "^1.4.0",

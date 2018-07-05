@@ -6,23 +6,6 @@
 .SignUp h2 {
   text-align: center;
 }
-/*
-.SignUp-field {
-  margin-top: 2vh;
-}
-
-.SignUp label {
-  font-size: .92857143em;
-  font-weight: 700;
-  display: inline-block;
-  margin-bottom: .6vh;
-}
-
-.SignUp-error {
-  color: red;
-  font-size: 80%;
-  margin-top: 0.4vh;
-} */
 
 .SignUp img {
   display: block;

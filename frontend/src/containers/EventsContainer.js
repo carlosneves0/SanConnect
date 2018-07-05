@@ -1,7 +1,8 @@
 import { Container } from 'unstated'
 import EventsQuery from '../graphql/EventsQuery'
+import CreateEventMutation from '../graphql/CreateEventMutation'
 
-class PublicEventsContainer extends Container {
+class EventsContainer extends Container {
   state = {
     events: null
   }
@@ -14,7 +15,7 @@ class PublicEventsContainer extends Container {
   setOnError(callback) {
     if (typeof callback !== 'function') {
       throw new Error(
-        'Callback provided to PublicEventsContainer must be a funcion.'
+        'Callback provided to EventsContainer must be a funcion.'
       )
     }
     this.onError = callback
@@ -73,6 +74,11 @@ class PublicEventsContainer extends Container {
       }, 1000)
     }
   }
+
+  async createEvent(event) {
+    await CreateEventMutation(event)
+    this.setState({ events: null }, () => this.poll())
+  }
 }
 
-export default PublicEventsContainer
+export default EventsContainer

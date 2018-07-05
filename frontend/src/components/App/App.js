@@ -15,7 +15,7 @@ import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import './App.css'
 
-const App = ({ online, auth, notify, viewer, publicEvents, events }) => (
+const App = ({ online, auth, notify, publicEvents, events, viewer, categories }) => (
   <Layout auth={auth} viewer={viewer}>
     <NotificationManager />
     {online ? (
@@ -34,7 +34,16 @@ const App = ({ online, auth, notify, viewer, publicEvents, events }) => (
           />
           <Route path='/my-profile' component={MyProfile} />
           <Route path='/my-events' component={MyEvents} />
-          <Route path='/create-event' component={EventCreate} />
+          <Route
+            path='/create-event'
+            render={() => (
+              <EventCreate
+                events={events}
+                notify={notify}
+                categories={categories}
+              />
+            )}
+          />
           <Route render={() => <NotFound notify={notify} />} />
         </Switch>
       ) : (

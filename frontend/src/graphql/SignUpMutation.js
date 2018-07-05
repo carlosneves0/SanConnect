@@ -14,7 +14,7 @@ async function SignUpMutation(user) {
     }
   `
 
-  const variables = { user: user }
+  const variables = { user }
 
   const { viewer } = await _query(query, variables)
 
