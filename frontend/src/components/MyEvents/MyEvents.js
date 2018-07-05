@@ -1,6 +1,7 @@
 import React from 'react'
 import { Loader, Icon, Button } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+import { Base64 } from 'js-base64'
 import './MyEvents.css'
 
 const Event = ({
@@ -10,9 +11,10 @@ const Event = ({
   participants,
   minParticipants,
   maxParticipants,
-  categories
+  categories,
+  onClick
 }) => (
-  <li>
+  <li className='MyEvents-Event' onClick={onClick}>
     <h1>{title}</h1>
     <p><Icon name='calendar alternate' />{new Date(beginsAt).toLocaleString()}</p>
     {location && (
@@ -35,7 +37,7 @@ const Event = ({
   </li>
 )
 
-const MyEvents = ({ events, viewer }) => {
+const MyEvents = ({ events, viewer, history }) => {
   const request = events.state.events
   const request0 = viewer.state.viewer
   if (
@@ -82,7 +84,13 @@ const MyEvents = ({ events, viewer }) => {
         <h2 style={{ textAlign: 'center', marginTop: '2vh' }}>Meus Eventos</h2>
         <ul>
           {data.map(
-            (event, index) => <Event key={index} {...event} />
+            (event, index) => (
+              <Event
+                key={index}
+                {...event}
+                onClick={() => history.push(`/event/${Base64.encode(event.id)}`)}
+              />
+            )
           )}
         </ul>
       </div>
@@ -93,4 +101,4 @@ const MyEvents = ({ events, viewer }) => {
   return null;
 }
 
-export default MyEvents
+export default withRouter(MyEvents)

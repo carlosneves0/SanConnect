@@ -1,0 +1,52 @@
+.EventView {
+  padding: 4vh 6vw;
+  padding-top: calc(53px + 4vh);
+  text-align: center;
+}
+
+.EventView p {
+  font-size: 1.2em;
+}
+
+.EventView-Icon {
+  display: inline-block;
+  margin: 4px 6px;
+}
+
+.EventView-description {
+  text-align: left;
+  margin-top: 32px;
+}
+
+.EventView ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ParticipantsList, .WaitList {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.ParticipantsList img, .WaitList img {
+  width: 30px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+@media only screen and (min-device-width: 880px) {
+  .EventView {
+    padding: 4vh 26vw;
+    padding-top: calc(53px + 4vh);
+  }
+
+  .EventView-description {
+    text-align: left;
+    margin-top: 32px;
+    padding: 0 6vw;
+  }
+
+}

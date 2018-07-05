@@ -28,6 +28,7 @@ INSERT INTO EVENT_CATEGORY VALUES ('Jogos', 5);
 INSERT INTO EVENT_CATEGORY VALUES ('Jogos de Cartas', 5);
 INSERT INTO EVENT_CATEGORY VALUES ('Jogos', 6);
 INSERT INTO EVENT_CATEGORY VALUES ('FPS', 6);
+INSERT INTO EVENT_CATEGORY VALUES ('Esportes', 7);
 
 INSERT INTO PARTICIPATES VALUES (1, 'bruno@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (1, 'carlos@sanconnect.br', '1', NOW());
@@ -45,4 +46,5 @@ INSERT INTO PARTICIPATES VALUES (5, 'vitor@sanconnect.br', '1', NOW());
 
 INSERT INTO PARTICIPATES VALUES (7, 'bruno@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (7, 'andre@sanconnect.br', '1', NOW());
+INSERT INTO PARTICIPATES VALUES (7, 'carlos@sanconnect.br', '0', NOW());
 INSERT INTO PARTICIPATES VALUES (7, 'guilherme@sanconnect.br', '0', NOW());

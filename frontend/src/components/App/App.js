@@ -26,7 +26,13 @@ const App = ({ online, auth, notify, publicEvents, events, viewer, categories })
           <Redirect from='/explore' to='/' />
           <Route
             path='/' exact
-            render={() => <EventFeed auth={auth} events={events} />}
+            render={() => (
+              <EventFeed
+                auth={auth}
+                events={events}
+                viewer={viewer}
+              />
+            )}
           />
           <Route
             path='/sign-out'
@@ -36,6 +42,10 @@ const App = ({ online, auth, notify, publicEvents, events, viewer, categories })
           <Route
             path='/my-events'
             render={() => <MyEvents events={events} viewer={viewer} />}
+          />
+          <Route
+            path='/event/:id'
+            render={({ match }) => <EventView match={match} events={events} viewer={viewer} />}
           />
           <Route
             path='/create-event'
@@ -53,7 +63,6 @@ const App = ({ online, auth, notify, publicEvents, events, viewer, categories })
         <Switch>
           <Redirect from='/sign-out' to='/' />
           <Route path='/' exact component={Home} />
-          <Route path='/view-event' component={EventView} />
           <Route
             path='/sign-in'
             render={() => <SignIn auth={auth} viewer={viewer} />}
