@@ -46,6 +46,7 @@ type PublicEvent {
 }
 
 type Event {
+  id: ID!
   creator: User!
   title: String!
   beginsAt: String!
