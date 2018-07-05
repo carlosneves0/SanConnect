@@ -16,6 +16,7 @@
     "react-dom": "^16.4.1",
     "react-file-input-previews-base64": "^1.0.6",
     "react-fns": "^1.4.0",
+    "react-inline-editing": "^1.0.10",
     "react-responsive": "^4.1.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",

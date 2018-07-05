@@ -24,24 +24,27 @@ async function createEvent({ event }, { pool, viewer }) {
 	beginsAt = new Date(beginsAt)
 	const createdAt = new Date()
 
+	/* Obtém a ID do evento criado. */
+	let eventID
+
 	/* Caso passe em todas as verificações, tenta gravar no banco. */
 	let query = []
 	query[0] = {
-		text: 'INSERT INTO EVENT VALUES($1, $2, $3, $4, $5, $6, $7, $8)',
+		text: 'INSERT INTO EVENT VALUES(DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8) RETURNING ID',
 		values: [creator, title, beginsAt, description, minParticipants, maxParticipants, createdAt, location]
 	}
 
 	/* Também insere o criador do evento como participante. */
 	query[1] = {
-		text: 'INSERT INTO PARTICIPATES VALUES($1, $2, $3, $4, $5, $6)',
-		values: [creator, title, beginsAt, creator, true, createdAt]
+		text: 'INSERT INTO PARTICIPATES VALUES($4, $1, $2, $3)',
+		values: [creator, true, createdAt]
 	}
 
 	/* Insere as categorias na tabela correspondente. */
 	for (i = 0; i < categories.length; i++) {
 		query[i+2] = {
-			text: 'INSERT INTO EVENT_CATEGORY VALUES ($1, $2, $3, $4)',
-			values: [categories[i], creator, title, beginsAt]
+			text: 'INSERT INTO EVENT_CATEGORY VALUES ($1, $2)',
+			values: [categories[i]]
 		}
 	}
 
@@ -49,9 +52,12 @@ async function createEvent({ event }, { pool, viewer }) {
 		/* Inicia uma transação. */
 		await pool.query('BEGIN')
 
-		/* Insere as informações no banco. */
-		for (const q of query)
-			await pool.query(q)
+		/* Insere as informações no banco e obtém o ID do Evento. */
+		eventID = (await pool.query(query[0])).rows[0].id
+		query[1].values.push(eventID)
+		await pool.query(query[1])
+		query[2].values.push(eventID)
+		await pool.query(query[2])
 
 		/* Finaliza a transação. */
 		await pool.query('COMMIT')

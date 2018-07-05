@@ -1,0 +1,5 @@
+mutation {
+	deleteParticipates(
+		event: "13"
+	)
+}
