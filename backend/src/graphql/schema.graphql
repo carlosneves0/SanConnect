@@ -21,7 +21,7 @@ type Mutation {
   # updateUser(user:UpdateUserInput!): String!
   # updatePassword(user:UpdatePassword!): String!
   # updateEvent(event:UpdateEventInput!): Event!
-  # createParticipa(participa:CreateParticipaInput!): Boolean!
+  createParticipates(event: ID!): Boolean!
   # deleteParticipa(participa:DeleteParticipaInput!): Int!
 }
 
