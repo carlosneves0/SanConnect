@@ -92,7 +92,13 @@ class StateManager extends React.Component {
   }
 
   handleError = error => {
-    this.props.notify.danger({ message: error.message })
+    if (!this.cooldown) {
+      this.props.notify.danger({ message: error.message })
+      this.cooldown = true
+      setTimeout(() => {
+        this.cooldown = false
+      }, 4000)
+    }
   }
 
   handleSignUp = () => {

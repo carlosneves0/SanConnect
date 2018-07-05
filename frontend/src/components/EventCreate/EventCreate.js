@@ -25,9 +25,9 @@ const CreateEventSchema = yup.object().shape({
     .min(2, 'Valor mínimo de 2'),
   location: yup.string().nullable()
     .max(64, 'Tamanho máximo de 64 catacteres'),
-  categories: yup.array().of(
-    yup.string().max(32, 'Tag Inválida')
-  )
+  categories: yup.array()
+    .required('Campo obrigatório')
+    .of(yup.string().max(32, 'Tag Inválida'))
 })
 
 const Required = () => (
@@ -169,7 +169,7 @@ const EventCreate = ({ isDesktop, events, notify, categories: { state: { categor
                 </div>
 
                 <div className='App-form-field'>
-                  <label htmlFor='categories'>Tags</label>
+                  <label htmlFor='categories'>Tags<Required /></label>
                   <Dropdown
                     fluid multiple selection
                     placeholder='Tags'

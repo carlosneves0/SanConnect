@@ -4,6 +4,7 @@ async function EventsQuery() {
   const query = `
     query EventsQuery {
       events {
+        id
         creator {
           email
           name
@@ -21,6 +22,14 @@ async function EventsQuery() {
         location
         categories
         participants {
+          email
+          name
+          description
+          picture
+          likes
+          dislikes
+        }
+        waitList {
           email
           name
           description

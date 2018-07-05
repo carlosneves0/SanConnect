@@ -4,6 +4,7 @@ async function CreateEventMutation(event) {
   const query = `
     mutation CreateEventMutation($event: CreateEventInput!) {
       createEvent(event: $event) {
+        id
         creator {
           email
           name
@@ -21,6 +22,14 @@ async function CreateEventMutation(event) {
         location
         categories
         participants {
+          email
+          name
+          description
+          picture
+          likes
+          dislikes
+        }
+        waitList {
           email
           name
           description
