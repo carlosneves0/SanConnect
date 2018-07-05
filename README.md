@@ -40,3 +40,12 @@ yarn test
 ```
 
 // TODO;
+
+Prioridades:
+  view event
+  participar evento
+  sair evento
+  edit event
+  Ver editar meu perfil
+  ver perfil outros usuarios
+  buscar eventos
