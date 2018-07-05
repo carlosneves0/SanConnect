@@ -1,8 +1,10 @@
+const fetch = require('node-fetch')
+
 /* Função que realiza uma busca por todos os eventos cadastrados no banco junto de suas categorias. */
 async function events(args, { viewer, pool }) {
-  // if (viewer === null) {
-  //   throw new Error('Usuário não autenticado')
-  // }
+  if (viewer === null) {
+    throw new Error('Usuário não autenticado')
+  }
 
   const query = `
     SELECT EVENT.*, STRING_AGG(CATEGORY,  ', ') AS CATEGORIES, EMAIL, NAME, _USER.DESCRIPTION AS CREATOR_DESCRIPTION, PICTURE, LIKES, DISLIKES
@@ -28,7 +30,7 @@ async function events(args, { viewer, pool }) {
 
   try {
     let result = await pool.query(query)
-    return result.rows.map(async ({
+    let toPython = result.rows.map(async ({
       id,
       creator,
       title,
@@ -79,6 +81,32 @@ async function events(args, { viewer, pool }) {
         waitList: result.rows.filter(p => p.confirmation === false)
       }
     })
+
+
+    // queryP = {
+    //   text: "SELECT * FROM PREFERENCE WHERE _USER = $1",
+    //   values: [viewer.email]
+    // }
+
+    // preferences = await pool.query(queryP);    
+
+    // body = {eventos: preferences, usuarios: toPython}
+
+    // const r = await Promise.all(toPython)
+
+    //console.log(JSON.stringify(r))
+
+    /* USAR O NODE FETCH */
+    // response = await fetch('localhost:5000', {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(body)
+    // })
+
+    // let fromPython = await response.json()
+
+    return toPython
   } catch(err) {
     throw err
   }
