@@ -33,7 +33,10 @@ const App = ({ online, auth, notify, publicEvents, events, viewer, categories })
             render={() => <SignOut auth={auth} viewer={viewer} />}
           />
           <Route path='/my-profile' component={MyProfile} />
-          <Route path='/my-events' component={MyEvents} />
+          <Route
+            path='/my-events'
+            render={() => <MyEvents events={events} viewer={viewer} />}
+          />
           <Route
             path='/create-event'
             render={() => (

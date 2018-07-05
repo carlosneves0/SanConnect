@@ -4,17 +4,22 @@ import { Card, Icon } from 'semantic-ui-react'
 const Participants = ({ min, max, participants }) => {
   if (max) {
     return (
-      <span className={participants.legnth < min ? 'danger' : ''}>
+      <span>
         <Icon name='users' />
         Participantes:{' '}{participants.length}/{max}{' '}
-        {min !== max && <span>(mínimo: {min})</span>}
+        <span className={participants.length < min ? 'danger' : ''}>
+          (mínimo: {min})
+        </span>
       </span>
     )
   } else {
     return (
-      <span className={participants.legnth < min ? 'danger' : ''}>
+      <span>
         <Icon name='users' />
-        Participantes:{' '}{participants.length} (mínimo: {min})
+        Participantes:{' '}{participants.length}{' '}
+        <span className={participants.length < min ? 'danger' : ''}>
+          (mínimo: {min})
+        </span>
       </span>
     )
   }
@@ -46,19 +51,23 @@ const Event = ({
         <Icon name='calendar alternate' />
         {new Date(beginsAt).toLocaleString()}
       </Card.Description>
-      <br />
-      <Card.Description>
-        <Icon name='map marker alternate' />
-        {location}
-      </Card.Description>
+      {location && (
+        <Card.Description>
+          <br />
+          <Icon name='map marker alternate' />
+          {location}
+        </Card.Description>
+      )}
       <br />
       <Card.Description>
         <Participants min={minParticipants} max={maxParticipants} participants={participants} />
       </Card.Description>
-      <br />
-      <Card.Description>
-        {description}
-      </Card.Description>
+      {description && (
+        <Card.Description>
+          <br />
+          {description}
+        </Card.Description>
+      )}
       <br />
       <Card.Meta>
         <Icon name='user' />
