@@ -11,6 +11,7 @@ INSERT INTO EVENT VALUES (DEFAULT, 'andre@sanconnect.br', 'Bingo', TO_TIMESTAMP(
 INSERT INTO EVENT VALUES (DEFAULT, 'menegali@sanconnect.br', 'Roleta Russa', TO_TIMESTAMP('2018-07-07 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'Roleta Russa no ICMC... Descrição...', 2, 2, NOW(), 'Biblioteca do ICMC');
 INSERT INTO EVENT VALUES (DEFAULT, 'carlos@sanconnect.br', 'Truco', TO_TIMESTAMP('2018-07-07 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'Truco no ICMC... Descrição...', 6, 6, NOW(), 'Biblioteca do ICMC');
 INSERT INTO EVENT VALUES (DEFAULT, 'guilherme@sanconnect.br', 'CS 1.6', TO_TIMESTAMP('2018-07-07 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'CS 1.6 no ICMC... Descrição...', 2, 2, NOW(), 'Biblioteca do ICMC');
+INSERT INTO EVENT VALUES (DEFAULT, 'bruno@sanconnect.br', 'Partida de Tênis de Mesa', TO_TIMESTAMP('2018:07:28 00:30:00', 'YYYY-MM-DD HH24:MI:SS'), 'Procura-se parceiro de jogo.', 2, 2, NOW(), 'ICMC');
 
 INSERT INTO CATEGORY VALUES ('Jogos');
 INSERT INTO CATEGORY VALUES ('Jogos de Tabuleiro');
@@ -41,3 +42,7 @@ INSERT INTO PARTICIPATES VALUES (5, 'andre@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (5, 'menegali@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (5, 'guilherme@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (5, 'vitor@sanconnect.br', '1', NOW());
+
+INSERT INTO PARTICIPATES VALUES (7, 'bruno@sanconnect.br', '1', NOW());
+INSERT INTO PARTICIPATES VALUES (7, 'andre@sanconnect.br', '1', NOW());
+INSERT INTO PARTICIPATES VALUES (7, 'guilherme@sanconnect.br', '0', NOW());
