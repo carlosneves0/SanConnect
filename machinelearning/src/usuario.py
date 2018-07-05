@@ -5,29 +5,20 @@ class Usuario:
 	def __init__(self, json_usuario=''):
 		if not json_usuario:
 			self.email = ''
-			self.nome = ''
-			self.desc = ''
 			self.preferencias = {}
 		else:
-			self.email = json.dumps(json_usuario["email"]).strip('"')
-			
-			self.nome = json.dumps(json_usuario["nome"])
-			self.nome = self.nome.replace('"','')
-			
-			self.desc = json.dumps(json_usuario["desc"])
-			self.desc = self.desc.replace('"','')
-			
+			self.email = json.dumps(json_usuario["email"]).strip('"')		
 			self.preferencias = {}
 
-			json_preferencias = json_usuario["preferencias"]
+			json_preferencias = json_usuario["preference"]
 			for json_preferencia in json_preferencias:
 				chave = json_preferencia.strip('"')
 				valor = float(json.dumps(json_preferencias[json_preferencia]))
 				self.preferencias[chave] = valor
 
 	def __str__(self):
-		ret = '\nEmail: {0}\nNome: {1}\nDescricao: {2}\nPreferencias:\n'
-		ret = ret.format(self.email, self.nome, self.desc)
+		ret = '\nEmail: {0}\n Preference:\n'
+		ret = ret.format(self.email)
 		
 		str_prefs = ''
 		for preferencia in self.preferencias.keys(): 
