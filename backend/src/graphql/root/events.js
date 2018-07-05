@@ -36,7 +36,7 @@ async function events(args, { viewer, pool }) {
     }) => {
       // Fetch all participants of this event.
       const text = `
-        SELECT _USER.*
+        SELECT _USER.*, PARTICIPATES.*
         FROM PARTICIPATES
         JOIN _USER ON PARTICIPATES.PARTICIPANT = _USER.EMAIL
         WHERE PARTICIPATES.CREATOR_EVENT = $1
@@ -64,7 +64,8 @@ async function events(args, { viewer, pool }) {
         createdAt: created_at,
         location,
         categories: (categories && categories.split(', ')) || [],
-        participants: result.rows
+        participants: result.rows.filter(p => p.confirmation === true),
+        waitList: result.rows.filter(p => p.confirmation === false)
       }
     })
   } catch(err) {
