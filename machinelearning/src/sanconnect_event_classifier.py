@@ -67,10 +67,6 @@ def monta_dataframe_usuario_evento(usuario, eventos):
 
 def formata_dataframe_usuario_evento(df_usuario_evento):
 	df_usuario_evento = df_usuario_evento.replace(np.nan, 0)
-	df_usuario_evento['data_hora'] = pd.to_datetime(df_usuario_evento['data_hora'])
-	df_usuario_evento['ano'] = df_usuario_evento['data_hora'].dt.year
-	df_usuario_evento['dayofyear'] = df_usuario_evento['data_hora'].dt.dayofyear
-	df_usuario_evento = df_usuario_evento.drop(['data_hora'],axis=1)
 
 	if('interesse' in df_usuario_evento.columns):
 		colunas = list(df_usuario_evento.columns.values)
@@ -83,10 +79,6 @@ def formata_dataframe_usuario_evento(df_usuario_evento):
 
 def formata_series_usuario_evento(series_usuario_evento):
 	series_usuario_evento = series_usuario_evento.replace(np.nan, 0)
-	series_usuario_evento['data_hora'] = pd.to_datetime(series_usuario_evento['data_hora'])
-	series_usuario_evento['ano'] = series_usuario_evento['data_hora'].year
-	series_usuario_evento['dayofyear'] = series_usuario_evento['data_hora'].dayofyear
-	series_usuario_evento = series_usuario_evento.drop(['data_hora'])
 
 	if('interesse' in series_usuario_evento.index):
 		colunas = list(series_usuario_evento.index.values)
@@ -102,16 +94,19 @@ def classifica_interesse_de_usuario_em_multiplos_eventos(usuario, eventos):
 
 	eventos_ordenados_por_interesse = []
 	for evento in eventos:
+		print('classificando o interesse do evento')
+		print(evento.category)
 		evento_dict = evento.__dict__
 		interesse = classifica_interesse_de_usuario_em_evento(usuario, evento, arvore_decisao)
-		evento_dict['interesse'] = interesse
+		evento_dict['preference'] = interesse
+		print('interesse', interesse)
 		eventos_ordenados_por_interesse.append(evento_dict)
 
-	eventos_ordenados_por_interesse = sorted(eventos_ordenados_por_interesse, key=itemgetter('interesse'), reverse=True)
+	#eventos_ordenados_por_interesse = sorted(eventos_ordenados_por_interesse, key=itemgetter('preference'), reverse=True)
 	#eventos_ordenados_por_interesse.reverse()
-	print('eventos ordenados por interesse')
-	print(eventos_ordenados_por_interesse)
-	input('bla')
+	#print('eventos ordenados por interesse')
+	#print(eventos_ordenados_por_interesse)
+	
 	return eventos_ordenados_por_interesse
 
 def classifica_interesse_de_usuario_em_evento(usuario, evento, arvore_decisao):
@@ -128,11 +123,11 @@ def classifica_interesse_de_usuario_em_evento(usuario, evento, arvore_decisao):
 	colunas_arvore = exemplo_linha_arvore.drop(exemplo_linha_arvore.columns[0], axis=1).columns
 	print('colunas arvore')
 	print(colunas_arvore)
-	print('series usuario evento antes de preencher colunas')
-	print(series_usuario_evento)
+	#print('series usuario evento antes de preencher colunas')
+	#print(series_usuario_evento)
 	series_usuario_evento = preenche_colunas_faltantes_serie_usuario_evento(series_usuario_evento, colunas_arvore)		
-	print('series usuario evento depois de preencher colunas')
-	print(series_usuario_evento)	
+	#print('series usuario evento depois de preencher colunas')
+	#print(series_usuario_evento)	
 			
 	interesse = arvore_decisao.predict([series_usuario_evento])
 	print('interesse:', interesse)
@@ -150,10 +145,8 @@ def classifica_interesse_de_usuario_em_multiplos_eventos_usando_json(json_usuari
 	eventos = parsers.parse_json_eventos(json_eventos)
 	eventos_ordenados_por_interesse = classifica_interesse_de_usuario_em_multiplos_eventos(usuario, eventos)
 	json_eventos_ordenados_por_interesse = json.dumps(eventos_ordenados_por_interesse, default=str)
-	print(json_eventos_ordenados_por_interesse)
-	input('ble')
 
-	return eventos_ordenados_por_interesse
+	return json_eventos_ordenados_por_interesse
 
 def gera_classificador_arvore_decisao():
 	df_usuario_evento = pd.read_csv('classific_usuario_evento.csv')
@@ -186,9 +179,9 @@ def testa_classificacao_localmente():
 
 		json_usuario = json_usuarios['usuarios'][0]
 
-	classifica_interesse_de_usuario_em_multiplos_eventos_usando_json(json_usuario, json_eventos)
+	print(classifica_interesse_de_usuario_em_multiplos_eventos_usando_json(json_usuario, json_eventos))
 	return 0
 
 #treina_classificador()
-gera_classificador_arvore_decisao()
+#gera_classificador_arvore_decisao()
 #testa_classificacao_localmente()

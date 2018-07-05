@@ -1,95 +1,92 @@
 {
 	"eventos":[
 		{
-			"criador":"",
-			"titulo":"evento1",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bla"]
+			"id": 123,
+			"category":["board games"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento2",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bla"]
+			"id": 124,
+			"category":["festas","grupo de estudos"]
+		},
+				{
+			"id": 144,
+			"category":["board games","videogames"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento3",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["ble", "bli"]
+			"id": 125,
+			"category":["festas"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento4",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bla","ble"]
+			"id": 126,
+			"category":["filmes", "festas", "videogames"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento5",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["blo","blu"]
+			"id": 127,
+			"category":["festas","grupo de estudos"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento6",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bla","blo"]
+			"id": 128,
+			"category":["videogames", "grupo de estudos"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento7",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bla","blu"]
+			"id": 129,
+			"category":["grupo de estudos", "videogames", "filmes"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento8",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bli","bla"]
+			"id": 130,
+			"category":["filmes"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento9",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bla","ble"]
+			"id": 131,
+			"category":["grupo de estudos", "board games"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento10",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["ble"]
+			"id": 132,
+			"category":["board games","festas","grupo de estudos","videogames","filmes"]
 		},
 		{
-			"criador":"",
-			"titulo":"evento11",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bla","ble"]
-		},
+			"id": 133,
+			"category":["festas", "grupo de estudos", "videogames"]
+		},	
 		{
-			"criador":"",
-			"titulo":"evento12",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["bli","blu"]
-		},
+			"id": 134,
+			"category":["festas", "grupo de estudos", "videogames"]
+		},	
 		{
-			"criador":"",
-			"titulo":"evento13",
-			"dataHoraEvento":"10/08/2018",
-			"local":"",
-			"categorias":["asda","ble"]
-		}
+			"id": 135,
+			"category":["festas", "grupo de estudos", "videogames"]
+		},	
+		{
+			"id": 136,
+			"category":["festas", "grupo de estudos", "videogames"]
+		},	
+		{
+			"id": 137,
+			"category":["festas"]
+		},			
+		{
+			"id": 138,
+			"category":["grupo de estudos"]
+		},		
+		{
+			"id": 139,
+			"category":["festas"]
+		},		
+		{
+			"id": 140,
+			"category":["festas", "grupo de estudos", "videogames"]
+		},		
+		{
+			"id": 141,
+			"category":["festas", "grupo de estudos", "videogames"]
+		},		
+		{
+			"id": 142,
+			"category":["festas", "grupo de estudos", "videogames"]
+		},		
+		{
+			"id": 143,
+			"category":["festas", "grupo de estudos", "videogames"]
+		}																																					
 	]
 }

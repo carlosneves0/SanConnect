@@ -2,67 +2,67 @@
 	"usuarios": [
 	{
 		"email": "joao@email.com",
-	    "nome": "joao",
-	    "desc": "desc",
-	    "foto": "ASD21u4hg1jheqwjehqw",
-	    "preferencias": {
-	        "cat1": 0.5,
-	        "cat2": 0.1
+	    "preference": {
+	        "board games": 0.5,
+	        "festas": 0.1,
+	        "grupo de estudos": 0.2, 
+	        "videogames": 0.3,
+	        "filmes": 0.8
 	    }
 	},
 
 	{
 		"email": "maria@email.com",
-	    "nome": "maria",
-	    "desc": "desc2",
-	    "foto": "ASD21u4hg1jheqwjehqw",
-	    "preferencias": {
-	        "cat1": 0.8,
-	        "cat2": 0.9
+	    "preference": {
+	        "board games": 0.0,
+	        "festas": 0.3,
+	        "grupo de estudos": 0.7, 
+	        "videogames": 0.9,
+	        "filmes": 0.1
 	    }
 	},
 
 	{
 		"email": "pedro@email.com",
-	    "nome": "pedro",
-	    "desc": "desc3",
-	    "foto": "ASD21u4hg1jheqwjehqw",
-	    "preferencias": {
-	        "cat1": 0.5,
-	        "cat2": 0.5
+	    "preference": {
+	        "board games": 0.4,
+	        "festas": 0.2,
+	        "grupo de estudos": 0.7, 
+	        "videogames": 0.8,
+	        "filmes": 0.1
 	    }
 	},
 
 	{
 		"email": "lucas@email.com",
-	    "nome": "lucas",
-	    "desc": "desc4",
-	    "foto": "ASD21u4hg1jheqwjehqw",
-	    "preferencias": {
-	        "cat1": 0.7,
-	        "cat2": 0.4
+	    "preference": {
+	        "board games": 0.3,
+	        "festas": 0.6,
+	        "grupo de estudos": 0.7, 
+	        "videogames": 0.6,
+	        "filmes": 0.9
 	    }
 	},
 
 	{
 		"email": "joana@email.com",
-	    "nome": "joana",
-	    "desc": "desc5",
-	    "foto": "ASD21u4hg1jheqwjehqw",
-	    "preferencias": {
-	        "cat1": 0.6,
-	        "cat2": 0.6
+	    "preference": {
+	        "board games": 0.0,
+	        "festas": 0.2,
+	        "grupo de estudos": 0.9, 
+	        "videogames": 0.1,
+	        "filmes": 0.4
 	    }
 	},
 
 	{
 		"email": "gabriel@email.com",
-	    "nome": "gabriel",
-	    "desc": "desc5",
-	    "foto": "ASD21u4hg1jheqwjehqw",
-	    "preferencias": {
-	        "cat1": 1.0,
-	        "cat2": 1.0
+	    "preference": {
+	        "board games": 0.8,
+	        "festas": 0.2,
+	        "grupo de estudos": 0.3, 
+	        "videogames": 0.7,
+	        "filmes": 0.1
 	    }
 	}
 
@@ -70,12 +70,12 @@
 
 	"usuario_referencia": {
 		"email": "pedro@email.com",
-	    "nome": "pedro",
-	    "desc": "desc6",
-	    "foto": "ASD21u4hg1jheqwjehqw",
-	    "preferencias": {
-	        "cat1": 0.5,
-	        "cat2": 0.5
+	    "preference": {
+	        "board games": 0.9,
+	        "festas": 0.1,
+	        "grupo de estudos": 0.1, 
+	        "videogames": 0.5,
+	        "filmes": 0.8
 	    }
 	}
 }
