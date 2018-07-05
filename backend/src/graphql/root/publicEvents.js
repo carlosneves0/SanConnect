@@ -5,7 +5,7 @@ async function publicEvents(args, { pool }) {
     FROM EVENT
     JOIN _USER
       ON CREATOR = EMAIL
-    JOIN EVENT_CATEGORY
+    LEFT JOIN EVENT_CATEGORY
       ON CREATOR_EVENT = CREATOR AND TITLE_EVENT = TITLE AND EVENT.BEGINS_AT = EVENT_CATEGORY.BEGINS_AT
     GROUP BY (CREATOR, NAME, TITLE, EVENT.BEGINS_AT)
     ORDER BY EVENT.BEGINS_AT ASC
@@ -24,7 +24,7 @@ async function publicEvents(args, { pool }) {
         creator: name,
         title,
         beginsAt: begins_at,
-        categories: categories.split(', ')
+        categories: (categories && categories.split(', ')) || []
       })
     )
   } catch(err) {

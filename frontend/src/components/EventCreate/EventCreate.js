@@ -70,7 +70,6 @@ const EventCreate = ({ isDesktop, events, notify, categories: { state: { categor
             delete event.beginsAtDate
             delete event.beginsAtTime
 
-            setTimeout(() => setSubmitting(false), 2000)
             try {
               await events.createEvent(event)
               history.push('/my-events')

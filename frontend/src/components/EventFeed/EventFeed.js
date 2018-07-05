@@ -25,9 +25,12 @@ const EventFeed = ({ auth, events, notify, publicEvents }) => {
         </h3>
       )
     } else if (request.data !== null) {
+      const data = request.data.filter(
+        event => new Date(event.beginsAt) > new Date()
+      )
       return (
         <div className='EventFeed'>
-          {request.data.map(
+          {data.map(
             (event, index) => <Event key={index} {...event} />
           )}
         </div>
@@ -53,9 +56,12 @@ const EventFeed = ({ auth, events, notify, publicEvents }) => {
         </h3>
       )
     } else if (request.data !== null) {
+      const data = request.data.filter(
+        event => new Date(event.beginsAt) > new Date()
+      )
       return (
         <div className='EventFeed'>
-          {request.data.map(
+          {data.map(
             (event, index) => (
               <PublicEvent
                 key={index}

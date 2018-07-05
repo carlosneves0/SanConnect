@@ -9,7 +9,7 @@ async function events(args, { viewer, pool }) {
     FROM EVENT
     JOIN _USER
       ON CREATOR = EMAIL
-    JOIN EVENT_CATEGORY
+    LEFT JOIN EVENT_CATEGORY
       ON CREATOR_EVENT = CREATOR AND TITLE_EVENT = TITLE AND EVENT.BEGINS_AT = EVENT_CATEGORY.BEGINS_AT
     GROUP BY (CREATOR, EMAIL, NAME, TITLE, EVENT.BEGINS_AT)
     ORDER BY EVENT.BEGINS_AT ASC
@@ -63,7 +63,7 @@ async function events(args, { viewer, pool }) {
         maxParticipants: max_participants,
         createdAt: created_at,
         location,
-        categories: categories.split(', '),
+        categories: (categories && categories.split(', ')) || [],
         participants: result.rows
       }
     })
