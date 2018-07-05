@@ -1,5 +1,5 @@
 mutation {
-	createParticipates(
+	deleteParticipates(
 		event: "13"
 	)
 }
