@@ -15,6 +15,17 @@ async function events(args, { viewer, pool }) {
     ORDER BY EVENT.BEGINS_AT ASC
   `
 
+  /*
+    TODO:
+      - QUERY PARA BUSCAR AS PREFERÊNCIAS DO VIEWER.
+      - CRIAR JSON PARA TODOS OS EVENTOS.
+      - CRIAR JSON PARA TODAS AS PREFERÊNCIAS.
+      - CHAMAR A APLICAÇÃO PYTHON.
+      - RECUPERAR TODOS OS EVENTOS FILTRADOS.
+      - E RETORNAR VIA GRAPHQL.
+      - NO FRONTEND REMOVER EVENTOS EM QUE O USUÁRIO JÁ ESTEJA PARTICIPANDO.
+  */
+
   try {
     let result = await pool.query(query)
     return result.rows.map(async ({
