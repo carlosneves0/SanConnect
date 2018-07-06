@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Base64 } from 'js-base64'
 import defaultPicture from '../Layout/Avatar/default-picture.jpg'
 
 const WaitList = ({ waitList }) => (
@@ -10,14 +12,16 @@ const WaitList = ({ waitList }) => (
       <ul>
         {waitList.map(
           user => (
-            <li key={user.email}>
-              {user.picture ? (
-                <img src={user.picture} />
-              ) : (
-                <img src={defaultPicture} />
-              )}
-              <span>{user.name}</span>
-            </li>
+            <Link to={`/user/${Base64.encode(user.email)}`}>
+              <li key={user.email}>
+                {user.picture ? (
+                  <img src={user.picture} />
+                ) : (
+                  <img src={defaultPicture} />
+                )}
+                <span>{user.name}</span>
+              </li>
+            </Link>
           )
         )}
       </ul>

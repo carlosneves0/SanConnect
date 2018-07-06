@@ -11,6 +11,7 @@ import MyProfile from '../MyProfile'
 import MyEvents from '../MyEvents'
 import EventCreate from '../EventCreate'
 import EventView from '../EventView'
+import UserView from '../UserView'
 import NotFound from '../NotFound'
 import NotificationManager from '../NotificationManager'
 import './App.css'
@@ -46,6 +47,10 @@ const App = ({ online, auth, notify, publicEvents, events, viewer, categories })
           <Route
             path='/event/:id'
             render={({ match }) => <EventView match={match} events={events} viewer={viewer} />}
+          />
+          <Route
+            path='/user/:id'
+            render={({ match }) => <UserView match={match} events={events} />}
           />
           <Route
             path='/create-event'

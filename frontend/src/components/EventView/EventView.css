@@ -18,6 +18,10 @@
   margin-top: 32px;
 }
 
+.EventView-description p {
+  margin-bottom: 2px;
+}
+
 .EventView ul {
   list-style: none;
   margin: 0;

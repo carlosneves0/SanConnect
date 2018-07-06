@@ -198,7 +198,11 @@ class EventView extends React.Component {
           <p>{categories.map(category => (
               <span key={category} className='Category'>{category}</span>
           ))}</p>
-          <p className='EventView-description'>{description}</p>
+          <div className='EventView-description'>
+            {description.split('\n').map(
+              (line, index) => <p key={index}>{line}</p>
+            )}
+          </div>
           <div className='EventView-action'>{action}</div>
           <br />
           <ParticipantsList participants={participants} />
