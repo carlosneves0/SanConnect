@@ -51,8 +51,10 @@ class CategoriesContainer extends Container {
   }
 
   freeze() {
-    clearInterval(this._polling)
-    this._polling = null
+    if (this._polling !== null) {
+      clearInterval(this._polling)
+      this._polling = null
+    }
   }
 
   poll() {

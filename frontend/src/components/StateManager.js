@@ -112,13 +112,17 @@ class StateManager extends React.Component {
     viewer.poll()
     events.poll()
     categories.poll()
+    publicEvents.freeze()
     publicEvents.clear()
   }
 
   handleSignOut = () => {
     const { viewer, events, categories, publicEvents } = this.props
+    viewer.freeze()
     viewer.clear()
+    events.freeze()
     events.clear()
+    categories.freeze()
     categories.clear()
     publicEvents.poll()
   }
