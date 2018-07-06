@@ -123,13 +123,16 @@ async function events(args, { viewer, pool }) {
     /* Ordena os eventos com base nas preferências do usuário. */
     fromPython.sort(function(a, b) {
       return a.preference < b.preference ? -1 : a.preference > b.preference ? 1 : 0
-    })
+    })   
 
-    
-       
-    console.log(fromPython)
+    /* Retorna os eventos ordenados para a aplicação. */
+    var orderedEvents = []
+    for (var key of fromPython)    
+      for (var event of publicEvents)
+        if(key.id == event.id)
+          orderedEvents.push(event)
 
-    return toPython
+    return orderedEvents
   } catch(err) {
     throw err
   }
