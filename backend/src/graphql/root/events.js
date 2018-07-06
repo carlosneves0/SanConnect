@@ -82,15 +82,24 @@ async function events(args, { viewer, pool }) {
       }
     })
 
+    queryP = {
+      text: "SELECT * FROM PREFERENCE WHERE _USER = $1",
+      values: [viewer.email]
+    }
+    preferences = await pool.query(queryP); 
+    console.log(preferences)
 
-    // queryP = {
-    //   text: "SELECT * FROM PREFERENCE WHERE _USER = $1",
-    //   values: [viewer.email]
-    // }
+    events = []
+    publicEvents = await Promise.all(toPython)
+    for(event of publicEvents) {
+      events.push({
+        id: event.id,
+        category: event.categories
+      })
+    }    
+    console.log(JSON.stringify({eventos: events}, null, 2))    
 
-    // preferences = await pool.query(queryP);    
-
-    // body = {eventos: preferences, usuarios: toPython}
+    body = {eventos: events, usuarios: preferences}
 
     // const r = await Promise.all(toPython)
 
@@ -101,7 +110,7 @@ async function events(args, { viewer, pool }) {
     //   headers: {
     //     'Content-Type': 'application/json'
     //   },
-    //   body: JSON.stringify(body)
+    //   body: JSON.stringify(body, null, 2)
     // })
 
     // let fromPython = await response.json()

@@ -12,6 +12,12 @@ async function createParticipates({ event }, { pool, viewer }) {
 		values: [event]
 	}
 
+	/* Queries for categories */
+	let qp = {
+		text: "SELECT CATEGORY FROM EVENT_CATEGORY WHERE EVENT = $1 ORDER BY CATEGORY ASC",
+		values: [event]
+	}
+
 	let ret = false /* Valor de retorno. Mais informações abaixo. */
 	try{
 		let q = await pool.query(query)
@@ -31,10 +37,20 @@ async function createParticipates({ event }, { pool, viewer }) {
 					values: [event, viewer.email]
 				}
 		}
+		q = await pool.query(qp)
 		/* Inicia uma transação. */
 		await pool.query('BEGIN')
 		/* Insere as informações no banco. */
 		await pool.query(query)
+
+		/* Updating preferences */
+		for(let cat of q.rows){
+			qp = {
+				text: "UPDATE PREFERENCE SET ESCALA = ESCALA + 0.1 WHERE UPPER(_USER) = UPPER($1) AND UPPER(CATEGORY) = UPPER($2) AND ESCALA <= 0.9",
+				values:[viewer.email, cat.category]
+			}
+			await pool.query(qp)
+		}
 		/* Finaliza a transação. */	
 		await pool.query('COMMIT')
 		
