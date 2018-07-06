@@ -83,13 +83,27 @@ async function events(args, { viewer, pool }) {
     })
 
     queryP = {
-      text: "SELECT * FROM PREFERENCE WHERE _USER = $1",
+      text: "SELECT _USER, STRING_AGG(CATEGORY,  ', ') AS CATEGORIES, STRING_AGG(to_char(ESCALA, '0D0'),  ', ') AS SCALES FROM PREFERENCE WHERE _USER = $1 GROUP BY(_USER)",      
       values: [viewer.email]
     }
     preferences = await pool.query(queryP); 
-    console.log(preferences)
 
-    events = []
+    email = preferences.rows[0]._user
+    categories = preferences.rows[0].categories.split(', ')    
+    scales = preferences.rows[0].scales.split(', ').map(Number)
+
+    pref = {}
+    for(let key in categories) {      
+      pref[categories[key]] = scales[key]
+    }
+
+    let users = []
+    users.push({
+      email: email,
+      preference: pref
+    })
+       
+    let events = []
     publicEvents = await Promise.all(toPython)
     for(event of publicEvents) {
       events.push({
@@ -97,25 +111,20 @@ async function events(args, { viewer, pool }) {
         category: event.categories
       })
     }    
-    console.log(JSON.stringify({eventos: events}, null, 2))    
 
-    body = {eventos: events, usuarios: preferences}
-
-    // const r = await Promise.all(toPython)
-
-    //console.log(JSON.stringify(r))
-
-    /* USAR O NODE FETCH */
-    // response = await fetch('localhost:5000', {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(body, null, 2)
-    // })
-
-    // let fromPython = await response.json()
+    body = {usuarios: users, eventos: events}        
 
     return toPython
+    
+    /* USAR O NODE FETCH */
+    response = await fetch('localhost:5000', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body, null, 2)
+    })
+
+    let fromPython = await response.json()
   } catch(err) {
     throw err
   }
