@@ -18,8 +18,8 @@ FROM python:3
 WORKDIR /usr/src/app
 
 # Instalação de requisitos
-RUN sudo apt-get update 
-RUN sudo apt-get install python3-tk setuptools virtualenv graphviz
+RUN apt-get update 
+RUN apt-get install python3-tk setuptools virtualenv graphviz
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
