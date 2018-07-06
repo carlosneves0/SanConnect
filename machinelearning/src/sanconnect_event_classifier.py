@@ -22,7 +22,9 @@ def treina_classificador():
 	print('usuarios')
 	print(usuarios)
 
-	eventos = parsers.parse_json_eventos(json_eventos)
+	print('json de evento antes de mandar pro parser')
+	print(json_eventos['eventos'])
+	eventos = parsers.parse_json_eventos(json_eventos['eventos'])
 	print('eventos')
 	print(eventos)
 
@@ -111,18 +113,12 @@ def classifica_interesse_de_usuario_em_multiplos_eventos(usuario, eventos):
 
 def classifica_interesse_de_usuario_em_evento(usuario, evento, arvore_decisao):
 	series_usuario = usuario.to_series()
-	print('series usuario', series_usuario)
 	series_evento = evento.to_series()
-	print('series evento', series_evento)
 	series_usuario_evento = series_usuario.append(series_evento)
 	series_usuario_evento = formata_series_usuario_evento(series_usuario_evento)
-	print('series usuario evento formatada')
-	print(series_usuario_evento)
 
 	exemplo_linha_arvore = pd.read_csv('classific_usuario_evento.csv',nrows=1)
 	colunas_arvore = exemplo_linha_arvore.drop(exemplo_linha_arvore.columns[0], axis=1).columns
-	print('colunas arvore')
-	print(colunas_arvore)
 	#print('series usuario evento antes de preencher colunas')
 	#print(series_usuario_evento)
 	series_usuario_evento = preenche_colunas_faltantes_serie_usuario_evento(series_usuario_evento, colunas_arvore)		
@@ -140,7 +136,9 @@ def preenche_colunas_faltantes_serie_usuario_evento(series_usuario_evento, colun
 	return series_usuario_evento
 
 
-def classifica_interesse_de_usuario_em_multiplos_eventos_usando_json(json_usuario, json_eventos):
+def classifica_interesse_de_usuario_em_multiplos_eventos_usando_json(json_request):
+	json_usuario = json_request["usuario"]
+	json_eventos = json_request["eventos"]
 	usuario = Usuario(json_usuario)
 	eventos = parsers.parse_json_eventos(json_eventos)
 	eventos_ordenados_por_interesse = classifica_interesse_de_usuario_em_multiplos_eventos(usuario, eventos)

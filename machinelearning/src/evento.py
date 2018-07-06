@@ -22,7 +22,7 @@ class Evento:
 		dict_atributos = {}
 		for nome_categoria in self.category:
 			dict_atributos[nome_categoria+'_evnt'] = True
-		print('lista de atributos que vai virar serie', dict_atributos)
+		#print('lista de atributos que vai virar serie', dict_atributos)
 		return pd.Series(data=dict_atributos)
 
 	def to_json(self):

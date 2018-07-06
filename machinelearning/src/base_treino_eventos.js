@@ -79,14 +79,6 @@
 		{
 			"id": 141,
 			"category":["festas", "grupo de estudos", "videogames"]
-		},		
-		{
-			"id": 142,
-			"category":["festas", "grupo de estudos", "videogames"]
-		},		
-		{
-			"id": 143,
-			"category":["festas", "grupo de estudos", "videogames"]
-		}																																					
+		}																																		
 	]
 }

@@ -12,10 +12,10 @@ def parse_json_usuarios(json_source):
 	return usuarios
 
 def parse_json_eventos(json_source):
-	json_eventos = json_source["eventos"]
+	#json_eventos = json_source["eventos"]
 
 	eventos = []
-	for json_evento in json_eventos:
+	for json_evento in json_source:
 		eventos.append(Evento(json_evento))
 
 	return eventos
