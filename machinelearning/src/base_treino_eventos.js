@@ -2,83 +2,83 @@
 	"eventos":[
 		{
 			"id": 123,
-			"category":["board games"]
+			"category":["Jogos de Tabuleiro"]
 		},
 		{
 			"id": 124,
-			"category":["festas","grupo de estudos"]
+			"category":["Jogos","Esportes"]
 		},
 				{
 			"id": 144,
-			"category":["board games","videogames"]
+			"category":["Jogos de Tabuleiro","Jogos de Cartas"]
 		},
 		{
 			"id": 125,
-			"category":["festas"]
+			"category":["Jogos"]
 		},
 		{
 			"id": 126,
-			"category":["filmes", "festas", "videogames"]
+			"category":["FPS", "Jogos", "Jogos de Cartas"]
 		},
 		{
 			"id": 127,
-			"category":["festas","grupo de estudos"]
+			"category":["Jogos","Esportes"]
 		},
 		{
 			"id": 128,
-			"category":["videogames", "grupo de estudos"]
+			"category":["Jogos de Cartas", "Esportes"]
 		},
 		{
 			"id": 129,
-			"category":["grupo de estudos", "videogames", "filmes"]
+			"category":["Esportes", "Jogos de Cartas", "FPS"]
 		},
 		{
 			"id": 130,
-			"category":["filmes"]
+			"category":["FPS"]
 		},
 		{
 			"id": 131,
-			"category":["grupo de estudos", "board games"]
+			"category":["Esportes", "Jogos de Tabuleiro"]
 		},
 		{
 			"id": 132,
-			"category":["board games","festas","grupo de estudos","videogames","filmes"]
+			"category":["Jogos de Tabuleiro","Jogos","Esportes","Jogos de Cartas","FPS"]
 		},
 		{
 			"id": 133,
-			"category":["festas", "grupo de estudos", "videogames"]
+			"category":["Jogos", "Esportes", "Jogos de Cartas"]
 		},	
 		{
 			"id": 134,
-			"category":["festas", "grupo de estudos", "videogames"]
+			"category":["Jogos", "Esportes", "Jogos de Cartas"]
 		},	
 		{
 			"id": 135,
-			"category":["festas", "grupo de estudos", "videogames"]
+			"category":["Jogos", "Esportes", "Jogos de Cartas"]
 		},	
 		{
 			"id": 136,
-			"category":["festas", "grupo de estudos", "videogames"]
+			"category":["Jogos", "Esportes", "Jogos de Cartas"]
 		},	
 		{
 			"id": 137,
-			"category":["festas"]
+			"category":["Jogos"]
 		},			
 		{
 			"id": 138,
-			"category":["grupo de estudos"]
+			"category":["Esportes"]
 		},		
 		{
 			"id": 139,
-			"category":["festas"]
+			"category":["Jogos"]
 		},		
 		{
 			"id": 140,
-			"category":["festas", "grupo de estudos", "videogames"]
+			"category":["Jogos", "Esportes", "Jogos de Cartas"]
 		},		
 		{
 			"id": 141,
-			"category":["festas", "grupo de estudos", "videogames"]
+			"category":["Jogos", "Esportes", "Jogos de Cartas"]
 		}																																		
 	]
 }

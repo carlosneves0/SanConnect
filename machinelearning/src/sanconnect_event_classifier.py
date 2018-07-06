@@ -119,18 +119,21 @@ def classifica_interesse_de_usuario_em_evento(usuario, evento, arvore_decisao):
 
 	exemplo_linha_arvore = pd.read_csv('classific_usuario_evento.csv',nrows=1)
 	colunas_arvore = exemplo_linha_arvore.drop(exemplo_linha_arvore.columns[0], axis=1).columns
+	#colunas_arvore = exemplo_linha_arvore.drop(exemplo_linha_arvore.columns['interesse'], axis=1).columns
 	#print('series usuario evento antes de preencher colunas')
 	#print(series_usuario_evento)
 	series_usuario_evento = preenche_colunas_faltantes_serie_usuario_evento(series_usuario_evento, colunas_arvore)		
 	print('series usuario de usuario que vai receber a previsao')
-	print(series_usuario_evento)	
+	print(series_usuario_evento.iloc[:-1])	
 			
 	interesse = arvore_decisao.predict([series_usuario_evento])
 	print('interesse:', interesse)
 	return interesse[0]
 
 def preenche_colunas_faltantes_serie_usuario_evento(series_usuario_evento, colunas_arvore):
+	print('colunas da arvore',colunas_arvore)
 	for coluna_arvore in colunas_arvore:
+		print('preenchendo com coluna', coluna_arvore)
 		if(coluna_arvore not in series_usuario_evento.index):
 			series_usuario_evento[coluna_arvore] = 0
 	return series_usuario_evento
@@ -156,6 +159,7 @@ def gera_classificador_arvore_decisao():
 	
 	arvore_decisao = tree.DecisionTreeClassifier()
 	arvore_decisao.fit(matriz_atributos, matriz_classes)
+	print('vai salvar a arvore com as colunas', matriz_atributos.columns)
 	joblib.dump(arvore_decisao, 'arvore_decisao.pkl')
 
 	info_grafico = tree.export_graphviz(arvore_decisao, out_file=None, filled=True)
