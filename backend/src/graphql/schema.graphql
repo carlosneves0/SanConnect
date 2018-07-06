@@ -18,11 +18,11 @@ type Query {
 type Mutation {
   signUp(user: SignUpInput!): User!
   createEvent(event: CreateEventInput!): Event!
+  createParticipates(event: ID!): Boolean!
+  deleteParticipates(event: ID!): Boolean!
   # updateUser(user:UpdateUserInput!): String!
   # updatePassword(user:UpdatePassword!): String!
   # updateEvent(event:UpdateEventInput!): Event!
-  createParticipates(event: ID!): Boolean!
-  deleteParticipates(event: ID!): Boolean!
 }
 
 type User {
