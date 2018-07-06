@@ -122,8 +122,8 @@ def classifica_interesse_de_usuario_em_evento(usuario, evento, arvore_decisao):
 	#print('series usuario evento antes de preencher colunas')
 	#print(series_usuario_evento)
 	series_usuario_evento = preenche_colunas_faltantes_serie_usuario_evento(series_usuario_evento, colunas_arvore)		
-	#print('series usuario evento depois de preencher colunas')
-	#print(series_usuario_evento)	
+	print('series usuario de usuario que vai receber a previsao')
+	print(series_usuario_evento)	
 			
 	interesse = arvore_decisao.predict([series_usuario_evento])
 	print('interesse:', interesse)
@@ -175,7 +175,8 @@ def testa_classificacao_localmente():
 	with open('base_treino_eventos.js') as arquivo_eventos:
 		json_eventos = json.load(arquivo_eventos)
 
-		json_usuario = json_usuarios['usuarios'][0]
+
+	json_usuario = json_usuarios['usuarios'][0]
 
 	print(classifica_interesse_de_usuario_em_multiplos_eventos_usando_json(json_usuario, json_eventos))
 	return 0
