@@ -19,10 +19,6 @@ async function events(args, { viewer, pool }) {
 
   /*
     TODO:
-      - QUERY PARA BUSCAR AS PREFERÊNCIAS DO VIEWER.
-      - CRIAR JSON PARA TODOS OS EVENTOS.
-      - CRIAR JSON PARA TODAS AS PREFERÊNCIAS.
-      - CHAMAR A APLICAÇÃO PYTHON.
       - RECUPERAR TODOS OS EVENTOS FILTRADOS.
       - E RETORNAR VIA GRAPHQL.
       - NO FRONTEND REMOVER EVENTOS EM QUE O USUÁRIO JÁ ESTEJA PARTICIPANDO.
@@ -97,12 +93,11 @@ async function events(args, { viewer, pool }) {
       pref[categories[key]] = scales[key]
     }
 
-    let users = []
-    users.push({
+    users = {
       email: email,
       preference: pref
-    })
-       
+    }
+
     let events = []
     publicEvents = await Promise.all(toPython)
     for(event of publicEvents) {
@@ -112,19 +107,29 @@ async function events(args, { viewer, pool }) {
       })
     }    
 
-    body = {usuarios: users, eventos: events}        
+    body = {usuario: users, eventos: events}        
 
-    return toPython
-    
-    /* USAR O NODE FETCH */
-    response = await fetch('localhost:5000', {
+    /* Enviando requisição ao web service de machine learning. */
+    response = await fetch('http://127.0.0.1:5000/evento', { 
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body, null, 2)
+      body: JSON.stringify(body)
+    })
+    
+    let fromPython = await response.json()
+
+    /* Ordena os eventos com base nas preferências do usuário. */
+    fromPython.sort(function(a, b) {
+      return a.preference < b.preference ? -1 : a.preference > b.preference ? 1 : 0
     })
 
-    let fromPython = await response.json()
+    
+       
+    console.log(fromPython)
+
+    return toPython
   } catch(err) {
     throw err
   }
