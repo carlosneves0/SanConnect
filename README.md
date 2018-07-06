@@ -39,20 +39,8 @@ yarn start
 yarn test
 ```
 
-// TODO;
+## Presentation and Demo
 
-Prioridades:
+https://docs.google.com/presentation/d/e/2PACX-1vR8yaJp2q4LZPJoajyLB4LWmYuGTJUagLgCmF1AauheDjg235vRNB__VjkW_N2VlRSSgTKxATDdwHdv/pub?start=true&loop=true&delayms=60000
 
-  view event
-  
-  participar evento
-  
-  sair evento
-  
-  edit event
-  
-  Ver editar meu perfil
-  
-  ver perfil outros usuarios
-  
-  buscar eventos
+https://youtu.be/6a37wx1_ll4
