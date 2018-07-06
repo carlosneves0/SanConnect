@@ -37,6 +37,11 @@ INSERT INTO PARTICIPATES VALUES (1, 'menegali@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (1, 'guilherme@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (1, 'vitor@sanconnect.br', '1', NOW());
 
+INSERT INTO PARTICIPATE VALUES(2, 'vitor@sanconnect.br', '1', NOW());
+INSERT INTO PARTICIPATE VALUES(3, 'andre@sanconnect.br', '1', NOW());
+INSERT INTO PARTICIPATE VALUES(4, 'menegali@sanconnect.br', '1', NOW());
+INSERT INTO PARTICIPATE VALUES(6, 'guilherme@sanconnect.br', '1', NOW());
+
 INSERT INTO PARTICIPATES VALUES (5, 'carlos@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (5, 'bruno@sanconnect.br', '1', NOW());
 INSERT INTO PARTICIPATES VALUES (5, 'andre@sanconnect.br', '1', NOW());
