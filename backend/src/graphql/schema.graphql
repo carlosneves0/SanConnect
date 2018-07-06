@@ -17,7 +17,7 @@ type Query {
 
 type Mutation {
   signUp(user: SignUpInput!): User!
-  createEvent(event: CreateEventInput!): Event!
+  createEvent(event: CreateEventInput!): ID!
   createParticipates(event: ID!): Boolean!
   deleteParticipates(event: ID!): Boolean!
   # updateUser(user:UpdateUserInput!): String!

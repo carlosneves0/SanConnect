@@ -25,7 +25,7 @@ async function createEvent({ event }, { pool, viewer }) {
 	const createdAt = new Date()
 
 	/* Obtém a ID do evento criado. */
-	let eventID
+	let eventId
 
 	/* Caso passe em todas as verificações, tenta gravar no banco. */
 	let query = []
@@ -53,23 +53,25 @@ async function createEvent({ event }, { pool, viewer }) {
 		await pool.query('BEGIN')
 
 		/* Insere as informações no banco e obtém o ID do Evento. */
-		eventID = (await pool.query(query[0])).rows[0].id
-		query[1].values.push(eventID)
+		eventId = (await pool.query(query[0])).rows[0].id
+		query[1].values.push(eventId)
 		await pool.query(query[1])
-		query[2].values.push(eventID)
+		query[2].values.push(eventId)
 		await pool.query(query[2])
 
 		/* Finaliza a transação. */
 		await pool.query('COMMIT')
 
-		event.creator = viewer
+		// event.id = eventId
+		//
+		// event.creator = viewer
+		//
+		// event.beginsAt = beginsAt.toString()
+		// event.createdAt = createdAt.toString()
+		//
+		// event.participants = [viewer]
 
-		event.beginsAt = beginsAt.toString()
-		event.createdAt = createdAt.toString()
-
-		event.participants = [viewer]
-
-		return event
+		return eventId
 	} catch(err) {
 		await pool.query('ROLLBACK')
 		throw err
