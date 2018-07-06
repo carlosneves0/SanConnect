@@ -100,7 +100,7 @@ async function events(args, { viewer, pool }) {
     let users = []
     users.push({
       email: email,
-      preferences: pref
+      preference: pref
     })
        
     let events = []
@@ -112,24 +112,19 @@ async function events(args, { viewer, pool }) {
       })
     }    
 
-    body = {usuarios: users, eventos: events}
-    console.log(JSON.stringify(body, null, 2))    
-
-    // const r = await Promise.all(toPython)
-
-    //console.log(JSON.stringify(r))
-
-    /* USAR O NODE FETCH */
-    // response = await fetch('localhost:5000', {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(body, null, 2)
-    // })
-
-    // let fromPython = await response.json()
+    body = {usuarios: users, eventos: events}        
 
     return toPython
+    
+    /* USAR O NODE FETCH */
+    response = await fetch('localhost:5000', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body, null, 2)
+    })
+
+    let fromPython = await response.json()
   } catch(err) {
     throw err
   }
