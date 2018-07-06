@@ -10,6 +10,25 @@
   border-radius: 50%;
 }
 
+.UserView-description h4 {
+  margin: 4px 0;
+}
+
+.UserView-thumbs-up, .UserView-thumbs-down {
+  display: inline-block;
+  font-size: 1.6em;
+  font-weight: bold;
+  margin: 4vh 2vw;
+}
+
+.UserView-thumbs-up {
+  margin-right: 6vw;
+}
+
+.UserView-thumbs-down {
+  margin-left: 6vw;
+}
+
 @media only screen and (min-device-width: 880px) {
   .UserView {
     padding: 4vh 26vw;

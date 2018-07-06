@@ -15,7 +15,7 @@
 
 .EventView-description {
   text-align: left;
-  margin-top: 32px;
+  margin: 2vh 0;
 }
 
 .EventView-description p {
@@ -26,6 +26,10 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.EventView li {
+  margin: 1.6vh 0;
 }
 
 .ParticipantsList, .WaitList {

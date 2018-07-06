@@ -12,12 +12,12 @@ const ParticipantsList = ({ participants }) => (
       <ul>
         {participants.map(
           participant => (
-            <Link to={`/user/${Base64.encode(participant.email)}`}>
-              <li key={participant.email}>
+            <Link key={participant.email} to={`/user/${Base64.encode(participant.email)}`}>
+              <li>
                 {participant.picture ? (
-                  <img src={participant.picture} />
+                  <img src={participant.picture} alt='user profile' />
                 ) : (
-                  <img src={defaultPicture} />
+                  <img src={defaultPicture} alt='user profile' />
                 )}
                 <span>{participant.name}</span>
               </li>

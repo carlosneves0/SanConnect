@@ -1,13 +1,13 @@
 /* Função que insere um usuário como participante de um evento*/
-async function createParticipates({ event }, { pool, viewer }) {	
+async function createParticipates({ event }, { pool, viewer }) {
 	/* Exige que um usuário esteja autenticado para ingressar em um evento. */
-	if(viewer === null) {	
-		throw new Error('Usuário não autenticado.') 
+	if(viewer === null) {
+		throw new Error('Usuário não autenticado.')
 	}
 
 	/* Verificar se o número atual de usuarios deste evento é >= ao max_participantes*/
 	/* POG - Programação Orientada à Gambiarra*/
-	let query = {		
+	let query = {
 		text: "SELECT COUNT(*), MAX(E.MAX_PARTICIPANTS) FROM PARTICIPATES P JOIN EVENT E ON P.EVENT = E.ID WHERE E.ID = $1",
 		values: [event]
 	}
@@ -23,7 +23,7 @@ async function createParticipates({ event }, { pool, viewer }) {
 		let q = await pool.query(query)
 
 		/* Checagem para inserção*/
-		if(q.rows[0].count >= q.rows[0].max) {
+		if(q.rows[0].max !== null && q.rows[0].count >= q.rows[0].max) {
 				/* Ingresso na lista de espera. */
 				query = {
 					text: "INSERT INTO PARTICIPATES VALUES($1, $2, FALSE, NOW())",
@@ -51,11 +51,11 @@ async function createParticipates({ event }, { pool, viewer }) {
 			}
 			await pool.query(qp)
 		}
-		/* Finaliza a transação. */	
+		/* Finaliza a transação. */
 		await pool.query('COMMIT')
-		
+
 		return ret /* Se verdadeiro, o usuario é confirmado no evento. C.C., o usuário está na lista de espera. */
-	} catch(err) {		
+	} catch(err) {
 		await pool.query('ROLLBACK')
 		throw err
 	}

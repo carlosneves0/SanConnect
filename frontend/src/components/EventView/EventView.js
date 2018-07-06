@@ -1,5 +1,5 @@
 import React from 'react'
-import { Loader, Button, Icon, Dropdown, Label, Confirm } from 'semantic-ui-react'
+import { Loader, Button, Icon, Confirm } from 'semantic-ui-react'
 import { withDeviceWidth } from '../DeviceWidth'
 import { Base64 } from 'js-base64'
 import moment from 'moment'
@@ -146,7 +146,7 @@ class EventView extends React.Component {
             </p>
           )
         } else {
-          if (participants.length < maxParticipants) {
+          if (maxParticipants === null || participants.length < maxParticipants) {
             action = (
               <p>
                 <Button
@@ -181,10 +181,10 @@ class EventView extends React.Component {
           <h1>{title}</h1>
           <p>
             <span className='EventView-Icon'>
-              <Icon disabled name='calendar' /> {moment(beginsAt).format('DD/MM/YYYY')}
+              <Icon disabled name='calendar' /> {moment(new Date(beginsAt)).format('DD/MM/YYYY')}
             </span>
             <span className='EventView-Icon'>
-              <Icon disabled name='clock' /> {moment(beginsAt).format('HH:mm')}
+              <Icon disabled name='clock' /> {moment(new Date(beginsAt)).format('HH:mm')}
             </span>
             {!isDesktop && <br />}
             <span className='EventView-Icon'>
@@ -206,9 +206,15 @@ class EventView extends React.Component {
           <div className='EventView-action'>{action}</div>
           <br />
           <ParticipantsList participants={participants} />
-          <br />
-          <WaitList waitList={waitList} />
-          <p style={{ color: '#ccc'}}>Evento craido por {creator.name}</p>
+          {maxParticipants !== null && (
+            <span>
+              <br />
+              <WaitList waitList={waitList} />
+            </span>
+          )}
+          <p style={{ color: '#aaa', marginTop: '12px' }}>
+            Evento craido por {creator.name}
+          </p>
         </div>
       )
     }

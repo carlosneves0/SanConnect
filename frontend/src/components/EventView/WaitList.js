@@ -12,12 +12,12 @@ const WaitList = ({ waitList }) => (
       <ul>
         {waitList.map(
           user => (
-            <Link to={`/user/${Base64.encode(user.email)}`}>
-              <li key={user.email}>
+            <Link key={user.email} to={`/user/${Base64.encode(user.email)}`}>
+              <li>
                 {user.picture ? (
-                  <img src={user.picture} />
+                  <img src={user.picture} alt='user profile' />
                 ) : (
-                  <img src={defaultPicture} />
+                  <img src={defaultPicture} alt='user profile' />
                 )}
                 <span>{user.name}</span>
               </li>

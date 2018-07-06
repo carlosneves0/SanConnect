@@ -125,7 +125,6 @@ class EventsContainer extends Container {
   async participate(viewer, eventId) {
     this.initRequest('participate')
 
-    let result = null
     try {
       this.onData('participate', await ParticipateMutation(eventId))
       this.setState(({ events }) => {
@@ -154,7 +153,6 @@ class EventsContainer extends Container {
   async quitList(viewer, eventId) {
     this.initRequest('quitList')
 
-    let result = null
     try {
       this.onData('quitList', await QuitListMutation(eventId))
       this.setState(({ events }) => {

@@ -1,0 +1,24 @@
+.MyProfile {
+  padding: 4vh 6vw;
+  padding-top: calc(53px + 4vh);
+  text-align: center;
+}
+
+.MyProfile img {
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+}
+
+@media only screen and (min-device-width: 880px) {
+  .MyProfile {
+    padding: 4vh 26vw;
+    padding-top: calc(53px + 4vh);
+  }
+
+  .MyProfile img {
+    width: 16vw;
+    height: 16vw;
+    border-radius: 50%;
+  }
+}

@@ -47,22 +47,25 @@ const UserView = ({ events, match }) => {
     return (
       <div className='UserView'>
         {picture ? (
-          <img src={picture} />
+          <img src={picture} alt='user profile' />
         ) : (
-          <img src={defaultPicture} />
+          <img src={defaultPicture} alt='user profile' />
         )}
         <h1>{name}</h1>
         <h2>{email}</h2>
         {description && (
-          <div>
-            <h2>Descrição</h2>
+          <div className='UserView-description'>
             {description.split('\n').map(
               (line, index) => <h4 key={index}>{line}</h4>
             )}
           </div>
         )}
-        <h3><Icon circular color='green' name='thumbs up outline' />{' '}{likes}</h3>
-        <h3><Icon circular color='red' name='thumbs down outline' />{' '}{dislikes}</h3>
+        <span className='UserView-thumbs-up'>
+          <Icon circular color='green' name='thumbs up outline' />{' '}{likes}
+        </span>
+        <span className='UserView-thumbs-down'>
+          <Icon circular color='red' name='thumbs down outline' />{' '}{dislikes}
+        </span>
       </div>
     )
   }
