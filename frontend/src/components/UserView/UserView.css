@@ -40,4 +40,12 @@
     height: 16vw;
     border-radius: 50%;
   }
+
+  .UserView-thumbs-up {
+    margin-right: 2vw;
+  }
+
+  .UserView-thumbs-down {
+    margin-left: 2vw;
+  }
 }
