@@ -50,6 +50,7 @@ async function events(args, { viewer, pool }) {
         FROM PARTICIPATES
         JOIN _USER ON PARTICIPATES.PARTICIPANT = _USER.EMAIL
         WHERE PARTICIPATES.EVENT = $1
+        ORDER BY CREATED_AT ASC
       `
       const values = [id]
 
@@ -72,24 +73,28 @@ async function events(args, { viewer, pool }) {
         maxParticipants: max_participants,
         createdAt: created_at,
         location,
-        categories: (categories && categories.split(', ')) || [],
+        categories: categories.split(', '),
         participants: result.rows.filter(p => p.confirmation === true),
         waitList: result.rows.filter(p => p.confirmation === false)
       }
     })
 
     queryP = {
-      text: "SELECT _USER, STRING_AGG(CATEGORY,  ', ') AS CATEGORIES, STRING_AGG(to_char(ESCALA, '0D0'),  ', ') AS SCALES FROM PREFERENCE WHERE _USER = $1 GROUP BY(_USER)",      
+      text: "SELECT _USER, STRING_AGG(CATEGORY,  ', ') AS CATEGORIES, STRING_AGG(to_char(ESCALA, '0D0'),  ', ') AS SCALES FROM PREFERENCE WHERE _USER = $1 GROUP BY(_USER)",
       values: [viewer.email]
     }
-    preferences = await pool.query(queryP); 
+    preferences = await pool.query(queryP)
+
+    if (typeof preferences.rows[0] === 'undefined') {
+      return toPython
+    }
 
     email = preferences.rows[0]._user
-    categories = preferences.rows[0].categories.split(', ')    
+    categories = preferences.rows[0].categories.split(', ')
     scales = preferences.rows[0].scales.split(', ').map(Number)
 
     pref = {}
-    for(let key in categories) {      
+    for(let key in categories) {
       pref[categories[key]] = scales[key]
     }
 
@@ -105,29 +110,29 @@ async function events(args, { viewer, pool }) {
         id: event.id,
         category: event.categories
       })
-    }    
+    }
 
-    body = {usuario: users, eventos: events}        
+    body = {usuario: users, eventos: events}
 
     /* Enviando requisição ao web service de machine learning. */
-    response = await fetch('http://127.0.0.1:5000/evento', { 
+    response = await fetch('http://127.0.0.1:5000/evento', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
     })
-    
+
     let fromPython = await response.json()
 
     /* Ordena os eventos com base nas preferências do usuário. */
     fromPython.sort(function(a, b) {
       return a.preference < b.preference ? -1 : a.preference > b.preference ? 1 : 0
-    })   
+    })
 
     /* Retorna os eventos ordenados para a aplicação. */
     var orderedEvents = []
-    for (var key of fromPython)    
+    for (var key of fromPython)
       for (var event of publicEvents)
         if(key.id == event.id)
           orderedEvents.push(event)
