@@ -1,9 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "engines": {
-    "node": "10.5.0"
-  },
   "description": "SanConnect Project",
   "main": "index.js",
   "author": "",
